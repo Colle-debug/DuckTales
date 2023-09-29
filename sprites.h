@@ -22,6 +22,6 @@ public:
     static Sprites* instance();
 
     // extract texture from sprites using the given id
-    QPixmap get(const std::string & id);
+    void get(const std::string & id, QPixmap animOutput[4]);
 };
 #endif

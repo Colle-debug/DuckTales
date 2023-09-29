@@ -18,7 +18,20 @@ protected:
     bool _invincible;
     QPixmap _scrooge;
     QPixmap _texture_stand[1];
-    QRect _animStand[1];
+    QPixmap _texture_walk[3];
+    QPixmap _texture_jump[1];
+    QPixmap _texture_climb[2];
+    QPixmap _texture_crouch[2];
+    QPixmap _texture_stuck[1];
+    QPixmap _texture_putt[2];
+    QPixmap _texture_preputt[2];
+    QPixmap _texture_puttsuccess[2];
+    QPixmap _texture_puttfail[2];
+    QPixmap _texture_bounce[2];
+
+    QPixmap _animStand[1];
+    
+
 
     bool _scripted;
     bool _jumping;

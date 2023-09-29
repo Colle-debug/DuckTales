@@ -380,7 +380,7 @@ Scrooge* Loader::load(std::string levelName)
       new Block(QPointF(44*TILE,19*TILE),2*TILE,TILE);
       new Block(QPointF(54*TILE,21*TILE),6*TILE,TILE);
 
-    return new Scrooge(QPointF(2.0 * TILE, 0));
+    return new Scrooge(QPointF(2.0 * TILE, 56*TILE));
 
     }
     else{
