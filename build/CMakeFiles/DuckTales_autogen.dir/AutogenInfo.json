@@ -363,6 +363,12 @@
 			null
 		],
 		[
+			"/Users/mario/Documents/DuckTalesGit/Sprites.h",
+			"Mu",
+			"EWIEGA46WW/moc_Sprites.cpp",
+			null
+		],
+		[
 			"/Users/mario/Documents/DuckTalesGit/StaticObject.h",
 			"Mu",
 			"EWIEGA46WW/moc_StaticObject.cpp",
@@ -378,12 +384,6 @@
 			"/Users/mario/Documents/DuckTalesGit/mainWindow.h",
 			"Mu",
 			"EWIEGA46WW/moc_mainWindow.cpp",
-			null
-		],
-		[
-			"/Users/mario/Documents/DuckTalesGit/sprites.h",
-			"Mu",
-			"EWIEGA46WW/moc_sprites.cpp",
 			null
 		]
 	],

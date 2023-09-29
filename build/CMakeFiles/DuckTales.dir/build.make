@@ -73,6 +73,7 @@ DuckTales_autogen/EWIEGA46WW/qrc_resources.cpp: /Users/mario/Documents/DuckTales
 DuckTales_autogen/EWIEGA46WW/qrc_resources.cpp: CMakeFiles/DuckTales_autogen.dir/AutoRcc_resources_EWIEGA46WW_Info.json
 DuckTales_autogen/EWIEGA46WW/qrc_resources.cpp: /Users/mario/Documents/DuckTalesGit/theMoon.png
 DuckTales_autogen/EWIEGA46WW/qrc_resources.cpp: /Users/mario/Documents/DuckTalesGit/scrooge.png
+DuckTales_autogen/EWIEGA46WW/qrc_resources.cpp: /Users/mario/Documents/DuckTalesGit/scroogeNew.png
 DuckTales_autogen/EWIEGA46WW/qrc_resources.cpp: /Users/mario/Documents/DuckTalesGit/stillScrooge.png
 DuckTales_autogen/EWIEGA46WW/qrc_resources.cpp: /Users/mario/Qt/6.4.2/macos/./libexec/rcc
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/Users/mario/Documents/DuckTalesGit/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic RCC for resources.qrc"
