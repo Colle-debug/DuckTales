@@ -50,7 +50,7 @@ Sprites::Sprites()
     scrooge = loadTexture(":/sprites/scroogeNew.png", QColor(0, 89, 255, 255));
 }
 
-void Sprites::get(const std::string & id, QPixmap animOutput[4])
+void Sprites::get(const std::string & id, QPixmap animOutput[])
 {
     if      (id == "scrooge-stand"){
         animOutput[0] = scrooge.copy(moveBy(scrooge_stand,0,0));
