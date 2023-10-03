@@ -10,16 +10,10 @@ namespace DT
 
 class DT::Block : public StaticObject{
 public:
-    Block(QPointF pos, double width, double height);;
-    virtual bool hit(Object* what, Direction fromDir) override; /*{ return true; }*/
+    Block(QPointF pos, double width, double height) : StaticObject(pos,width,height){}
+    
+    virtual bool hit(Object* what, Direction fromDir) override{ return true; }
     virtual std::string name() override { return "Block[" + std::to_string(_id) + "]"; }
-    enum class Type {BRICK, WALL};
-
-protected:
-        QPointF _pos;
-        Block::Type _type;
-        bool _hit;
-        std::map<Entity*, Direction> _attached;
 };
 
 #endif

@@ -1,3 +1,4 @@
+/*
 #include "Block.h"
 #include "Scrooge.h"
 using namespace DT;
@@ -13,3 +14,4 @@ bool Block::hit(Object* what, Direction fromDir)
     _hit = true;
     return true;
 }
+*/

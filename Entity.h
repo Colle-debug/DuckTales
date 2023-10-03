@@ -56,6 +56,7 @@ public:
     virtual bool hit(Object* what, Direction fromDir) override = 0;
     virtual std::string name() override = 0;
 
+    virtual void paint(QPainter* painter) override;
 
 };
 

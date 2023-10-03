@@ -11,7 +11,7 @@ namespace DT
     class Object;
 }
 
-class DT::Object : public QGraphicsPixmapItem
+class DT::Object : public QGraphicsItem
 {
 protected:
 
@@ -44,14 +44,16 @@ public:
     QRectF qsceneCollider() const;
     RectF sceneCollider() const;
     double dist(Object* obj) const;
-    /*virtual Vec2Df posv() { return Vec2Df(sceneCollider().x(), sceneCollider().y()); }
-    virtual Vec2Df sizev() { return Vec2Df(collider().width(), collider().height()); }
-    virtual double distX(Object* obj) { return std::abs(sceneCollider().center().x() - obj->sceneCollider().center().x()); }*/
+    
            // compute next location
     virtual void advance() = 0;
 
            // compute next animation
     virtual void animate() = 0;
+    
+    virtual void paint(QPainter* painter);
+		// implemented abstract method from QGraphicsItem
+		void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
 
            // hit by another object, return true if hit is resolved
     virtual bool hit(Object* what, Direction fromDir) = 0;

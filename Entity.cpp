@@ -169,3 +169,16 @@ void Entity::resolveCollisions()
             hit(obj.first, inverse(normal2dir(cn)));
         }
 }
+
+void Entity::paint(QPainter* painter)
+{
+	// x-mirroring
+	if (_mirror_x_dir != Direction::NONE && 
+		(_x_dir == _mirror_x_dir || (_x_dir == Direction::NONE && _prev_x_dir == _mirror_x_dir)))
+	{
+		painter->translate(_boundingRect.width(), 0);	// move x origin to right side
+		painter->scale(-1, 1);							// mirror x-axis
+	}
+
+	Object::paint(painter);
+}

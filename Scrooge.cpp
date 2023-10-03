@@ -8,11 +8,11 @@
 #include "Sprites.h"
 
 using namespace DT;
-Scrooge::Scrooge(QPointF pos) : Entity(pos, TILE, TILE)
+Scrooge::Scrooge(QPointF pos) : Entity(pos, 26, 27)
 {
-    setZValue(4);
+    //setZValue(1);
 
-    _collider.adjust(3, 3, -3, -1);
+    //_collider.adjust(3, 3, -3, -1);
     _swinging = false;
     _dying = false;
     _pogoing = false;
@@ -26,7 +26,7 @@ Scrooge::Scrooge(QPointF pos) : Entity(pos, TILE, TILE)
     _jumping = false;
     _gliding = false;
 
-
+    _sprite= Sprites::instance()->getSprite("test");
     Sprites::instance()->get("scrooge-stand", &_texture_stand[0]);
     Sprites::instance()->get("scrooge-walk-0", &_texture_walk[0]);
     Sprites::instance()->get("scrooge-walk-1", &_texture_walk[1]);
@@ -47,8 +47,7 @@ Scrooge::Scrooge(QPointF pos) : Entity(pos, TILE, TILE)
     Sprites::instance()->get("scrooge-putt-success-1", &_texture_puttsuccess[1]);
     Sprites::instance()->get("scrooge-putt-fail-0", &_texture_puttfail[0]);
     Sprites::instance()->get("scrooge-putt-fail-1", &_texture_puttfail[1]);
-
-    this->setPixmap(_texture_stand[0]);
+   // this->setPixmap(_texture_stand[0]);
 
 }
 
@@ -90,21 +89,21 @@ void Scrooge::jump(bool on)
 }
 
 void Scrooge::animate()
-{
+{ 
     if (midair())
 	{
 		if (_vel.y < 0)
-			setPixmap(_texture_jump[0]);
+			_animRect = &_texture_jump[0];
 		else
-			setPixmap(_texture_jump[0]);
+			_animRect = &_texture_jump[0];
 	}
 	else
-	{
+	{ 
 		if (_vel.x == 0)
-			setPixmap(_texture_walk[(FRAME_COUNT / 17) % 2]);
+			_animRect = &_texture_stand[0];
 		else
-			setPixmap(_texture_walk[(FRAME_COUNT / 9) % 4]);
-	}
+			_animRect = &_texture_walk[(FRAME_COUNT / 9) % 4]; 
+	}  return;
 }
 
 bool Scrooge::hit(Object* what, Direction fromDir)

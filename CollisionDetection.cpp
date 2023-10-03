@@ -1,4 +1,6 @@
 #include "CollisionDetection.h"
+#include "Direction.h"
+
 
 using namespace DT;
 

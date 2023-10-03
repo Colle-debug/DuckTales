@@ -1,3 +1,4 @@
+/*
 #include "StaticObject.h"
 #include "Game.h"
 #include "Scrooge.h"
@@ -16,3 +17,4 @@ bool StaticObject::hit(Object* what, Direction fromDir)
     _hit = true;
     return true;
 }
+*/

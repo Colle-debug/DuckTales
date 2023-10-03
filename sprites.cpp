@@ -50,66 +50,72 @@ Sprites::Sprites()
     scrooge = loadTexture(":/sprites/scroogeNew.png", QColor(0, 89, 255, 255));
 }
 
-void Sprites::get(const std::string & id, QPixmap animOutput[])
+QPixmap* Sprites::getSprite(const std::string& id)
+{
+	return &scrooge;
+}
+
+void Sprites::get(const std::string & id, QRect animOutput[])
 {
     if      (id == "scrooge-stand"){
-        animOutput[0] = scrooge.copy(moveBy(scrooge_stand,0,0));
+        //animOutput[0] = moveBy(scrooge_stand,0,0);
+        animOutput[0] = moveBy(scrooge_stand,0,0);
     } 
     else if(id == "scrooge-walk-0"){
-        animOutput[0] = scrooge.copy(moveBy(scrooge_stand,1,0));
+        animOutput[0] = moveBy(scrooge_stand,1,0);
     }
     else if(id == "scrooge-walk-1"){
-        animOutput[0] = scrooge.copy(moveBy(scrooge_stand,2,0));
+        animOutput[0] = moveBy(scrooge_stand,2,0);
     }
     else if(id == "scrooge-walk-2"){
-        animOutput[0] = scrooge.copy(moveBy(scrooge_stand,3,0));
+        animOutput[0] = moveBy(scrooge_stand,3,0);
     }
     else if(id == "scrooge-jump-fall"){
-        animOutput[0] = scrooge.copy(moveBy(scrooge_stand,4,0));
+        animOutput[0] = moveBy(scrooge_stand,4,0);
     }else if(id == "scrooge-bounce-0"){
-        animOutput[0] = scrooge.copy(moveBy(scrooge_stand,0,2));
+        animOutput[0] = moveBy(scrooge_stand,0,2);
     }else if(id == "scrooge-bounce-1"){
-        animOutput[0] = scrooge.copy(moveBy(scrooge_stand,1,2));
+        animOutput[0] = moveBy(scrooge_stand,1,2);
     }
     else if(id == "scrooge-crouch-0"){
-        animOutput[0] = scrooge.copy(moveBy(scrooge_stand,2,2));
+        animOutput[0] = moveBy(scrooge_stand,2,2);
     }
     else if(id == "scrooge-crouch-1"){
-        animOutput[0] = scrooge.copy(moveBy(scrooge_stand,3,2));
+        animOutput[0] = moveBy(scrooge_stand,3,2);
     }
     else if(id == "scrooge-stuck"){
-        animOutput[0] = scrooge.copy(moveBy(scrooge_stand,4,2));
+        animOutput[0] = moveBy(scrooge_stand,4,2);
     }
     else if(id == "scrooge-climb-0"){
-        animOutput[0] = scrooge.copy(moveBy(scrooge_stand,5,2));
+        animOutput[0] = moveBy(scrooge_stand,5,2);
     }
     else if(id == "scrooge-climb-1"){
-        animOutput[0] = scrooge.copy(moveBy(scrooge_stand,0,4));
+        animOutput[0] = moveBy(scrooge_stand,0,4);
     }
     else if(id == "scrooge-preputt-0"){
-        animOutput[0] = scrooge.copy(moveBy(scrooge_stand,1,4));
+        animOutput[0] = moveBy(scrooge_stand,1,4);
     }
     else if(id == "scrooge-preputt-1"){
-        animOutput[0] = scrooge.copy(moveBy(scrooge_stand,2,4));
+        animOutput[0] = moveBy(scrooge_stand,2,4);
     }
     else if(id == "scrooge-putt-0"){
-        animOutput[0] = scrooge.copy(moveBy(scrooge_stand,3,4));
+        animOutput[0] = moveBy(scrooge_stand,3,4);
     }
     else if(id == "scrooge-putt-1"){
-        animOutput[0] = scrooge.copy(moveBy(scrooge_stand,4,4));
+        animOutput[0] = moveBy(scrooge_stand,4,4);
     }
     else if(id == "scrooge-putt-success-0"){
-        animOutput[0] = scrooge.copy(moveBy(scrooge_stand,5,4));
+        animOutput[0] = moveBy(scrooge_stand,5,4);
     }
     else if(id == "scrooge-putt-success-1"){
-        animOutput[0] = scrooge.copy(moveBy(scrooge_stand,0,6));
+        animOutput[0] = moveBy(scrooge_stand,0,6);
     }
     else if(id == "scrooge-putt-fail-0"){
-        animOutput[0] = scrooge.copy(moveBy(scrooge_stand,1,6));
+        animOutput[0] = moveBy(scrooge_stand,1,6);
     }
     else if(id == "scrooge-putt-fail-1"){
-        animOutput[0] = scrooge.copy(moveBy(scrooge_stand,2,6));
-    }
+        animOutput[0] = moveBy(scrooge_stand,2,6);
+    } 
 
 
 

@@ -17,19 +17,17 @@ protected:
     bool _climbing;
     bool _invincible;
     QPixmap _scrooge;
-    QPixmap _texture_stand[1];
-    QPixmap _texture_walk[3];
-    QPixmap _texture_jump[1];
-    QPixmap _texture_climb[2];
-    QPixmap _texture_crouch[2];
-    QPixmap _texture_stuck[1];
-    QPixmap _texture_putt[2];
-    QPixmap _texture_preputt[2];
-    QPixmap _texture_puttsuccess[2];
-    QPixmap _texture_puttfail[2];
-    QPixmap _texture_bounce[2];
-
-    QPixmap _animStand[1];
+    QRect _texture_stand[1];
+    QRect _texture_walk[3];
+    QRect _texture_jump[1];
+    QRect _texture_climb[2];
+    QRect _texture_crouch[2];
+    QRect _texture_stuck[1];
+    QRect _texture_putt[2];
+    QRect _texture_preputt[2];
+    QRect _texture_puttsuccess[2];
+    QRect _texture_puttfail[2];
+    QRect _texture_bounce[2];
     
 
 

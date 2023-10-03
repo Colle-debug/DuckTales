@@ -17,7 +17,6 @@ Object::Object(QPointF pos, double width, double height)
     _boundingRect = QRectF(0, 0, width, height);
     _collider = _boundingRect;
 
-    setZValue(1);
 
     _sprite = nullptr;
     _animRect = nullptr;
@@ -71,3 +70,20 @@ void Object::updateSchedulers()
     }
 }
 
+void Object::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
+{
+	paint(painter);
+
+	if (_colliderVisible)
+	{
+		painter->setPen(QPen(QBrush(Qt::red), 0.5));
+		painter->setBrush(Qt::NoBrush);
+		painter->drawRect(_collider);
+	}
+}
+
+void Object::paint(QPainter* painter)
+{
+	if (_animRect && _sprite)
+		painter->drawPixmap(_boundingRect, *_sprite, *_animRect);
+}
