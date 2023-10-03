@@ -33,13 +33,12 @@ Scrooge* Loader::load(std::string levelName)
         {
             new Block(QPointF((43+i)*TILE, 67*TILE), TILE, TILE);
         }  
-      
+      new Block(QPointF(0, 60*TILE), 0, 9*TILE);
        new Block(QPointF(19*TILE,67*TILE),TILE,TILE);
        new Block(QPointF(19*TILE,68*TILE),TILE,TILE);
        new Block(QPointF(58*TILE,69*TILE),4*TILE,2.5*TILE);
        new Block(QPointF(64*TILE,69*TILE),18*TILE,2.5*TILE);
        new Block(QPointF(48*TILE, 68*TILE), 2*TILE, TILE);
-       
        for(int i=0;i<4;i++){
        new Block(QPointF((66+i)*TILE, 68*TILE), TILE, TILE);
        }
@@ -89,7 +88,7 @@ Scrooge* Loader::load(std::string levelName)
        new Block(QPointF(104*TILE,46*TILE),2*TILE,4*TILE); //
        new Block(QPointF(106*TILE,44*TILE),2*TILE,2*TILE);
        new Block(QPointF(82*TILE,56.5*TILE),46*TILE,3.5*TILE); //grande blocco dopo 384*11
-       
+       new Block(QPointF(0,50*TILE),0,19*TILE);
 
 
 
@@ -379,6 +378,22 @@ Scrooge* Loader::load(std::string levelName)
       new Block(QPointF(25*TILE,26*TILE),TILE,3*TILE);
       new Block(QPointF(44*TILE,19*TILE),2*TILE,TILE);
       new Block(QPointF(54*TILE,21*TILE),6*TILE,TILE);
+
+
+
+
+
+     //LIANE
+      new Block(QPointF(24*TILE, 48*TILE), 0, 9*TILE);
+      new Block(QPointF(56*TILE, 31*TILE), 0,15*TILE);
+      new Block(QPointF(56*TILE, 50*TILE), 0, 15*TILE);
+      new Block(QPointF(24*TILE, 16*TILE), 0, 18*TILE);
+      new Block(QPointF(24*TILE, 49*TILE), 0, 8*TILE);
+      new Block(QPointF(88*TILE, 35*TILE), 0, 13*TILE);
+      new Block(QPointF(88*TILE, 4*TILE), 0, 28*TILE);
+
+
+
 
     return new Scrooge(QPointF(2.0 * TILE, 56*TILE));
 
