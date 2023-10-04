@@ -15,12 +15,14 @@ Scrooge::Scrooge(QPointF pos) : Entity(pos, 26, 27)
     //_collider.adjust(3, 3, -3, -1);
     _swinging = false;
     _dying = false;
+    _dead = false;
     _pogoing = false;
     _climbing = false;
     _invincible = false;
     _prev_x_dir = Direction::RIGHT;
     _mirror_x_dir = Direction::LEFT;
-
+    _hp = 3;
+    _recentlyHit = 0;
 
     _scripted = false;
     _jumping = false;
@@ -117,32 +119,33 @@ void Scrooge::die()
     if (_dying)
         return;
 
-    //Sounds::instance()->playSound("bob_die");
     _dying = true;
+    _collidable = false;
+    _vel.x = 0;
     _x_dir = Direction::NONE;
-
-    schedule("poff1", 60, [this]()
-    {
-        //_poff = true;
-        //_animRect = &_animPoff[0];
-        schedule("poff2", 30, [this]()
-        {
-            //_animRect = &_animPoff[1];
-
-            schedule("respawn", 30, [this]()
-            {
-                //_poff = false;
-                _dying = false;
-                setPos(TILE, 12 * TILE);
-                _invincible = true;
-
-                schedule("invincible_off", 240, [this]()
-                {
-                    _invincible = false;
-                });
-            });
-        });
-    });
+    _vel.y = -3;
+    schedule("die", 100, [this]() {_dying = false; _dead = true; } );
 }
 
 
+void Scrooge::lifeDown()
+{
+    if (_recentlyHit)
+        return;
+
+    if (_hp > 1)
+    {
+        _hp--;
+        recentlyHit(true);
+    }
+    else
+        die();
+}
+
+void Scrooge::recentlyHit(bool on)
+{
+    _recentlyHit = on;
+
+    if(on)
+        schedule("flash", 10, [this](){_recentlyHit = false; } );
+}

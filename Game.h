@@ -11,7 +11,7 @@ namespace DT
 {
     class Game;
     class Scrooge;
-    enum class GameState{READY, TITLE_SCREEN, RUNNING, PAUSED, GAME_OVER};
+    enum class GameState{READY, TITLE_SCREEN, RUNNING, PAUSED, GAME_OVER, GAME_CLEAR};
 }
 
 class DT::Game:public QGraphicsView
@@ -44,11 +44,13 @@ public:
     virtual void keyReleaseEvent(QKeyEvent* e) override;
     virtual void wheelEvent(QWheelEvent* e) override;
     virtual void resizeEvent(QResizeEvent* event) override;
+    void gameOver()  { _state = GameState::GAME_OVER; std::cout<<"sono in gameover"; }
 
 public slots:
     void reset();
     void start();
     void nextFrame();
+    void gameEnd();
 };
 #endif
 

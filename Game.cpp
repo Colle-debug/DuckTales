@@ -23,7 +23,7 @@ Game* Game::instance()
 Game::Game(QGraphicsView *parent) : QGraphicsView(parent)
 {
     _world = new QGraphicsScene();
-    _world->setSceneRect(0 * TILE, 56 * TILE, TILE * 19, TILE * 19);
+    _world->setSceneRect(TILE * 48, TILE * 42, TILE * 128, TILE * 15);
     setScene(_world);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -47,6 +47,20 @@ Game::Game(QGraphicsView *parent) : QGraphicsView(parent)
 
 void Game::reset()
 {
+    _state = GameState::READY;
+    _engine.stop();
+    _world->clear();
+
+    _player = 0;
+
+    _left_pressed = false;
+    _right_pressed = false;
+
+    _jump_pressed = false;
+
+    _fire_pressed = false;
+
+    //restoreDefaultView();
 	_state = GameState::READY;
 	_engine.stop();
 	_world->clear();
@@ -76,7 +90,9 @@ void Game::nextFrame()
 	if (_state != GameState::RUNNING && _state != GameState::TITLE_SCREEN)
 		return;
 
-	// process inputs	 (PLAYER CONTROLS)
+    FRAME_COUNT++;
+
+    // process inputs	 (PLAYER CONTROLS)
 	if (_state == GameState::RUNNING && !_player->dying())
 	{
 		if (_left_pressed && _right_pressed)
@@ -111,7 +127,14 @@ void Game::nextFrame()
 	// @TODO update game state (game over, level cleared, etc.)
     centerOn(QPointF(_player->x(), _player->y()));
     update();
-	FRAME_COUNT++;
+
+    if(_player->dead()){
+        gameOver();
+    }
+    if (_state == GameState::GAME_OVER || _state == GameState::GAME_CLEAR){
+        gameEnd();
+    }
+
 }
 
 void Game::keyPressEvent(QKeyEvent* e)
@@ -230,3 +253,37 @@ void Game::resizeEvent(QResizeEvent* evt)
 	fitInView(0, 0, TILE * 16-4, TILE * 15-4);
 }
 
+void Game::gameEnd()
+{
+    std::cout<<_player->dead();
+    if (_state == GameState::GAME_OVER){
+        std::cout<<"Lollez";
+    }
+    if (_state != GameState::GAME_CLEAR && _state != GameState::GAME_OVER)
+        return;
+
+    _engine.stop();
+    //_hud->togglePause();
+    //stopMusic();
+    //Sounds::instance()->reset();
+    if (_state == GameState::GAME_CLEAR)
+        std::cout<<"Game Cleared";
+        //playMusic("princessmusic");
+    else if (_state == GameState::GAME_OVER)
+        //Sounds::instance()->play("gameover");
+        std::cout<<"Game Over";
+
+    if (_state == GameState::GAME_CLEAR)
+    {/*
+        _player->setX(7 * TILE);
+        _player->resetAfterScript();*/
+    }
+    else{
+        _world->clear();
+    }
+    // vedi cosa fa in Supermario-2021
+    //screen->setY(-TILE * 12.0);
+
+    //setSceneRect(QRectF());
+    //centerOn(0, 0);
+}

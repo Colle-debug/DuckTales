@@ -16,9 +16,10 @@ Enemy::Enemy(QPointF pos) : Entity(pos, TILE, TILE)
 
 bool Enemy::hit(Object* what, Direction fromDir)
 {
-    if (what->to<Scrooge*>()) // Da aggiungere condizione su invincibilità, vedi stessa funzione in Enemy su BubbleBobble
+    Scrooge* scrooge = what->to<Scrooge*>();
+    if (scrooge) // Da aggiungere condizione su invincibilità, vedi stessa funzione in Enemy su BubbleBobble
     {
-        what->to<Scrooge*>()->die();
+        scrooge->lifeDown();
         return true;
     }
     else if (what->to<Block*>() && fromDir == Direction::DOWN && _dying)

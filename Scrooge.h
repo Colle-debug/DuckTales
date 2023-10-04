@@ -16,6 +16,7 @@ protected:
     bool _pogoing;
     bool _climbing;
     bool _invincible;
+    bool _dead;
     QPixmap _scrooge;
     QRect _texture_stand[1];
     QRect _texture_walk[3];
@@ -35,15 +36,23 @@ protected:
     bool _jumping;
     bool _gliding;
 
+    bool _recentlyHit;
+    int _hp;
+
+
 public:
     Scrooge(QPointF pos);
 
     bool swinging(){ return _swinging; }
     bool dying(){ return _dying; }
+    bool dead(){ return _dead; }
     bool pogoing(){ return _pogoing; }
     bool climbing(){ return _climbing; }
     bool invincibile(){ return _invincible; }
+    void recentlyHit(bool on);
 
+    virtual void lifeDown();
+    //virtual void lifeUp();
 
     // implemented abstract methods
     virtual void animate() override;
@@ -56,7 +65,7 @@ public:
     // player actions
     //virtual void pogo();
     virtual void jump(bool on = true) override;
-    //virtual void die();
+    virtual void die();
 };
 
 #endif // SCROOGE_H
