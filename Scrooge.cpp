@@ -112,3 +112,37 @@ bool Scrooge::hit(Object* what, Direction fromDir)
 }
 
 
+void Scrooge::die()
+{
+    if (_dying)
+        return;
+
+    //Sounds::instance()->playSound("bob_die");
+    _dying = true;
+    _x_dir = Direction::NONE;
+
+    schedule("poff1", 60, [this]()
+    {
+        //_poff = true;
+        //_animRect = &_animPoff[0];
+        schedule("poff2", 30, [this]()
+        {
+            //_animRect = &_animPoff[1];
+
+            schedule("respawn", 30, [this]()
+            {
+                //_poff = false;
+                _dying = false;
+                setPos(TILE, 12 * TILE);
+                _invincible = true;
+
+                schedule("invincible_off", 240, [this]()
+                {
+                    _invincible = false;
+                });
+            });
+        });
+    });
+}
+
+
