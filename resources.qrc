@@ -7,7 +7,5 @@
     </qresource>
     <qresource prefix="/background">
         <file>theMoon.png</file>
-        <file>corbo.png</file>
-        <file>marrocco.png</file>
     </qresource>
 </RCC>
