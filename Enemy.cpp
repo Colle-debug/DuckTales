@@ -6,12 +6,12 @@
 
 using namespace DT;
 
-Enemy::Enemy(QPointF pos) : Entity(pos, TILE, TILE)
+Enemy::Enemy(QPointF pos) : Entity(pos, 2*TILE, 2*TILE)
 {
     _collider.adjust(3, 3, -3, -1);
     _angry = false;
     _dying = false;
-    _mirror_x_dir = Direction::RIGHT;
+    _mirror_x_dir = Direction::LEFT;
 }
 
 bool Enemy::hit(Object* what, Direction fromDir)
@@ -35,9 +35,9 @@ bool Enemy::hit(Object* what, Direction fromDir)
 void Enemy::animate()
 {
     if(_dying)
-        _animRect = &_animDie[(FRAME_COUNT / 4) % 4];
+        _animRect = &_texture_walk[(FRAME_COUNT / 4) % 4];
     else
-        _animRect = &_animWalk[_angry][(FRAME_COUNT / 9) % 2];
+        _animRect = &_texture_walk[(FRAME_COUNT / 9) % 2];
 }
 
 void Enemy::die()

@@ -12,14 +12,12 @@ class DT::PinkAlien : public Enemy
 {
     private:
 
-
-
     public:
 
         PinkAlien(QPointF pos);
 
         // implemented abstract methods
-        virtual std::string name() override { return "ZenChan[" + std::to_string(_id) + "]"; }
+        virtual std::string name() override { return "Pink Alien[" + std::to_string(_id) + "]"; }
 
         // reimplemented abstract methods
         virtual bool hit(Object* what, Direction fromDir) override;

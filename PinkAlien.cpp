@@ -10,10 +10,11 @@ using namespace DT;
 PinkAlien::PinkAlien(QPointF pos)
     : Enemy(pos)
 {
-    _sprite = Sprites::instance()->getSprite("enemies");
+    _sprite = Sprites::instance()->getSprite("pinkAlien");
     move(Direction::RIGHT);
 
-
+    Sprites::instance()->get("pink-alien-0", &_texture_walk[0]);
+    Sprites::instance()->get("pink-alien-1", &_texture_walk[1]);
 
     /*Sprites::instance()->getAnimation("zenchan", &_animWalk[0][0]);
     Sprites::instance()->getAnimation("zenchan_angry", &_animWalk[1][0]);

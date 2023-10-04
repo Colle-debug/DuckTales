@@ -37,7 +37,7 @@ static QPixmap loadTexture(const std::string file, QColor mask_color = Qt::white
 
 // main object positions within sprites
 static QRect scrooge_stand(1, 1, 24, 30);
-
+static QRect _pinkAlien(42,5,32,35);
 
 Sprites* Sprites::instance()
 {
@@ -48,11 +48,17 @@ Sprites* Sprites::instance()
 Sprites::Sprites()
 {
     scrooge = loadTexture(":/sprites/scroogeNew.png", QColor(0, 89, 255, 255));
+    pinkAlien = loadTexture(":/sprites/enemies.png", QColor(255,0,255));
 }
 
 QPixmap* Sprites::getSprite(const std::string& id)
 {
-	return &scrooge;
+    if(id=="scrooge")
+        return &scrooge;
+    else if(id=="pinkAlien")
+        return &pinkAlien;
+    else
+    return 0;
 }
 
 void Sprites::get(const std::string & id, QRect animOutput[])
@@ -60,7 +66,7 @@ void Sprites::get(const std::string & id, QRect animOutput[])
     if      (id == "scrooge-stand"){
         //animOutput[0] = moveBy(scrooge_stand,0,0);
         animOutput[0] = moveBy(scrooge_stand,0,0);
-    } 
+    }
     else if(id == "scrooge-walk-0"){
         animOutput[0] = moveBy(scrooge_stand,1,0);
     }
@@ -115,7 +121,14 @@ void Sprites::get(const std::string & id, QRect animOutput[])
     }
     else if(id == "scrooge-putt-fail-1"){
         animOutput[0] = moveBy(scrooge_stand,2,6);
-    } 
+    }
+    else if(id == "pink-alien-0"){
+        animOutput[0] = moveBy(_pinkAlien,0,0);
+    }
+    else if(id == "pink-alien-1"){
+        animOutput[0] = moveBy(_pinkAlien,1,1,34,1);
+    }
+
 
 
 
@@ -123,5 +136,5 @@ void Sprites::get(const std::string & id, QRect animOutput[])
     {
         printf("warning: cannot get texture \"%s\"\n", id.c_str());
         //return QPixmap();
-    } 
+    }
 }

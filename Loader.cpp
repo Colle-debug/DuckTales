@@ -399,13 +399,13 @@ Scrooge* Loader::load(std::string levelName)
         new Block(QPointF(92.0 *TILE, 6*TILE), 0*TILE, 0.5*TILE);
         new Block(QPointF(98.0 *TILE, 6*TILE), 0*TILE, 0.5*TILE);
 
-        new PinkAlien(QPointF(50.0 * TILE, 53*TILE));
-        new PinkAlien(QPointF(34.0 * TILE, 53*TILE));
-        new PinkAlien(QPointF(25.0 * TILE, 51*TILE));
-        new PinkAlien(QPointF(25.0 * TILE, 51*TILE));
-        new PinkAlien(QPointF(64.0 * TILE, 53*TILE));
-        new PinkAlien(QPointF(76.0 * TILE, 53*TILE));
-        new PinkAlien(QPointF(92.0 * TILE, 6*TILE));
+        new PinkAlien(QPointF(50.0 * TILE, 52*TILE));
+        new PinkAlien(QPointF(34.0 * TILE, 52*TILE));
+        new PinkAlien(QPointF(25.0 * TILE, 50*TILE));
+        new PinkAlien(QPointF(25.0 * TILE, 50*TILE));
+        new PinkAlien(QPointF(64.0 * TILE, 52*TILE));
+        new PinkAlien(QPointF(76.0 * TILE, 52*TILE));
+        new PinkAlien(QPointF(92.0 * TILE, 5*TILE));
         std::cout<<"we";
         return new Scrooge(QPointF(48.0 * TILE, 46*TILE));
     }

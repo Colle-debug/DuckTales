@@ -28,7 +28,7 @@ Scrooge::Scrooge(QPointF pos) : Entity(pos, 26, 27)
     _jumping = false;
     _gliding = false;
 
-    _sprite= Sprites::instance()->getSprite("test");
+    _sprite= Sprites::instance()->getSprite("scrooge");
     Sprites::instance()->get("scrooge-stand", &_texture_stand[0]);
     Sprites::instance()->get("scrooge-walk-0", &_texture_walk[0]);
     Sprites::instance()->get("scrooge-walk-1", &_texture_walk[1]);

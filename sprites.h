@@ -10,7 +10,7 @@ private:
 
            // sprites
     QPixmap hud;
-    QPixmap enemies;
+    QPixmap pinkAlien;
     QPixmap scrooge;
     QPixmap title_screen;
 
