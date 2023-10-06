@@ -5,6 +5,7 @@
 #include "GameConfig.h"
 #include "Block.h"
 #include "PinkAlien.h"
+#include "Octopus.h"
 
 using namespace DT;
 
@@ -399,15 +400,46 @@ Scrooge* Loader::load(std::string levelName)
         new Block(QPointF(92.0 *TILE, 6*TILE), 0*TILE, 0.5*TILE);
         new Block(QPointF(98.0 *TILE, 6*TILE), 0*TILE, 0.5*TILE);
 
-        new PinkAlien(QPointF(50.0 * TILE, 52*TILE));
-        new PinkAlien(QPointF(34.0 * TILE, 52*TILE));
-        new PinkAlien(QPointF(25.0 * TILE, 50*TILE));
-        new PinkAlien(QPointF(25.0 * TILE, 50*TILE));
-        new PinkAlien(QPointF(64.0 * TILE, 52*TILE));
-        new PinkAlien(QPointF(76.0 * TILE, 52*TILE));
-        new PinkAlien(QPointF(92.0 * TILE, 5*TILE));
-        std::cout<<"we";
-        return new Scrooge(QPointF(48.0 * TILE, 46*TILE));
+        new PinkAlien(QPointF(50.0 * TILE, 51.8*TILE));
+        new PinkAlien(QPointF(34.0 * TILE, 51.8*TILE));
+        new PinkAlien(QPointF(25.0 * TILE, 49.8*TILE));
+        new PinkAlien(QPointF(64.0 * TILE, 51.8*TILE));
+        new PinkAlien(QPointF(76.0 * TILE, 51.8*TILE));
+        new PinkAlien(QPointF(92.0 * TILE, 4.8*TILE));
+
+
+        new Block(QPointF(10 *TILE, 65*TILE), 0.5*TILE, 0*TILE);
+        new Block(QPointF(73 *TILE, 46.2*TILE), 0.5*TILE, 0*TILE);
+        new Block(QPointF(73 *TILE, 50.2*TILE), 0.5*TILE, 0*TILE);
+        new Block(QPointF(87 *TILE, 48.5*TILE), 0*TILE, 0.5*TILE);
+        new Block(QPointF(89.5 *TILE, 48.5*TILE), 0*TILE, 0.5*TILE);
+        new Block(QPointF(83 *TILE, 34*TILE), 0*TILE, 0.5*TILE);
+        new Block(QPointF(77.5 *TILE, 35.5*TILE), 0.5*TILE, 0*TILE);
+        new Block(QPointF(25.5 *TILE, 35.5*TILE), 0.5*TILE, 0*TILE);
+        new Block(QPointF(19.5 *TILE, 18.5*TILE), 0*TILE, 0.5*TILE);
+        new Block(QPointF(17 *TILE, 18.5*TILE), 0*TILE, 0.5*TILE);
+        new Block(QPointF(31.5 *TILE, 18.5*TILE), 0.5*TILE, 0*TILE);
+        new Block(QPointF(39.5 *TILE, 18.5*TILE), 0.5*TILE, 0*TILE);
+        new Block(QPointF(101.5 *TILE, 5.5*TILE), 0.5*TILE, 0*TILE);
+        new Block(QPointF(101.5 *TILE, 9*TILE), 0.5*TILE, 0*TILE);
+        new Block(QPointF(105.5 *TILE, 5.5*TILE), 0.5*TILE, 0*TILE);
+        new Block(QPointF(105.5 *TILE, 9*TILE), 0.5*TILE, 0*TILE);
+
+        new Octopus(QPointF(10.0 * TILE, 65*TILE), Direction::UP);
+        new Octopus(QPointF(72.5 * TILE, 48.5*TILE), Direction::UP);
+        new Octopus(QPointF(87 * TILE, 48.5*TILE), Direction::RIGHT);
+        new Octopus(QPointF(85 * TILE, 34*TILE), Direction::RIGHT);
+        new Octopus(QPointF(77.5 * TILE, 35*TILE), Direction::UP);
+        new Octopus(QPointF(25.5 * TILE, 31*TILE), Direction::UP);
+        new Octopus(QPointF(21.5 * TILE, 33*TILE), Direction::UP);
+        new Octopus(QPointF(18.5 * TILE, 18.5*TILE), Direction::RIGHT);
+        new Octopus(QPointF(31.5 * TILE, 21.5*TILE), Direction::UP);
+        new Octopus(QPointF(39.5 * TILE, 21.5*TILE), Direction::UP);
+        new Octopus(QPointF(101.5 * TILE, 6*TILE), Direction::UP);
+        new Octopus(QPointF(105.5 * TILE, 6*TILE), Direction::UP);
+
+
+        return new Scrooge(QPointF(5* TILE, 67*TILE));
     }
     else{
         return nullptr;

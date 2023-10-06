@@ -23,6 +23,9 @@ class DT::Entity : public Object
     Direction _x_dir;		// current horizontal movement direction
     Direction _prev_x_dir;	// previous horizontal movement direction
     Direction _mirror_x_dir;// direction that needs animation mirroring
+    Direction _y_dir;		// current vertical movement direction
+    Direction _prev_y_dir;	// previous vertical movement direction
+    Direction _mirror_y_dir;// direction that needs animation mirroring
     Vec2Df _vel;			// current velocity
     Vec2Df _prev_vel;		// velocity in the previous frame
     // collision detection/resolution

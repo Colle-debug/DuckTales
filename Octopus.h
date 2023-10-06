@@ -11,10 +11,11 @@ namespace DT
 class DT::Octopus : public Enemy
 {
     private:
+        Direction _type;
 
     public:
 
-        Octopus(QPointF pos);
+        Octopus(QPointF pos, Direction _type);
 
         // implemented abstract methods
         virtual std::string name() override { return "Octopus [" + std::to_string(_id) + "]"; }

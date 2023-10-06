@@ -25,7 +25,7 @@ class DT::Enemy : public Entity
 
     public:
 
-        Enemy(QPointF pos);
+        Enemy(QPointF pos, double width, double height);
 
         // getters
         QPixmap* sprite() { return _sprite; }

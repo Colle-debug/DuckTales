@@ -8,7 +8,7 @@
 using namespace DT;
 
 PinkAlien::PinkAlien(QPointF pos)
-    : Enemy(pos)
+    : Enemy(pos, 32, 35)
 {
     _sprite = Sprites::instance()->getSprite("pinkAlien");
     move(Direction::RIGHT);

@@ -6,7 +6,7 @@
 
 using namespace DT;
 
-Enemy::Enemy(QPointF pos) : Entity(pos, 2*TILE, 2*TILE)
+Enemy::Enemy(QPointF pos, double width, double height) : Entity(pos, width, height)
 {
     _collider.adjust(3, 3, -3, -1);
     _angry = false;

@@ -17,6 +17,9 @@ Entity::Entity(QPointF pos, double width, double height) :
     _x_dir = _prev_x_dir = Direction::NONE;
     _vel = { 0, 0 };
     _mirror_x_dir = Direction::NONE;
+
+    _y_dir = _prev_y_dir = Direction::NONE;
+    _mirror_x_dir = Direction::NONE;
 }
 
 void Entity::defaultPhysics()
@@ -34,6 +37,7 @@ void Entity::defaultPhysics()
     _x_acc = _x_vel_max;
     _x_dec_rel = _x_vel_max;
 }
+
 void Entity::velClip(double vx, double vy)
 {
     _vel.x = std::max(_vel.x, -vx);
@@ -69,7 +73,16 @@ void Entity::move(Direction dir)
     /*if (dir != _x_dir)
         _prev_x_dir = _x_dir;
     */
-    _x_dir = dir;
+    if(dir == Direction::RIGHT || dir == Direction::LEFT){
+        _x_dir = dir;
+    }
+    else if(dir == Direction::UP || dir == Direction::DOWN){
+        _y_dir = dir;
+    }
+    else{
+        _x_dir = dir;
+        _y_dir = dir;
+    }
 }
 
 void Entity::jump(bool on)

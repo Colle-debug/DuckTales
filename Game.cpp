@@ -23,7 +23,7 @@ Game* Game::instance()
 Game::Game(QGraphicsView *parent) : QGraphicsView(parent)
 {
     _world = new QGraphicsScene();
-    _world->setSceneRect(TILE * 48, TILE * 42, TILE * 128, TILE * 15);
+    _world->setSceneRect(TILE * 0, TILE * 56.5, TILE * 128, TILE * 15); // Vista di default è 0 56.5
     setScene(_world);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);

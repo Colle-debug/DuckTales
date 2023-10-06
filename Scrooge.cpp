@@ -21,7 +21,7 @@ Scrooge::Scrooge(QPointF pos) : Entity(pos, 26, 27)
     _invincible = false;
     _prev_x_dir = Direction::RIGHT;
     _mirror_x_dir = Direction::LEFT;
-    _hp = 3;
+    _hp = 322;
     _recentlyHit = 0;
 
     _scripted = false;
