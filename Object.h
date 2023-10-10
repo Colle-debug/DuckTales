@@ -49,7 +49,7 @@ public:
     virtual void advance() = 0;
 
            // compute next animation
-    virtual void animate() = 0;
+    virtual bool animate() = 0;
     
     virtual void paint(QPainter* painter);
 		// implemented abstract method from QGraphicsItem

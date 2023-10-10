@@ -1,4 +1,4 @@
-#ifndef BLOCK_H
+/*#ifndef BLOCK_H
 #define BLOCK_H
 #include "Entity.h"
 #include "StaticObject.h"
@@ -17,3 +17,4 @@ public:
 };
 
 #endif
+*/

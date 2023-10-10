@@ -19,10 +19,10 @@ private:
 
 public:
 
-    // singleton
+           // singleton
     static Sprites* instance();
 
-    // extract texture from sprites using the given id
+           // extract texture from sprites using the given id
     QPixmap* getSprite(const std::string& id);
     void get(const std::string & id, QRect animOutput[]);
 };

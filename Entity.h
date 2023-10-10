@@ -55,7 +55,7 @@ public:
     virtual void defaultPhysics();
 
            // nonimplemented abstract methods
-    virtual void animate() override = 0;
+    virtual bool animate() override = 0;
     virtual bool hit(Object* what, Direction fromDir) override = 0;
     virtual std::string name() override = 0;
 

@@ -55,7 +55,7 @@ public:
     //virtual void lifeUp();
 
     // implemented abstract methods
-    virtual void animate() override;
+    virtual bool animate() override;
     virtual bool hit(Object* what, Direction fromDir) override;
     virtual std::string name() override { return "Player"; }
 

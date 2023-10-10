@@ -34,7 +34,7 @@ class DT::Enemy : public Entity
 
         // implemented abstract methods
         virtual bool hit(Object* what, Direction fromDir) override;
-        virtual void animate() override;
+        virtual bool animate() override;
 
         // nonimplemented abstract methods
         virtual std::string name() override = 0;

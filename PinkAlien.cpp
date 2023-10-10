@@ -2,7 +2,7 @@
 #include "Sprites.h"
 #include "Game.h"
 #include "GameConfig.h"
-#include "Block.h"
+#include "StaticObject.h"
 #include "Scrooge.h"
 
 using namespace DT;
@@ -46,7 +46,7 @@ bool PinkAlien::hit(Object* what, Direction fromDir)
     if (Enemy::hit(what, fromDir))
         return true;
 
-    if (what->to<Block*>() && (fromDir == Direction::RIGHT || fromDir == Direction::LEFT))
+    if (what->to<StaticObject*>() && (fromDir == Direction::RIGHT || fromDir == Direction::LEFT))
     {
         move(inverse(_x_dir));
         return true;

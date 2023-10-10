@@ -1,0 +1,28 @@
+Vines
+Spikes
+Sprites Octopus
+Animazione crouch Scrooge
+Sprites Scrooge che guarda a sinistra
+Animazione + Key binding Pogo
+Beagle Boy
+DynamicPlatform sopra
+Fisica salto, se si riesce come fare il long press
+Fisica pogo: salta più in alto, cade più velocemente
+Interazioni in modalità pogo
+Checkpoint 
+Death Line
+---------
+Spawnable
+HUD
+Suoni
+-------
+Boxer
+Fisica Projectiles
+Rat
+
+Bria 1
+Definire la classe Projectile, in modo da poter piazzare i blocchi. L'importante è che carichi bene la texture: sia blocchi bianchi che gialli.
+Tutto Projectiles + Boxer
+
+Bria 2
+Problemi

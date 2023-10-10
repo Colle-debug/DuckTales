@@ -11,16 +11,16 @@ namespace DT
 
 class DT::StaticObject : public Object
 {
+    protected:
+        bool _hit;
     public:
 
-    StaticObject(QPointF pos, double width, double height) : Object(pos,width,height){}
+        StaticObject(QPointF pos, double width, double height);
         // implemented abstract methods
         virtual void advance() override {}
-        virtual void animate() override {}
-
-        // nonimplemented abstract methods
-        virtual bool hit(Object* what, Direction fromDir) override =0;
-        virtual std::string name() override = 0;
+        virtual bool animate() override;
+        virtual bool hit(Object* what, Direction fromDir) override;
+        virtual std::string name() override { return "StaticObject"; }
 };
 
 #endif

@@ -1,7 +1,7 @@
 #include "Enemy.h"
 #include "GameConfig.h"
 #include "Scrooge.h"
-
+#include "StaticObject.h"
 #include "Block.h"
 
 using namespace DT;
@@ -22,7 +22,7 @@ bool Enemy::hit(Object* what, Direction fromDir)
         scrooge->lifeDown();
         return true;
     }
-    else if (what->to<Block*>() && fromDir == Direction::DOWN && _dying)
+    else if (what->to<StaticObject*>() && fromDir == Direction::DOWN && _dying)
     {
         setVisible(false);
         // spawn item
@@ -32,12 +32,14 @@ bool Enemy::hit(Object* what, Direction fromDir)
     return false;
 }
 
-void Enemy::animate()
+bool Enemy::animate()
 {
     if(_dying)
         _animRect = &_texture_walk[(FRAME_COUNT / 4) % 4];
     else
         _animRect = &_texture_walk[(FRAME_COUNT / 9) % 2];
+
+    return 1;
 }
 
 void Enemy::die()

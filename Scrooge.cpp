@@ -74,7 +74,7 @@ void Scrooge::jump(bool on)
             if (std::abs(_vel.x) <= 2.3123)
             {
                 velAdd(Vec2Df(0, -4));
-                _y_gravity = 0.1150;
+                _y_gravity = 0.078;
             }
             else
             {
@@ -90,7 +90,7 @@ void Scrooge::jump(bool on)
         _y_gravity = 0.4375;
 }
 
-void Scrooge::animate()
+bool Scrooge::animate()
 { 
     if (midair())
 	{
@@ -105,7 +105,8 @@ void Scrooge::animate()
 			_animRect = &_texture_stand[0];
 		else
 			_animRect = &_texture_walk[(FRAME_COUNT / 9) % 4]; 
-	}  return;
+        }
+        return 1;
 }
 
 bool Scrooge::hit(Object* what, Direction fromDir)

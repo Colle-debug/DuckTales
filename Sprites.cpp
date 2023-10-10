@@ -62,7 +62,7 @@ QPixmap* Sprites::getSprite(const std::string& id)
     else if(id=="octopus")
         return &octopus;
     else
-    return 0;
+        return 0;
 }
 
 void Sprites::get(const std::string & id, QRect animOutput[])
