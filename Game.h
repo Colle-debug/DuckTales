@@ -28,6 +28,8 @@ private:
     bool _right_pressed;
     bool _jump_pressed;
     bool _fire_pressed;
+    bool _crouch_pressed;
+    bool _jump_released;
     int startingX = 0;
     int startingY = 64;
 

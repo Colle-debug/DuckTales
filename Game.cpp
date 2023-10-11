@@ -59,6 +59,7 @@ void Game::reset()
     _jump_pressed = false;
 
     _fire_pressed = false;
+    _crouch_pressed = false;
 
     //restoreDefaultView();
 	_state = GameState::READY;
@@ -70,6 +71,7 @@ void Game::reset()
 	_right_pressed = false;
 	_jump_pressed = false;
 	_fire_pressed = false;
+    _jump_released = false;
 
     //setSceneRect(QRectF());
 
@@ -103,11 +105,24 @@ void Game::nextFrame()
 			_player->move(Direction::RIGHT);
 		else
 			_player->move(Direction::NONE);
+
+        if (_crouch_pressed && !(_left_pressed || _right_pressed))
+			_player->crouch(true);
+		
+        else
+			_player->crouch(false);
+            
+
 		if (_jump_pressed)
 		{
-			_player->jump();
+			_player->jump(true);
 			_jump_pressed = false;
         }
+        else if (_jump_released)
+		{
+			_player->jump(false);
+			_jump_released = false;
+		}
 	}
 
 	// advance game
@@ -180,9 +195,14 @@ void Game::keyPressEvent(QKeyEvent* e)
         {
             _right_pressed = true;
         }
+        else if (e->key() == Qt::Key_Down)
+			
+            _crouch_pressed = true;
+
         else if (e->key() == Qt::Key_Space)
         {
             _jump_pressed = true;
+            _jump_released = false;
         }
         else if (e->key() == Qt::Key_F)
         {
@@ -233,9 +253,15 @@ void Game::keyReleaseEvent(QKeyEvent* e)
 		else if (e->key() == Qt::Key_Right)
 			_right_pressed = false;
 		else if (e->key() == Qt::Key_Space)
+        {
 			_jump_pressed = false;
+            _jump_released=true;
+        }
+        else if (e->key() == Qt::Key_Down)
+			_crouch_pressed = false;    
 		else if (e->key() == Qt::Key_F)
 			_fire_pressed = false;
+            
 	}
 }
 

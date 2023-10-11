@@ -17,6 +17,7 @@ Scrooge::Scrooge(QPointF pos) : Entity(pos, 26, 27)
     _dying = false;
     _dead = false;
     _pogoing = false;
+    _crouch = false;
     _climbing = false;
     _invincible = false;
     _prev_x_dir = Direction::RIGHT;
@@ -57,9 +58,19 @@ void Scrooge::advance()
 {
     if (grounded())
         _y_vel_max = 3;
-    else if (falling())
-        _y_vel_max = 1;
-
+    if (falling())
+    {
+       _y_gravity = 0.18;
+    }
+    if (!falling())
+    {
+    _jumping= false; //when not falling, jumping is over
+    }
+    if (_crouch)
+    {
+        
+    }
+   
     Entity::advance();
 }
 void Scrooge::jump(bool on)
@@ -69,17 +80,17 @@ void Scrooge::jump(bool on)
 
     if (on)
     {
-        if (!midair() || _gliding)
+        if (!midair())
         {
-            if (std::abs(_vel.x) <= 2.3123)
+            if (std::abs(_vel.x) <= 2)
             {
-                velAdd(Vec2Df(0, -4));
+                velAdd(Vec2Df(0, -3));
                 _y_gravity = 0.078;
             }
             else
             {
                 velAdd(Vec2Df(0, -5));
-                _y_gravity = 0.0938;
+                _y_gravity = 0.1;
             }
 
             _jumping = true;
@@ -87,7 +98,7 @@ void Scrooge::jump(bool on)
         }
     }
     else
-        _y_gravity = 0.4375;
+        _y_gravity = 0.8;
 }
 
 bool Scrooge::animate()
@@ -101,20 +112,36 @@ bool Scrooge::animate()
 	}
 	else
 	{ 
-		if (_vel.x == 0)
+		if (_vel.x == 0 && !_crouch)
 			_animRect = &_texture_stand[0];
-		else
+		else if(_vel.x >0 || _vel.x<0)
 			_animRect = &_texture_walk[(FRAME_COUNT / 9) % 4]; 
+        else if(_vel.x == 0 && _crouch)
+            //_animRect = &_texture_crouch[0];   
+            _animRect = &_texture_crouch[1]; 
+            
         }
         return 1;
 }
-
+/*else if (_vel.x == 0 && !_crouch)
+			_animRect = &_texture_stand[0];
+     else if  (_vel.x == 0 &&  _crouch)
+        
+            _animRect = &_texture_crouch[0;
+           
+    */
+   
 bool Scrooge::hit(Object* what, Direction fromDir)
 {
     return false;
 }
 
-
+void Scrooge::crouch(bool on)
+{ 
+	if (!_jumping && !_scripted) 
+		_crouch = on; 
+        std::cout<<"c";
+}
 void Scrooge::die()
 {
     if (_dying)

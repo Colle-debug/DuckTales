@@ -35,6 +35,7 @@ protected:
     bool _scripted;
     bool _jumping;
     bool _gliding;
+    bool _crouch;
 
     bool _recentlyHit;
     int _hp;
@@ -66,6 +67,7 @@ public:
     //virtual void pogo();
     virtual void jump(bool on = true) override;
     virtual void die();
+    virtual void crouch(bool on = true);
 };
 
 #endif // SCROOGE_H

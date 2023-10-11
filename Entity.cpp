@@ -24,13 +24,13 @@ Entity::Entity(QPointF pos, double width, double height) :
 
 void Entity::defaultPhysics()
 {
-    _y_gravity = 0.1;
-    _y_acc_up = 3;
+    _y_gravity = 0.9;
+    _y_acc_up = 4;
 
-    _y_vel_max = 3;
+    _y_vel_max = 2;
     _y_vel_min = 0.01;
 
-    _x_vel_max = 1;
+    _x_vel_max = 1.6;
     _x_vel_min = 0.01;
 
     // no accelerations / decelerations along x
@@ -87,8 +87,9 @@ void Entity::move(Direction dir)
 
 void Entity::jump(bool on)
 {
-    if(!midair())
+    if(on && !midair())
         velAdd(Vec2Df(0, -_y_acc_up));
+       
 }
 
 bool Entity::grounded() const
@@ -111,9 +112,10 @@ void Entity::advance()
     // velocity backup (useful to determine object state)
     _prev_vel = _vel;
 
-    // apply gravity acceleration
+    //apply gravity acceleration
     velAdd(Vec2Df(0, _y_gravity));
-
+    
+ 
     // apply horizontal accelerations and decelerations
     if (_x_dir == Direction::RIGHT && _vel.x >= 0)
         velAdd(Vec2Df(_x_acc, 0));
