@@ -103,13 +103,16 @@ void Game::nextFrame()
 			_player->move(Direction::LEFT);
 		else if (_right_pressed)
 			_player->move(Direction::RIGHT);
-		else
-			_player->move(Direction::NONE);
-
-        if (_crouch_pressed && !(_left_pressed || _right_pressed))
-			_player->crouch(true);
 		
-        else
+		else
+            _player->move(Direction::NONE);
+  
+        if (_crouch_pressed)
+        {
+			_player->crouch(true);
+            _player->move(Direction::NONE);
+        }
+        else 
 			_player->crouch(false);
             
 
@@ -198,7 +201,7 @@ void Game::keyPressEvent(QKeyEvent* e)
         else if (e->key() == Qt::Key_Down)
 			
             _crouch_pressed = true;
-
+            
         else if (e->key() == Qt::Key_Space)
         {
             _jump_pressed = true;
