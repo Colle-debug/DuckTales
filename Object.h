@@ -23,6 +23,9 @@ protected:
     bool _colliderVisible;		// for debugging
     bool _collidable;
     bool _compenetrable;
+    bool _bumper = 0;
+    bool _rope = 0;
+    bool _scr00ge = 0;
 
     QPixmap* _sprite;
     QRect* _animRect;
@@ -30,9 +33,10 @@ protected:
     std::map<std::string, Scheduler> _schedulers;
 
 public:
-
+    bool isBumper(){return _bumper;}
+    bool isRope(){return _rope;}
+    bool isScrooge(){return _scr00ge;}
     Object(QPointF pos, double width, double height);
-
     // getters
     int id() const { return _id; }
     QRectF boundingRect() const override { return _boundingRect; }
@@ -61,7 +65,7 @@ public:
            // action scheduling
     virtual void schedule(const std::string& id, int delay, std::function<void()> action, bool overwrite=true);
     virtual void updateSchedulers();
-
+    virtual void moveBy(Vec2Df amount) { setPos(pos() + QPointF(amount.x, amount.y)); }
            // name for debug purposes
     virtual std::string name() = 0;
 

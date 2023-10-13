@@ -27,9 +27,10 @@ private:
     bool _left_pressed;
     bool _right_pressed;
     bool _jump_pressed;
-    bool _fire_pressed;
+    bool _grab_pressed;
     bool _crouch_pressed;
     bool _jump_released;
+
     int startingX = 0;
     int startingY = 64;
 
@@ -38,6 +39,7 @@ private:
     Game(QGraphicsView *parent=0);
 public:
     static Game* instance();
+    bool grabStatus(){return _grab_pressed;}
     QGraphicsScene* world(){return _world;}
     Scrooge* player(){return _player;}
     double aspectRatio() { return 16 * 1.14 / 15; }
@@ -55,5 +57,4 @@ public slots:
     void gameEnd();
 };
 #endif
-
 

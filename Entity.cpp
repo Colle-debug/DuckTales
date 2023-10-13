@@ -89,7 +89,7 @@ void Entity::jump(bool on)
 {
     if(on && !midair())
         velAdd(Vec2Df(0, -_y_acc_up));
-       
+
 }
 
 bool Entity::grounded() const
@@ -114,8 +114,8 @@ void Entity::advance()
 
     //apply gravity acceleration
     velAdd(Vec2Df(0, _y_gravity));
-    
- 
+
+
     // apply horizontal accelerations and decelerations
     if (_x_dir == Direction::RIGHT && _vel.x >= 0)
         velAdd(Vec2Df(_x_acc, 0));
@@ -136,7 +136,7 @@ void Entity::advance()
 
 bool Entity::collidableWith(Object* obj)
 {
-    if (obj->to<StaticObject*>() || obj->to<Entity*>())
+    if (obj->to<StaticObject*>() || obj->to<Entity*>()) // Cast dinamico al tipo definito < >? Serve a verificare se può collidere con l'oggetto che gli viene passato
         return true;
     else
         return false;
@@ -177,7 +177,7 @@ void Entity::resolveCollisions()
     for (auto obj : sortedByContactTime)
         if (DynamicRectVsRect(sceneCollider(), vel(), obj.first->sceneCollider(), cp, cn, ct))
         {
-            if (!obj.first->compenetrable())
+            if (!obj.first->compenetrable() || (obj.first->isBumper() && !this->isScrooge()))
                 velAdd(cn * Vec2Df(std::abs(_vel.x), std::abs(_vel.y)) * (1 - ct));
 
             obj.first->hit(this, normal2dir(cn));
@@ -187,13 +187,14 @@ void Entity::resolveCollisions()
 
 void Entity::paint(QPainter* painter)
 {
-	// x-mirroring
-	if (_mirror_x_dir != Direction::NONE && 
-		(_x_dir == _mirror_x_dir || (_x_dir == Direction::NONE && _prev_x_dir == _mirror_x_dir)))
-	{
-		painter->translate(_boundingRect.width(), 0);	// move x origin to right side
-		painter->scale(-1, 1);							// mirror x-axis
-	}
+    // x-mirroring
+    if (_mirror_x_dir != Direction::NONE &&
+        (_x_dir == _mirror_x_dir || (_x_dir == Direction::NONE && _prev_x_dir == _mirror_x_dir)))
+    {
+        painter->translate(_boundingRect.width(), 0);	// move x origin to right side
+        painter->scale(-1, 1);							// mirror x-axis
+    }
 
-	Object::paint(painter);
+    Object::paint(painter);
 }
+

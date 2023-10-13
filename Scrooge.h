@@ -14,7 +14,6 @@ protected:
     bool _swinging;
     bool _dying;
     bool _pogoing;
-    bool _climbing;
     bool _invincible;
     bool _dead;
     QPixmap _scrooge;
@@ -29,13 +28,15 @@ protected:
     QRect _texture_puttsuccess[2];
     QRect _texture_puttfail[2];
     QRect _texture_bounce[2];
-    
+
 
 
     bool _scripted;
     bool _jumping;
     bool _gliding;
     bool _crouch;
+    bool _grab;
+    bool _climbing;
 
     bool _recentlyHit;
     int _hp;
@@ -49,8 +50,11 @@ public:
     bool dead(){ return _dead; }
     bool pogoing(){ return _pogoing; }
     bool climbing(){ return _climbing; }
+    void setClimbing(bool on){_climbing = on;}
     bool invincibile(){ return _invincible; }
+
     void recentlyHit(bool on);
+    void climbingPhysics();
 
     virtual void lifeDown();
     //virtual void lifeUp();
@@ -65,6 +69,7 @@ public:
 
     // player actions
     //virtual void pogo();
+    virtual void grab(bool on = true);
     virtual void jump(bool on = true) override;
     virtual void die();
     virtual void crouch(bool on = true);

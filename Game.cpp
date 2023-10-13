@@ -1,6 +1,8 @@
 #include "Game.h"
 #include "GameConfig.h"
 #include "Loader.h"
+#include "Scheduler.h"
+#include "Object.h"
 #include "Scrooge.h"
 #include <QKeyEvent>
 #include <QOpenGLWidget>
@@ -39,7 +41,7 @@ Game::Game(QGraphicsView *parent) : QGraphicsView(parent)
 
     /*
     QOpenGLWidget* gl = new QOpenGLWidget();
-	setViewport(gl);
+    setViewport(gl);
     */
 
     reset();
@@ -58,24 +60,22 @@ void Game::reset()
 
     _jump_pressed = false;
 
-    _fire_pressed = false;
     _crouch_pressed = false;
-
+    _grab_pressed = false;
     //restoreDefaultView();
-	_state = GameState::READY;
-	_engine.stop();
-	_world->clear();
+    _state = GameState::READY;
+    _engine.stop();
+    _world->clear();
     //_world->setBackgroundBrush(QBrush(Qt::black));
-	_player = 0;
-	_left_pressed = false;
-	_right_pressed = false;
-	_jump_pressed = false;
-	_fire_pressed = false;
+    _player = 0;
+    _left_pressed = false;
+    _right_pressed = false;
+    _jump_pressed = false;
     _jump_released = false;
 
     //setSceneRect(QRectF());
 
-	QTimer::singleShot(0, this, &Game::start);
+    QTimer::singleShot(0, this, &Game::start);
 }
 
 void Game::start()
@@ -89,60 +89,64 @@ void Game::start()
 
 void Game::nextFrame()
 {
-	if (_state != GameState::RUNNING && _state != GameState::TITLE_SCREEN)
-		return;
+    if (_state != GameState::RUNNING && _state != GameState::TITLE_SCREEN)
+        return;
 
     FRAME_COUNT++;
 
     // process inputs	 (PLAYER CONTROLS)
-	if (_state == GameState::RUNNING && !_player->dying())
-	{
-		if (_left_pressed && _right_pressed)
-			_player->move(Direction::NONE);
-		else if (_left_pressed)
-			_player->move(Direction::LEFT);
-		else if (_right_pressed)
-			_player->move(Direction::RIGHT);
-		
-		else
+    if (_state == GameState::RUNNING && !_player->dying())
+    {
+        if (_left_pressed && _right_pressed)
             _player->move(Direction::NONE);
-  
-        if (_crouch_pressed)
-        {
-			_player->crouch(true);
+        else if (_left_pressed)
+            _player->move(Direction::LEFT);
+        else if (_right_pressed)
+            _player->move(Direction::RIGHT);
+        else
             _player->move(Direction::NONE);
-        }
-        else 
-			_player->crouch(false);
-            
 
-		if (_jump_pressed)
-		{
-			_player->jump(true);
-			_jump_pressed = false;
+        if (_crouch_pressed && !(_left_pressed || _right_pressed))
+            _player->crouch(true);
+
+        else
+            _player->crouch(false);
+
+
+        if (_jump_pressed)
+        {
+            _player->jump(true);
+            _jump_pressed = false;
         }
         else if (_jump_released)
-		{
-			_player->jump(false);
-			_jump_released = false;
-		}
-	}
+        {
+            _player->jump(false);
+            _jump_released = false;
+        }
 
-	// advance game
-	for (auto item : _world->items())
-	{
-		Object* obj = dynamic_cast<Object*>(item);
+        if(_grab_pressed){
+            _player->grab(true);
+            _grab_pressed = false;
+        }
 
-		if (obj && obj->isVisible())
-		{
-			obj->advance();			 // physics, collision detection and resolution, game logic
+
+    }
+
+    // advance game
+    for (auto item : _world->items())
+    {
+        Object* obj = dynamic_cast<Object*>(item);
+
+        if (obj && obj->isVisible())
+        {
+            obj->advance();			 // physics, collision detection and resolution, game logic
             obj->animate();			 // animation
-			obj->updateSchedulers(); // game logic
-			//obj->paint();			 // graphics, automatically called by Qt
-		}
-	}
+            obj->updateSchedulers(); // game logic
+            //obj->paint();			 // graphics, automatically called by Qt
+        }
+    }
 
-	// @TODO update game state (game over, level cleared, etc.)
+    // @TODO update game state (game over, level cleared, etc.)
     centerOn(QPointF(_player->x(), _player->y()));
     update();
 
@@ -199,9 +203,9 @@ void Game::keyPressEvent(QKeyEvent* e)
             _right_pressed = true;
         }
         else if (e->key() == Qt::Key_Down)
-			
+
             _crouch_pressed = true;
-            
+
         else if (e->key() == Qt::Key_Space)
         {
             _jump_pressed = true;
@@ -209,7 +213,7 @@ void Game::keyPressEvent(QKeyEvent* e)
         }
         else if (e->key() == Qt::Key_F)
         {
-            _fire_pressed = true;
+            _grab_pressed = true;
         }
 
         // Cheats
@@ -245,41 +249,38 @@ void Game::keyPressEvent(QKeyEvent* e)
 
 void Game::keyReleaseEvent(QKeyEvent* e)
 {
-	if (e->isAutoRepeat())
-		return;
+    if (e->isAutoRepeat())
+        return;
 
-	// player controls
-	if (_state == GameState::RUNNING && _player)
-	{
-		if (e->key() == Qt::Key_Left)
-			_left_pressed = false;
-		else if (e->key() == Qt::Key_Right)
-			_right_pressed = false;
-		else if (e->key() == Qt::Key_Space)
+    // player controls
+    if (_state == GameState::RUNNING && _player)
+    {
+        if (e->key() == Qt::Key_Left)
+            _left_pressed = false;
+        else if (e->key() == Qt::Key_Right)
+            _right_pressed = false;
+        else if (e->key() == Qt::Key_Space)
         {
-			_jump_pressed = false;
+            _jump_pressed = false;
             _jump_released=true;
         }
         else if (e->key() == Qt::Key_Down)
-			_crouch_pressed = false;    
-		else if (e->key() == Qt::Key_F)
-			_fire_pressed = false;
-            
-	}
+            _crouch_pressed = false;
+    }
 }
 
 
 void Game::wheelEvent(QWheelEvent* e)
 {
-	if (e->angleDelta().y() > 0)
-		scale(1.1, 1.1);
-	else
-		scale(1 / 1.1, 1 / 1.1);
+    if (e->angleDelta().y() > 0)
+        scale(1.1, 1.1);
+    else
+        scale(1 / 1.1, 1 / 1.1);
 }
 
 void Game::resizeEvent(QResizeEvent* evt)
 {
-	fitInView(0, 0, TILE * 16-4, TILE * 15-4);
+    fitInView(0, 0, TILE * 16-4, TILE * 15-4);
 }
 
 void Game::gameEnd()

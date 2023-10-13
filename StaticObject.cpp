@@ -1,4 +1,3 @@
-
 #include "StaticObject.h"
 #include "Game.h"
 #include "Scrooge.h"
@@ -7,9 +6,19 @@
 #include <QPen>
 
 using namespace DT;
-StaticObject::StaticObject(QPointF pos, double width, double height) : Object(pos, width, height){
+StaticObject::StaticObject(QPointF pos, double width, double height, StaticObject::Type type) : Object(pos, width, height){
+    _type = type;
     _collider_color = Qt::yellow;
     _hit = false;
+    if(_type == Type::ROPE){
+        _compenetrable = true;
+        _rope = 1;
+    }
+    else if(_type == Type::BUMPER){
+        _compenetrable = true;
+        _bumper = 1;
+    }
+
 
 }
 

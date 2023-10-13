@@ -11,12 +11,15 @@ namespace DT
 
 class DT::StaticObject : public Object
 {
+    public:
+    enum class Type{TERRAIN, ROPE, SPIKE, BUMPER};
     protected:
         bool _hit;
     public:
 
-        StaticObject(QPointF pos, double width, double height);
+        StaticObject(QPointF pos, double width, double height, StaticObject::Type type = StaticObject::Type::TERRAIN);
         // implemented abstract methods
+        StaticObject::Type _type;
         virtual void advance() override {}
         virtual bool animate() override;
         virtual bool hit(Object* what, Direction fromDir) override;

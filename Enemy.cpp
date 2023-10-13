@@ -22,9 +22,9 @@ bool Enemy::hit(Object* what, Direction fromDir)
         scrooge->lifeDown();
         return true;
     }
-    else if (what->to<StaticObject*>() && fromDir == Direction::DOWN && _dying)
+    else if (what->to<StaticObject*>() &&  _dying) // && fromDir == Direction::DOWN
     {
-        setVisible(false);
+        //setVisible(false);
         // spawn item
         return true;
     }

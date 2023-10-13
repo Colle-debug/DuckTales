@@ -6,6 +6,7 @@
 #include "StaticObject.h"
 #include "PinkAlien.h"
 #include "Octopus.h"
+#include "Rope.h"
 
 using namespace DT;
 
@@ -55,8 +56,8 @@ Scrooge* Loader::load(std::string levelName)
         new StaticObject(QPointF(108*TILE,69*TILE),11*TILE,2.5*TILE);
         new StaticObject(QPointF(119*TILE,64*TILE),2*TILE,TILE*6);
         new StaticObject(QPointF(0,56.5*TILE),16*TILE,3.5*TILE);
-        new StaticObject(QPointF(54*TILE,49*TILE),4*TILE,TILE);//FINE LIANA
-        new StaticObject(QPointF(22*TILE,47*TILE),4*TILE,TILE);//FINE LIANA
+        new StaticObject(QPointF(54*TILE,49*TILE),4*TILE,TILE, StaticObject::Type::ROPE);//FINE LIANA
+        new StaticObject(QPointF(22*TILE,47*TILE),4*TILE,TILE, StaticObject::Type::ROPE);//FINE LIANA
 
         //blocchi finali primo livello a destra
         new StaticObject(QPointF(123*TILE,68*TILE),TILE,8*TILE);
@@ -96,44 +97,44 @@ Scrooge* Loader::load(std::string levelName)
 
 
         //oggetti livello 1, spine
-        new StaticObject(QPointF(12*TILE,48*TILE),TILE,2*TILE);
-        new StaticObject(QPointF(13*TILE,48*TILE),TILE,2*TILE);
-        new StaticObject(QPointF(14*TILE,48*TILE),TILE,2*TILE);
-        new StaticObject(QPointF(15*TILE,48*TILE),TILE,2*TILE);
-        new StaticObject(QPointF(16*TILE,48*TILE),TILE,2*TILE);
-        new StaticObject(QPointF(17*TILE,48*TILE),TILE,2*TILE);
-        new StaticObject(QPointF(18*TILE,50*TILE),TILE,2*TILE);
-        new StaticObject(QPointF(19*TILE,50*TILE),TILE,2*TILE);
-        new StaticObject(QPointF(20*TILE,50*TILE),TILE,2*TILE);
-        new StaticObject(QPointF(21*TILE,50*TILE),TILE,2*TILE);
-        new StaticObject(QPointF(90*TILE,50*TILE),TILE,2*TILE);
-        new StaticObject(QPointF(91*TILE,50*TILE),TILE,2*TILE);
-        new StaticObject(QPointF(92*TILE,50*TILE),TILE,2*TILE);
-        new StaticObject(QPointF(93*TILE,50*TILE),TILE,2*TILE);
-        new StaticObject(QPointF(94*TILE,48*TILE),TILE,2*TILE);
-        new StaticObject(QPointF(95*TILE,48*TILE),TILE,2*TILE);
-        new StaticObject(QPointF(96*TILE,48*TILE),TILE,2*TILE);
-        new StaticObject(QPointF(97*TILE,48*TILE),TILE,2*TILE);
-        new StaticObject(QPointF(98*TILE,48*TILE),TILE,2*TILE);
-        new StaticObject(QPointF(99*TILE,48*TILE),TILE,2*TILE);
-        new StaticObject(QPointF(32*TILE,45*TILE),TILE,TILE);
-        new StaticObject(QPointF(33*TILE,45*TILE),TILE,TILE);
-        new StaticObject(QPointF(34*TILE,45*TILE),TILE,TILE);
-        new StaticObject(QPointF(35*TILE,45*TILE),TILE,TILE);
-        new StaticObject(QPointF(36*TILE,45*TILE),TILE,TILE);
-        new StaticObject(QPointF(37*TILE,45*TILE),TILE,TILE);
-        new StaticObject(QPointF(38*TILE,45*TILE),TILE,TILE);
-        new StaticObject(QPointF(39*TILE,45*TILE),TILE,TILE);
-        new StaticObject(QPointF(60*TILE,44*TILE),TILE,2*TILE);
-        new StaticObject(QPointF(61*TILE,44*TILE),TILE,2*TILE);
-        new StaticObject(QPointF(64*TILE,45*TILE),TILE,TILE);
-        new StaticObject(QPointF(65*TILE,45*TILE),TILE,TILE);
-        new StaticObject(QPointF(68*TILE,45*TILE),TILE,TILE);
-        new StaticObject(QPointF(69*TILE,45*TILE),TILE,TILE);
-        new StaticObject(QPointF(76*TILE,45*TILE),TILE,TILE);
-        new StaticObject(QPointF(77*TILE,45*TILE),TILE,TILE);
-        new StaticObject(QPointF(84*TILE,44*TILE),TILE,2*TILE);
-        new StaticObject(QPointF(85*TILE,44*TILE),TILE,2*TILE);
+        new StaticObject(QPointF(12*TILE,48*TILE),TILE,2*TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(13*TILE,48*TILE),TILE,2*TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(14*TILE,48*TILE),TILE,2*TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(15*TILE,48*TILE),TILE,2*TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(16*TILE,48*TILE),TILE,2*TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(17*TILE,48*TILE),TILE,2*TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(18*TILE,50*TILE),TILE,2*TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(19*TILE,50*TILE),TILE,2*TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(20*TILE,50*TILE),TILE,2*TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(21*TILE,50*TILE),TILE,2*TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(90*TILE,50*TILE),TILE,2*TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(91*TILE,50*TILE),TILE,2*TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(92*TILE,50*TILE),TILE,2*TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(93*TILE,50*TILE),TILE,2*TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(94*TILE,48*TILE),TILE,2*TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(95*TILE,48*TILE),TILE,2*TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(96*TILE,48*TILE),TILE,2*TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(97*TILE,48*TILE),TILE,2*TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(98*TILE,48*TILE),TILE,2*TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(99*TILE,48*TILE),TILE,2*TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(32*TILE,45*TILE),TILE,TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(33*TILE,45*TILE),TILE,TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(34*TILE,45*TILE),TILE,TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(35*TILE,45*TILE),TILE,TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(36*TILE,45*TILE),TILE,TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(37*TILE,45*TILE),TILE,TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(38*TILE,45*TILE),TILE,TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(39*TILE,45*TILE),TILE,TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(60*TILE,44*TILE),TILE,2*TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(61*TILE,44*TILE),TILE,2*TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(64*TILE,45*TILE),TILE,TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(65*TILE,45*TILE),TILE,TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(68*TILE,45*TILE),TILE,TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(69*TILE,45*TILE),TILE,TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(76*TILE,45*TILE),TILE,TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(77*TILE,45*TILE),TILE,TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(84*TILE,44*TILE),TILE,2*TILE, StaticObject::Type::SPIKE);
+        new StaticObject(QPointF(85*TILE,44*TILE),TILE,2*TILE, StaticObject::Type::SPIKE);
 
         //rocce primo livello
         new StaticObject(QPointF(60*TILE,52*TILE),TILE,TILE);
@@ -384,21 +385,21 @@ Scrooge* Loader::load(std::string levelName)
 
 
         //LIANE
-        new StaticObject(QPointF(24*TILE, 48*TILE), 0, 9*TILE);
-        new StaticObject(QPointF(56*TILE, 31*TILE), 0,15*TILE);
-        new StaticObject(QPointF(56*TILE, 50*TILE), 0, 15*TILE);
-        new StaticObject(QPointF(24*TILE, 16*TILE), 0, 18*TILE);
-        new StaticObject(QPointF(24*TILE, 49*TILE), 0, 8*TILE);
-        new StaticObject(QPointF(88*TILE, 35*TILE), 0, 13*TILE);
-        new StaticObject(QPointF(88*TILE, 4*TILE), 0, 28*TILE);
+        new StaticObject(QPointF(24*TILE, 48*TILE), 0, 9*TILE, StaticObject::Type::ROPE);
+        new StaticObject(QPointF(56*TILE, 31*TILE), 0,15*TILE, StaticObject::Type::ROPE);
+        new StaticObject(QPointF(56*TILE, 50*TILE), 0, 15*TILE, StaticObject::Type::ROPE);
+        new StaticObject(QPointF(24*TILE, 16*TILE), 0, 18*TILE, StaticObject::Type::ROPE);
+        new StaticObject(QPointF(24*TILE, 49*TILE), 0, 8*TILE, StaticObject::Type::ROPE);
+        new StaticObject(QPointF(88*TILE, 35*TILE), 0, 13*TILE, StaticObject::Type::ROPE);
+        new StaticObject(QPointF(88*TILE, 4*TILE), 0, 28*TILE, StaticObject::Type::ROPE);
 
         //TEMPORARY StaticObjectS-->SENZA QUESTI GLI ALIENI NON HANNO IL RIFERIMENTO SU COSA SBATTERE PER CAMBIARE DIREZIONE
-        new StaticObject(QPointF(55*TILE, 53*TILE), 0*TILE, 0.5*TILE);
-        new StaticObject(QPointF(25.0 *TILE, 51*TILE), 0*TILE, 0.5*TILE);
-        new StaticObject(QPointF(30.0 *TILE, 51*TILE), 0*TILE, 0.5*TILE);
-        new StaticObject(QPointF(30.0 *TILE, 51*TILE), 0*TILE, 0.5*TILE);
-        new StaticObject(QPointF(92.0 *TILE, 6*TILE), 0*TILE, 0.5*TILE);
-        new StaticObject(QPointF(98.0 *TILE, 6*TILE), 0*TILE, 0.5*TILE);
+        new StaticObject(QPointF(55*TILE, 53*TILE), 0*TILE, 0.5*TILE, StaticObject::Type::BUMPER);
+        new StaticObject(QPointF(25.0 *TILE, 51*TILE), 0*TILE, 0.5*TILE, StaticObject::Type::BUMPER);
+        new StaticObject(QPointF(30.0 *TILE, 51*TILE), 0*TILE, 0.5*TILE, StaticObject::Type::BUMPER);
+        new StaticObject(QPointF(30.0 *TILE, 51*TILE), 0*TILE, 0.5*TILE, StaticObject::Type::BUMPER);
+        new StaticObject(QPointF(92.0 *TILE, 6*TILE), 0*TILE, 0.5*TILE, StaticObject::Type::BUMPER);
+        new StaticObject(QPointF(98.0 *TILE, 6*TILE), 0*TILE, 0.5*TILE, StaticObject::Type::BUMPER);
 
         new PinkAlien(QPointF(50.0 * TILE, 51.8*TILE));
         new PinkAlien(QPointF(34.0 * TILE, 51.8*TILE));
@@ -408,22 +409,23 @@ Scrooge* Loader::load(std::string levelName)
         new PinkAlien(QPointF(92.0 * TILE, 4.8*TILE));
 
 
-        new StaticObject(QPointF(10 *TILE, 65*TILE), 0.5*TILE, 0*TILE);
-        new StaticObject(QPointF(73 *TILE, 46.2*TILE), 0.5*TILE, 0*TILE);
-        new StaticObject(QPointF(73 *TILE, 50.2*TILE), 0.5*TILE, 0*TILE);
-        new StaticObject(QPointF(87 *TILE, 48.5*TILE), 0*TILE, 0.5*TILE);
-        new StaticObject(QPointF(89.5 *TILE, 48.5*TILE), 0*TILE, 0.5*TILE);
-        new StaticObject(QPointF(83 *TILE, 34*TILE), 0*TILE, 0.5*TILE);
-        new StaticObject(QPointF(77.5 *TILE, 35.5*TILE), 0.5*TILE, 0*TILE);
-        new StaticObject(QPointF(25.5 *TILE, 35.5*TILE), 0.5*TILE, 0*TILE);
-        new StaticObject(QPointF(19.5 *TILE, 18.5*TILE), 0*TILE, 0.5*TILE);
-        new StaticObject(QPointF(17 *TILE, 18.5*TILE), 0*TILE, 0.5*TILE);
-        new StaticObject(QPointF(31.5 *TILE, 18.5*TILE), 0.5*TILE, 0*TILE);
-        new StaticObject(QPointF(39.5 *TILE, 18.5*TILE), 0.5*TILE, 0*TILE);
-        new StaticObject(QPointF(101.5 *TILE, 5.5*TILE), 0.5*TILE, 0*TILE);
-        new StaticObject(QPointF(101.5 *TILE, 9*TILE), 0.5*TILE, 0*TILE);
-        new StaticObject(QPointF(105.5 *TILE, 5.5*TILE), 0.5*TILE, 0*TILE);
-        new StaticObject(QPointF(105.5 *TILE, 9*TILE), 0.5*TILE, 0*TILE);
+        new StaticObject(QPointF(10 *TILE, 65*TILE), 0.5*TILE, 0*TILE, StaticObject::Type::BUMPER);
+        new StaticObject(QPointF(73 *TILE, 46.2*TILE), 0.5*TILE, 0*TILE, StaticObject::Type::BUMPER);
+        new StaticObject(QPointF(73 *TILE, 50.2*TILE), 0.5*TILE, 0*TILE, StaticObject::Type::BUMPER);
+        new StaticObject(QPointF(87 *TILE, 48.5*TILE), 0*TILE, 0.5*TILE, StaticObject::Type::BUMPER);
+        new StaticObject(QPointF(89.5 *TILE, 48.5*TILE), 0*TILE, 0.5*TILE, StaticObject::Type::BUMPER);
+        new StaticObject(QPointF(83 *TILE, 34*TILE), 0*TILE, 0.5*TILE, StaticObject::Type::BUMPER);
+        new StaticObject(QPointF(77.5 *TILE, 35.5*TILE), 0.5*TILE, 0*TILE, StaticObject::Type::BUMPER);
+        new StaticObject(QPointF(25.5 *TILE, 35.5*TILE), 0.5*TILE, 0*TILE, StaticObject::Type::BUMPER);
+        new StaticObject(QPointF(19.5 *TILE, 18.5*TILE), 0*TILE, 0.5*TILE, StaticObject::Type::BUMPER);
+        new StaticObject(QPointF(17 *TILE, 18.5*TILE), 0*TILE, 0.5*TILE, StaticObject::Type::BUMPER);
+        new StaticObject(QPointF(31.5 *TILE, 18.5*TILE), 0.5*TILE, 0*TILE, StaticObject::Type::BUMPER);
+        new StaticObject(QPointF(39.5 *TILE, 18.5*TILE), 0.5*TILE, 0*TILE, StaticObject::Type::BUMPER);
+        new StaticObject(QPointF(101.5 *TILE, 5.5*TILE), 0.5*TILE, 0*TILE, StaticObject::Type::BUMPER);
+        new StaticObject(QPointF(101.5 *TILE, 9*TILE), 0.5*TILE, 0*TILE, StaticObject::Type::BUMPER);
+        new StaticObject(QPointF(105.5 *TILE, 5.5*TILE), 0.5*TILE, 0*TILE, StaticObject::Type::BUMPER);
+        new StaticObject(QPointF(105.5 *TILE, 9*TILE), 0.5*TILE, 0*TILE, StaticObject::Type::BUMPER);
+
 
         new Octopus(QPointF(10.0 * TILE, 65*TILE), Direction::UP);
         new Octopus(QPointF(72.5 * TILE, 48.5*TILE), Direction::UP);
@@ -438,8 +440,8 @@ Scrooge* Loader::load(std::string levelName)
         new Octopus(QPointF(101.5 * TILE, 6*TILE), Direction::UP);
         new Octopus(QPointF(105.5 * TILE, 6*TILE), Direction::UP);
 
-
-        return new Scrooge(QPointF(5* TILE, 67*TILE));
+        new StaticObject(QPointF(3* TILE, 65*TILE), TILE, TILE, StaticObject::Type::ROPE);
+        return new Scrooge(QPointF(3* TILE, 67*TILE));
     }
     else{
         return nullptr;
