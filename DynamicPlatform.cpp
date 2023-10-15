@@ -1,18 +1,32 @@
 #include "DynamicPlatform.h"
 #include "Sprites.h"
 #include "Game.h"
-#include <QPainter>
+//#include <QPainter>
+#include <QPixmap>
+#include "StaticObject.h"
+
+
 
 using namespace DT;
 
-DynamicPlatform::DynamicPlatform(QPointF pos, double width, double height) : Entity(pos, width, height)
+DynamicPlatform::DynamicPlatform(QPointF pos) : Entity(pos, 34, 17)
 {
     _compenetrable = false;
-}
+    _sprite = Sprites::instance()->getSprite("platform");
+     Sprites::instance()->get("platform", &_texture_platform[0]);
+  
+    
+    _y_vel_max=0;
+    _x_vel_max=1.7;
+    move(Direction::LEFT);;
+    
+    }
+
 
 void DynamicPlatform::advance()
 {
-    Entity::advance();
+   Entity::advance();
+
 
     for (auto obj : _attached)
     {
@@ -29,13 +43,30 @@ void DynamicPlatform::advance()
             obj.first->moveBy(Vec2Df(_vel.x, 0));
     }
     _attached.clear();
+    
 }
 
 bool DynamicPlatform::hit(Object* what, Direction fromDir)
 {
-    Entity* dyn = what->to<Entity*>();
-    if (!_compenetrable && dyn && dyn->compenetrable())
-        _attached[dyn] = fromDir;
+    Scrooge* ent = what->to<Scrooge*>();
+  
 
-    return false;
+    if (!_compenetrable && ent && ent->compenetrable())
+    {
+        _compenetrable=false;
+        _attached[ent] = fromDir;
+
+    }
+
+
+  
+        if(what->to<StaticObject*>() && (fromDir == Direction::RIGHT || fromDir == Direction::LEFT)){
+        move(inverse(_x_dir));
+        return true;
+       
+    }
+
+return false;
+   
+    
 }

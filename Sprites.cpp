@@ -39,6 +39,7 @@ static QPixmap loadTexture(const std::string file, QColor mask_color = Qt::white
 static QRect scrooge_stand(1, 1, 24, 30);
 static QRect _pinkAlien(42,5,32,35);
 static QRect _octopus(6,7,16,24);
+static QRect _platform(79,31,17,17);
 
 Sprites* Sprites::instance()
 {
@@ -51,6 +52,7 @@ Sprites::Sprites()
     scrooge = loadTexture(":/sprites/scroogeNew.png", QColor(0, 89, 255, 255));
     pinkAlien = loadTexture(":/sprites/enemies.png", QColor(255,0,255));
     octopus = loadTexture(":/sprites/enemies.png", QColor(255,0,255));
+    platform = loadTexture(":/sprites/itemsnew.png", QColor(255,0,255));
 }
 
 QPixmap* Sprites::getSprite(const std::string& id)
@@ -61,6 +63,8 @@ QPixmap* Sprites::getSprite(const std::string& id)
         return &pinkAlien;
     else if(id=="octopus")
         return &octopus;
+    else if(id=="platform")
+        return &platform;       
     else
         return 0;
 }
@@ -138,6 +142,10 @@ void Sprites::get(const std::string & id, QRect animOutput[])
     else if(id == "octopus-1"){
         animOutput[0] = moveBy(_octopus,1,0,19);
     }
+    else if(id == "platform")
+    {
+        animOutput[0] = moveBy(_platform,0,0);
+    }   
 
 
 
@@ -148,3 +156,4 @@ void Sprites::get(const std::string & id, QRect animOutput[])
         //return QPixmap();
     }
 }
+

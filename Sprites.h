@@ -14,6 +14,7 @@ private:
     QPixmap octopus;
     QPixmap scrooge;
     QPixmap title_screen;
+    QPixmap platform;
 
     Sprites();
 
