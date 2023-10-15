@@ -6,7 +6,8 @@
 #include "StaticObject.h"
 #include "PinkAlien.h"
 #include "Octopus.h"
-#include "Rope.h"
+#include "DynamicPlatform.h"
+
 
 using namespace DT;
 
@@ -439,9 +440,14 @@ Scrooge* Loader::load(std::string levelName)
         new Octopus(QPointF(39.5 * TILE, 21.5*TILE), Direction::UP);
         new Octopus(QPointF(101.5 * TILE, 6*TILE), Direction::UP);
         new Octopus(QPointF(105.5 * TILE, 6*TILE), Direction::UP);
+        new DynamicPlatform(QPointF(91*TILE,66*TILE));
+        new StaticObject(QPointF(105.5 *TILE, 9*TILE), 0.5*TILE, 0*TILE, StaticObject::Type::BUMPER);
+        new StaticObject(QPointF(105.5 *TILE, 9*TILE), 0.5*TILE, 0*TILE, StaticObject::Type::BUMPER);
+        
 
-        new StaticObject(QPointF(3* TILE, 65*TILE), TILE, TILE, StaticObject::Type::ROPE);
-        return new Scrooge(QPointF(3* TILE, 67*TILE));
+        new StaticObject(QPointF(92* TILE, 66*TILE), 0*TILE, 0.5*TILE, StaticObject::Type::BUMPER);
+        new StaticObject(QPointF(83* TILE, 66*TILE), 0*TILE, 0.5*TILE, StaticObject::Type::BUMPER);
+        return new Scrooge(QPointF(3* TILE, 60*TILE));
     }
     else{
         return nullptr;
