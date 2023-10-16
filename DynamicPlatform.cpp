@@ -14,12 +14,12 @@ DynamicPlatform::DynamicPlatform(QPointF pos) : Entity(pos, 34, 17)
     _compenetrable = false;
     _sprite = Sprites::instance()->getSprite("platform");
      Sprites::instance()->get("platform", &_texture_platform[0]);
-  
-    
+
+
     _y_vel_max=0;
     _x_vel_max=1.7;
     move(Direction::LEFT);;
-    
+
     }
 
 
@@ -43,13 +43,13 @@ void DynamicPlatform::advance()
             obj.first->moveBy(Vec2Df(_vel.x, 0));
     }
     _attached.clear();
-    
+
 }
 
 bool DynamicPlatform::hit(Object* what, Direction fromDir)
 {
     Scrooge* ent = what->to<Scrooge*>();
-  
+
 
     if (!_compenetrable && ent && ent->compenetrable())
     {
@@ -59,14 +59,14 @@ bool DynamicPlatform::hit(Object* what, Direction fromDir)
     }
 
 
-  
+
         if(what->to<StaticObject*>() && (fromDir == Direction::RIGHT || fromDir == Direction::LEFT)){
         move(inverse(_x_dir));
         return true;
-       
+
     }
 
 return false;
-   
-    
+
+
 }

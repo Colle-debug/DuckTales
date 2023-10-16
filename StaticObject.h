@@ -7,12 +7,13 @@
 namespace DT
 {
     class StaticObject;
+
 }
 
 class DT::StaticObject : public Object
 {
     public:
-    enum class Type{TERRAIN, ROPE, SPIKE, BUMPER};
+    enum class Type{TERRAIN, ROPE, SPIKE, BUMPER, DEATHLINE};
     protected:
         bool _hit;
     public:
@@ -25,5 +26,7 @@ class DT::StaticObject : public Object
         virtual bool hit(Object* what, Direction fromDir) override;
         virtual std::string name() override { return "StaticObject"; }
 };
+
+
 
 #endif

@@ -12,6 +12,7 @@ using namespace DT;
 Scrooge::Scrooge(QPointF pos) : Entity(pos, 26, 27)
 {
     //setZValue(1);
+
     //_collider.adjust(3, 3, -3, -1);
     _swinging = false;
     _dying = false;
@@ -22,7 +23,7 @@ Scrooge::Scrooge(QPointF pos) : Entity(pos, 26, 27)
     _invincible = false;
     _prev_x_dir = Direction::RIGHT;
     _mirror_x_dir = Direction::LEFT;
-    _hp = 150;
+    _hp = 1;
     _recentlyHit = 0;
 
     _scripted = false;
@@ -57,14 +58,24 @@ Scrooge::Scrooge(QPointF pos) : Entity(pos, 26, 27)
 
 void Scrooge::advance()
 {
+
+    if (_climbing)
+    {
+        if (_y_dir == Direction::UP && _vel.y >= 0)
+            velAdd(Vec2Df(0, -_y_acc_up));
+        else if (_y_dir == Direction::DOWN && _vel.y <= 0)
+            velAdd(Vec2Df(0, _y_acc_up));
+    }
     if (grounded())
         _y_vel_max = 3;
     if (falling())
     {
        _y_gravity = 0.18;
     }
-   
-    
+    if (!falling())
+    {
+        _jumping= false; //when not falling, jumping is over
+    }
     Entity::advance();
 }
 void Scrooge::jump(bool on)
@@ -98,15 +109,13 @@ void Scrooge::jump(bool on)
 bool Scrooge::animate()
 {
 
-
-
         if (midair() )
             _animRect = &_texture_jump[0];
         if (_pogoing)
        _animRect = &_texture_bounce[0];
         if (!midair() && _pogoing && _vel.y==0)
         _animRect= &_texture_bounce[1];
-       
+
         if (_vel.y == 0 && !_pogoing)
             _animRect = &_texture_stand[0];
          if((_vel.x >0 || _vel.x<0)  && !midair() && !_pogoing)
@@ -115,7 +124,7 @@ bool Scrooge::animate()
             //_animRect = &_texture_crouch[0];
             _animRect = &_texture_crouch[1];
 
-        
+
         return 1;
 }
 /*else if (_vel.x == 0 && !_crouch)
@@ -126,52 +135,64 @@ bool Scrooge::animate()
 
     */
 
+
 bool Scrooge::hit(Object* what, Direction fromDir)
 {
     StaticObject* sobj = what->to<StaticObject*>();
 
-    //Enemy* enm = what->to<Enemy*()>;
-
-    //if (enm && )
-    
-    if(sobj && sobj->_type==StaticObject::Type::ROPE && _grab ){
+    if(_grab){
+        if(sobj && sobj->_type==StaticObject::Type::ROPE){
+        std::cout<<"climbing";
         _climbing = true;
         climbingPhysics();
+        setX(sobj->pos().x() -0.66 * TILE);
+        }
     }
 
-    if(sobj && sobj->_type==StaticObject::Type::SPIKE){
+    if(sobj && sobj->_type==StaticObject::Type::SPIKE){ //check sul gioco se prendi danno anche lateralmente
         lifeDown();
-    
+    }
+
+    if(sobj && sobj->_type==StaticObject::Type::DEATHLINE){
+
+        die();
+    }
     return false;
 }
+
+bool Scrooge::midair() const
+{
+    if(!_climbing){
+        Entity::midair();
+    }
+    else{
+        return false;
+    }
 }
+
 void Scrooge::crouch(bool on)
 {
     if (!_jumping && !_scripted)
         _crouch = on;
-        
-
-        
 }
 
 void Scrooge::grab(bool on)
 {
     //Vedi quale if ci andrebbe
     _grab = on;
-    schedule("grab", 10, [this]() {_grab = false;});
+    schedule("grab", 100, [this]() {_grab = false;});
 }
 
 void Scrooge::die()
 {
     if (_dying)
         return;
-
     _dying = true;
     _collidable = false;
     _vel.x = 0;
     _x_dir = Direction::NONE;
     _vel.y = -3;
-    schedule("die", 100, [this]() {_dying = false; _dead = true; } );
+    schedule("die", 50, [this]() {_dying = false; _dead = true; } );
 }
 
 
@@ -205,14 +226,10 @@ void Scrooge::climbingPhysics(){
 
 }
 
-
 void Scrooge::pogo(bool on)
 {
     _pogoing=on;
         if(on)
-        
+
         jump();
-        
-        
-    
 }

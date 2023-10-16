@@ -25,7 +25,7 @@ Game* Game::instance()
 Game::Game(QGraphicsView *parent) : QGraphicsView(parent)
 {
     _world = new QGraphicsScene();
-    _world->setSceneRect(TILE * 0, TILE * 56.5, TILE * 128, TILE * 15); // Vista di default è 0 56.5
+    //_world->setSceneRect(TILE * 0, TILE * 56.5, TILE * 128, TILE * 15); // Vista di default è 0 56.5
     setScene(_world);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -44,6 +44,7 @@ Game::Game(QGraphicsView *parent) : QGraphicsView(parent)
     setViewport(gl);
     */
 
+    //_hud = new HUD(width(), height(), this);
     reset();
 }
 
@@ -57,9 +58,7 @@ void Game::reset()
 
     _left_pressed = false;
     _right_pressed = false;
-
     _jump_pressed = false;
-
     _crouch_pressed = false;
     _grab_pressed = false;
     //restoreDefaultView();
@@ -84,7 +83,8 @@ void Game::start()
         _state = GameState::RUNNING;
         _world->clear();
         _engine.start();
-        _player = _builder->load("theMoon"); //Momentaneamente commentato finchè Loader non verrà implementata, da qui si piazza Scrooge
+        //_hud->start();
+        _player = _builder->load("theMoon");
 }
 
 void Game::nextFrame()
@@ -95,23 +95,45 @@ void Game::nextFrame()
     FRAME_COUNT++;
 
     // process inputs	 (PLAYER CONTROLS)
-    if (_state == GameState::RUNNING && !_player->dying())
-    {
+
+        if(!_player->climbing()){
         if (_left_pressed && _right_pressed)
             _player->move(Direction::NONE);
         else if (_left_pressed)
             _player->move(Direction::LEFT);
         else if (_right_pressed)
             _player->move(Direction::RIGHT);
+        else if(_grab_pressed){
+            _player->grab(true);
+            _grab_pressed = false;
+            }
         else
             _player->move(Direction::NONE);
-
+        if (_pogo_pressed) // Qui va aggiunta una condizione che non consente di attivare il pogo se si è a terra ma che non impedisca di rimbalzara quando si è in pogoing
+        {
+            _player->pogo(true);
+        }
+        else
+        _player->pogo(false);
         if (_crouch_pressed && !(_left_pressed || _right_pressed))
             _player->crouch(true);
 
         else
             _player->crouch(false);
 
+        }
+        else{
+            if(_down_pressed){
+                _player->move(Direction::DOWN);
+            }
+            else if(_up_pressed){
+                _player->move(Direction::UP);
+            }
+            else if(_jump_pressed){
+                _player->setClimbing(false);
+            }
+
+        }
 
         if (_jump_pressed)
         {
@@ -123,22 +145,6 @@ void Game::nextFrame()
             _player->jump(false);
             _jump_released = false;
         }
-
-        if(_grab_pressed){
-            _player->grab(true);
-            _grab_pressed = false;
-        }
-        if (_pogo_pressed)
-        {
-            _player->pogo(true);     
-        }
-        else 
-        _player->pogo(false);
-        
-
-
-
-    }
 
     // advance game
     for (auto item : _world->items())
@@ -158,15 +164,14 @@ void Game::nextFrame()
     centerOn(QPointF(_player->x(), _player->y()));
     update();
 
+
     if(_player->dead()){
         gameOver();
     }
     if (_state == GameState::GAME_OVER || _state == GameState::GAME_CLEAR){
         gameEnd();
     }
-
 }
-
 void Game::keyPressEvent(QKeyEvent* e)
 {
     if (e->isAutoRepeat())
@@ -210,23 +215,33 @@ void Game::keyPressEvent(QKeyEvent* e)
         {
             _right_pressed = true;
         }
-        else if (e->key() == Qt::Key_Down)
-
-            _crouch_pressed = true;
-
+        else if (e->key() == Qt::Key_Down){
+            if(!_player->climbing()){
+                _crouch_pressed = true;
+            }
+            else{
+                _down_pressed = true;
+            }
+        }
         else if (e->key() == Qt::Key_Space)
         {
             _jump_pressed = true;
             _jump_released = false;
         }
-        else if (e->key() == Qt::Key_F)
+        else if (e->key() == Qt::Key_Up)
         {
-            _grab_pressed = true;
+            if(_player->climbing()){
+                _up_pressed = true;
+            }
+            else{
+                _grab_pressed = true;
+            }
         }
         else if(e->key() == Qt::Key_Z)
         {
             _pogo_pressed=true;
         }
+
 
         // Cheats
         /*
@@ -276,13 +291,21 @@ void Game::keyReleaseEvent(QKeyEvent* e)
             _jump_pressed = false;
             _jump_released=true;
         }
-        else if (e->key() == Qt::Key_Down)
-            _crouch_pressed = false;
-
+        else if (e->key() == Qt::Key_Down){
+            if(!_player->climbing()){
+                _crouch_pressed = false;
+            }
+            else{
+                _down_pressed = false;
+            }
+        }
+        else if (e->key() == Qt::Key_Up){
+            if(_player->climbing()){
+                _up_pressed = false;
+            }
+        }
         else if (e->key() == Qt::Key_Z)
-            _pogo_pressed=false; 
-           
-
+            _pogo_pressed=false;
     }
 }
 
@@ -302,9 +325,8 @@ void Game::resizeEvent(QResizeEvent* evt)
 
 void Game::gameEnd()
 {
-    std::cout<<_player->dead();
+    //std::cout<<_player->dead();
     if (_state == GameState::GAME_OVER){
-        std::cout<<"Lollez";
     }
     if (_state != GameState::GAME_CLEAR && _state != GameState::GAME_OVER)
         return;
@@ -328,6 +350,7 @@ void Game::gameEnd()
     else{
         _world->clear();
     }
+
     // vedi cosa fa in Supermario-2021
     //screen->setY(-TILE * 12.0);
 

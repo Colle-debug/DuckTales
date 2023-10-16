@@ -9,7 +9,7 @@
 
 using namespace DT;
 
-Block::Block(QPointF pos, double width, double height, Block::Type type) : DynamicPlatform(pos, width, height)
+Block::Block(QPointF pos, double width, double height, Block::Type type) : DynamicPlatform(pos)
 {
     _pos = pos;
     _type = type;

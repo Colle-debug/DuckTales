@@ -8,7 +8,6 @@
 using namespace DT;
 StaticObject::StaticObject(QPointF pos, double width, double height, StaticObject::Type type) : Object(pos, width, height){
     _type = type;
-    _collider_color = Qt::yellow;
     _hit = false;
     if(_type == Type::ROPE){
         _compenetrable = true;
@@ -50,6 +49,8 @@ bool StaticObject::animate()
 bool StaticObject::hit(Object* what, Direction fromDir)
 {
     _hit = true;
-
     return false;
 }
+
+
+

@@ -59,10 +59,10 @@ public:
 		// implemented abstract method from QGraphicsItem
 		void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
 
-           // hit by another object, return true if hit is resolved
+    // hit by another object, return true if hit is resolved
     virtual bool hit(Object* what, Direction fromDir) = 0;
 
-           // action scheduling
+    // action scheduling
     virtual void schedule(const std::string& id, int delay, std::function<void()> action, bool overwrite=true);
     virtual void updateSchedulers();
     virtual void moveBy(Vec2Df amount) { setPos(pos() + QPointF(amount.x, amount.y)); }

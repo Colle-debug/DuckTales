@@ -44,7 +44,7 @@ public:
     bool skidding() const;
     bool grounded() const;
     bool falling() const;
-    bool midair() const;
+    virtual bool midair() const;
 
     // actions
     virtual void move(Direction dir);

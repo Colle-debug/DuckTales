@@ -11,10 +11,6 @@ namespace DT
 
 class DT::DynamicPlatform : public Entity
 {
-
-
-    
-       
     protected:
 
         std::map<Entity*, Direction> _attached;
@@ -28,8 +24,8 @@ class DT::DynamicPlatform : public Entity
         virtual bool hit(Object* what, Direction fromDir) override;
 
         // nonimplemented
-       virtual bool animate() override{};
-         virtual std::string name() override { return "Platform [" + std::to_string(_id) + "]";; }
+        virtual bool animate() override {return 1;};
+        virtual std::string name() override { return "Platform [" + std::to_string(_id) + "]";; }
 };
 
-#endif 
+#endif

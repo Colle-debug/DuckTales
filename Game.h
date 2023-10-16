@@ -6,6 +6,7 @@
 #include "GameConfig.h"
 #include "Loader.h"
 #include "Scrooge.h"
+#include "Hud.h"
 
 namespace DT
 {
@@ -24,8 +25,11 @@ private:
     QGraphicsScene* _world;
     Loader* _builder;
     QTimer _engine;
+    HUD*			_hud;
     bool _left_pressed;
     bool _right_pressed;
+    bool _up_pressed;
+    bool _down_pressed;
     bool _jump_pressed;
     bool _grab_pressed;
     bool _crouch_pressed;
@@ -50,7 +54,7 @@ public:
     virtual void keyReleaseEvent(QKeyEvent* e) override;
     virtual void wheelEvent(QWheelEvent* e) override;
     virtual void resizeEvent(QResizeEvent* event) override;
-    void gameOver()  { _state = GameState::GAME_OVER; std::cout<<"sono in gameover"; }
+    void gameOver()  { _state = GameState::GAME_OVER; }
 
 public slots:
     void reset();

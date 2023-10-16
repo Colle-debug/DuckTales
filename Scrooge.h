@@ -63,7 +63,7 @@ public:
     virtual bool animate() override;
     virtual bool hit(Object* what, Direction fromDir) override;
     virtual std::string name() override { return "Player"; }
-
+    bool midair() const override;
     // reimplemented methods
     virtual void advance() override;
 
