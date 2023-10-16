@@ -160,7 +160,7 @@ bool Scrooge::hit(Object* what, Direction fromDir)
     return false;
 }
 
-bool Scrooge::midair() const
+/*bool Scrooge::midair() const
 {
     if(!_climbing){
         Entity::midair();
@@ -168,12 +168,13 @@ bool Scrooge::midair() const
     else{
         return false;
     }
-}
+}*/
 
 void Scrooge::crouch(bool on)
 {
     if (!_jumping && !_scripted)
         _crouch = on;
+        
 }
 
 void Scrooge::grab(bool on)
