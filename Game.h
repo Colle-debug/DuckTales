@@ -29,7 +29,9 @@ private:
     bool _jump_pressed;
     bool _grab_pressed;
     bool _crouch_pressed;
+    bool _pogo_pressed;
     bool _jump_released;
+    bool _pogo_released;
 
     int startingX = 0;
     int startingY = 64;

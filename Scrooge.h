@@ -68,7 +68,7 @@ public:
     virtual void advance() override;
 
     // player actions
-    //virtual void pogo();
+    virtual void pogo(bool on);
     virtual void grab(bool on = true);
     virtual void jump(bool on = true) override;
     virtual void die();

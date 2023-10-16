@@ -6,13 +6,12 @@
 #include <QPainter>
 #include <QPixmap>
 #include "Sprites.h"
-#include "Rope.h"
+#include "StaticObject.h"
 
 using namespace DT;
 Scrooge::Scrooge(QPointF pos) : Entity(pos, 26, 27)
 {
     //setZValue(1);
-
     //_collider.adjust(3, 3, -3, -1);
     _swinging = false;
     _dying = false;
@@ -64,15 +63,8 @@ void Scrooge::advance()
     {
        _y_gravity = 0.18;
     }
-    if (!falling())
-    {
-    _jumping= false; //when not falling, jumping is over
-    }
-    if (_climbing)
-    {
-
-    }
-
+   
+    
     Entity::advance();
 }
 void Scrooge::jump(bool on)
@@ -105,24 +97,25 @@ void Scrooge::jump(bool on)
 
 bool Scrooge::animate()
 {
-    if (midair())
-    {
-        if (_vel.y < 0)
+
+
+
+        if (midair() )
             _animRect = &_texture_jump[0];
-        else
-            _animRect = &_texture_jump[0];
-    }
-    else
-    {
-        if (_vel.x == 0 && !_crouch)
+        if (_pogoing)
+       _animRect = &_texture_bounce[0];
+        if (!midair() && _pogoing && _vel.y==0)
+        _animRect= &_texture_bounce[1];
+       
+        if (_vel.y == 0 && !_pogoing)
             _animRect = &_texture_stand[0];
-        else if(_vel.x >0 || _vel.x<0)
+         if((_vel.x >0 || _vel.x<0)  && !midair() && !_pogoing)
             _animRect = &_texture_walk[(FRAME_COUNT / 9) % 4];
-        else if(_vel.x == 0 && _crouch)
+        if(_vel.x == 0 && _crouch && !_pogoing && !midair())
             //_animRect = &_texture_crouch[0];
             _animRect = &_texture_crouch[1];
 
-        }
+        
         return 1;
 }
 /*else if (_vel.x == 0 && !_crouch)
@@ -136,21 +129,29 @@ bool Scrooge::animate()
 bool Scrooge::hit(Object* what, Direction fromDir)
 {
     StaticObject* sobj = what->to<StaticObject*>();
-    if(sobj->_type==StaticObject::Type::ROPE && _grab){
+
+    //Enemy* enm = what->to<Enemy*()>;
+
+    //if (enm && )
+    
+    if(sobj && sobj->_type==StaticObject::Type::ROPE && _grab ){
         _climbing = true;
         climbingPhysics();
     }
 
     if(sobj && sobj->_type==StaticObject::Type::SPIKE){
         lifeDown();
-    }
+    
     return false;
 }
-
+}
 void Scrooge::crouch(bool on)
 {
     if (!_jumping && !_scripted)
         _crouch = on;
+        
+
+        
 }
 
 void Scrooge::grab(bool on)
@@ -202,4 +203,16 @@ void Scrooge::climbingPhysics(){
     _x_dir = Direction::NONE;
     _y_gravity = 0;
 
+}
+
+
+void Scrooge::pogo(bool on)
+{
+    _pogoing=on;
+        if(on)
+        
+        jump();
+        
+        
+    
 }

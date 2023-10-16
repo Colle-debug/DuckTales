@@ -128,6 +128,14 @@ void Game::nextFrame()
             _player->grab(true);
             _grab_pressed = false;
         }
+        if (_pogo_pressed)
+        {
+            _player->pogo(true);     
+        }
+        else 
+        _player->pogo(false);
+        
+
 
 
     }
@@ -215,6 +223,10 @@ void Game::keyPressEvent(QKeyEvent* e)
         {
             _grab_pressed = true;
         }
+        else if(e->key() == Qt::Key_Z)
+        {
+            _pogo_pressed=true;
+        }
 
         // Cheats
         /*
@@ -266,6 +278,11 @@ void Game::keyReleaseEvent(QKeyEvent* e)
         }
         else if (e->key() == Qt::Key_Down)
             _crouch_pressed = false;
+
+        else if (e->key() == Qt::Key_Z)
+            _pogo_pressed=false; 
+           
+
     }
 }
 
