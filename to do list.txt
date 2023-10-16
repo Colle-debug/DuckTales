@@ -1,13 +1,13 @@
 Vines
 Spikes
 Sprites Octopus
-Animazione crouch Scrooge
+Animazione crouch Scrooge -> ok 
 Sprites Scrooge che guarda a sinistra
 Animazione + Key binding Pogo
 Beagle Boy
-DynamicPlatform sopra
-Fisica salto, se si riesce come fare il long press
-Fisica pogo: salta più in alto, cade più velocemente
+DynamicPlatform -> ok
+Fisica salto, se si riesce come fare il long press -> ok 
+Fisica pogo: salta più in alto, cade più velocemente -> work in progress
 Interazioni in modalità pogo
 Checkpoint 
 Death Line
