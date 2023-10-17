@@ -113,11 +113,14 @@ void Game::nextFrame()
         {
             _player->pogo(true);
         }
-        else
+        else if(!_pogo_pressed)
         _player->pogo(false);
-        if (_crouch_pressed && !(_left_pressed || _right_pressed))
+        if (_crouch_pressed && !_pogo_pressed)
+        {
             _player->crouch(true);
-
+            _player->move(Direction::NONE);
+            
+        }
         else
             _player->crouch(false);
 
