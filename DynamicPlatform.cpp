@@ -26,7 +26,7 @@ DynamicPlatform::DynamicPlatform(QPointF pos) : Entity(pos, 34, 17)
 void DynamicPlatform::advance()
 {
    Entity::advance();
-
+   _animRect = &_texture_platform[0];
 
     for (auto obj : _attached)
     {
