@@ -52,6 +52,7 @@ Scrooge::Scrooge(QPointF pos) : Entity(pos, 26, 27)
     Sprites::instance()->get("scrooge-putt-success-1", &_texture_puttsuccess[1]);
     Sprites::instance()->get("scrooge-putt-fail-0", &_texture_puttfail[0]);
     Sprites::instance()->get("scrooge-putt-fail-1", &_texture_puttfail[1]);
+    Sprites::instance()->get("scrooge-dying", &_texture_dying[1]);
    // this->setPixmap(_texture_stand[0]);
 
 }
@@ -85,18 +86,14 @@ void Scrooge::jump(bool on)
 
     if (on)
     {
-        if (!midair())
+        if (!midair() && !_pogoing)
         {
             if (std::abs(_vel.x) <= 2)
             {
-                velAdd(Vec2Df(0, -3));
+                velAdd(Vec2Df(0, -4));
                 _y_gravity = 0.078;
             }
-            else
-            {
-                velAdd(Vec2Df(0, -5));
-                _y_gravity = 0.1;
-            }
+            
 
             _jumping = true;
             //Sounds::instance()->play(std::string("jump-") + (_big ? "big" : "small"));
@@ -104,14 +101,15 @@ void Scrooge::jump(bool on)
     }
     else
         _y_gravity = 0.8;
+          
 }
 
 bool Scrooge::animate()
 {
 
-        if (midair() )
+        if (midair() && !_pogoing)
             _animRect = &_texture_jump[0];
-        if (_pogoing)
+        if (_pogoing )
        _animRect = &_texture_bounce[0];
         if (!midair() && _pogoing && _vel.y==0)
         _animRect= &_texture_bounce[1];
@@ -123,7 +121,10 @@ bool Scrooge::animate()
         if(_vel.x == 0 && _crouch && !_pogoing && !midair())
             //_animRect = &_texture_crouch[0];
             _animRect = &_texture_crouch[1];
-
+        if(_dead || _dying)
+        {
+            _animRect = &_texture_dying[1];
+        }
 
         return 1;
 }
@@ -229,8 +230,31 @@ void Scrooge::climbingPhysics(){
 
 void Scrooge::pogo(bool on)
 {
-    _pogoing=on;
-        if(on)
 
-        jump();
+        if(on){
+        if (!midair() && !_jumping)
+        {
+            if (std::abs(_vel.x) <= 2)
+            {
+                velAdd(Vec2Df(0, -3.5));
+                _y_gravity = 0.065;
+            }
+            else
+            {
+                velAdd(Vec2Df(0, -5));
+                _y_gravity = 0.1;
+            }
+
+            _pogoing=true;
+            //Sounds::instance()->play(std::string("jump-") + (_big ? "big" : "small"));
+        }
+        else if(midair())
+        _pogoing=true;
+        
+    }
+    else 
+    {
+        _y_gravity = 0.8;
+        _pogoing=false;
+    }
 }
