@@ -1,21 +1,12 @@
 Vines -> work in progress, funziona ma malino V
-Spikes -> ok V
-Sprites Octopus
-Animazione crouch Scrooge -> ok R 
-Sprites Scrooge che guarda a sinistra
-Animazione + Key binding Pogo
-Beagle Boy
-DynamicPlatform -> ok R
-Fisica salto, se si riesce come fare il long press -> ok R
-Fisica pogo: salta più in alto, cade più velocemente -> work in progress R
-Interazioni in modalità pogo
-Checkpoint 
-Death Line -> ok V
----------
-Spawnable
+Sprites Octopus -> facile
+Beagle Boy -> quasi fatto
+Checkpoint -> facile
+--------- 
 HUD -> in fase di studio V
-Suoni
+Suoni -> facile
 -------
+Spawnable
 Boxer
 Fisica Projectiles
 Rat
