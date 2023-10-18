@@ -9,7 +9,7 @@
 
 using namespace DT;
 
-DynamicPlatform::DynamicPlatform(QPointF pos) : Entity(pos, 34, 17)
+DynamicPlatform::DynamicPlatform(QPointF pos) : Entity(pos, 33, 17)
 {
     _compenetrable = false;
     _sprite = Sprites::instance()->getSprite("platform");
