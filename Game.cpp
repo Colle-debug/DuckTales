@@ -107,12 +107,14 @@ void Game::nextFrame()
             _player->move(Direction::LEFT);
         else if (_right_pressed)
             _player->move(Direction::RIGHT);
-        else if(_grab_pressed){
+        else
+            _player->move(Direction::NONE);
+
+       if(_grab_pressed){
             _player->grab(true);
             _grab_pressed = false;
             }
-        else
-            _player->move(Direction::NONE);
+
         if (_pogo_pressed) // Qui va aggiunta una condizione che non consente di attivare il pogo se si è a terra ma che non impedisca di rimbalzare quando si è in pogoing
         {
             _player->pogo(true);

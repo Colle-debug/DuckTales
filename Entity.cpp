@@ -179,6 +179,7 @@ void Entity::resolveCollisions()
             if (!obj.first->compenetrable() || (obj.first->isBumper() && !this->isScrooge()))
                 velAdd(cn * Vec2Df(std::abs(_vel.x), std::abs(_vel.y)) * (1 - ct));
 
+
             obj.first->hit(this, normal2dir(cn));
             hit(obj.first, inverse(normal2dir(cn)));
         }

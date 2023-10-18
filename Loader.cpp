@@ -466,7 +466,7 @@ Scrooge* Loader::load(std::string levelName)
 
         new BBoy(QPointF(111 * TILE, 80* TILE));
 
-        return new Scrooge(QPointF(116* TILE, 80*TILE));
+        return new Scrooge(QPointF(96* TILE, 4*TILE));
     }
     else{
         return nullptr;

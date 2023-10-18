@@ -1,6 +1,7 @@
 #include "Scrooge.h"
 #include "Game.h"
 #include "Block.h"
+#include "Enemy.h"
 #include <QDebug>
 #include "GameConfig.h"
 #include <QPainter>
@@ -153,7 +154,7 @@ bool Scrooge::animate()
 bool Scrooge::hit(Object* what, Direction fromDir)
 {
     StaticObject* sobj = what->to<StaticObject*>();
-
+    Enemy* enemy = what->to<Enemy*>();
     if(_grab){
         if(sobj && sobj->_type==StaticObject::Type::ROPE){
         std::cout<<"climbing";
@@ -162,14 +163,19 @@ bool Scrooge::hit(Object* what, Direction fromDir)
         setX(sobj->pos().x() -0.66 * TILE);
         }
     }
-
-    if(sobj && sobj->_type==StaticObject::Type::SPIKE){ //check sul gioco se prendi danno anche lateralmente
+    if(sobj && sobj->_type==StaticObject::Type::SPIKE && !_pogoing){ //check sul gioco se prendi danno anche lateralmente
         lifeDown();
     }
 
     if(sobj && sobj->_type==StaticObject::Type::DEATHLINE){
-
         die();
+    }
+
+    if(enemy && fromDir == Direction::DOWN && _pogoing){
+        velAdd(Vec2Df(0, -15.5));
+        _y_gravity = 0.065;
+        _animRect = &_texture_bounce[1];
+        enemy->die();
     }
     return false;
 }
@@ -252,12 +258,13 @@ void Scrooge::pogo(bool on)
             //Sounds::instance()->play(std::string("jump-") + (_big ? "big" : "small"));
         }
         else if(midair())
-        _pogoing=true;
+            _pogoing=true;
 
-    }
-    else
-    {
-        _y_gravity = 0.8;
-        _pogoing=false;
-    }
+        }
+        else
+        {
+           _y_gravity = 0.8;
+           _pogoing=false;
+
+        }
 }

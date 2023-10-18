@@ -17,15 +17,22 @@ Enemy::Enemy(QPointF pos, double width, double height) : Entity(pos, width, heig
 bool Enemy::hit(Object* what, Direction fromDir)
 {
     Scrooge* scrooge = what->to<Scrooge*>();
-    if (scrooge) // Da aggiungere condizione su invincibilità, vedi stessa funzione in Enemy su BubbleBobble
+    if (scrooge && fromDir != Direction::UP) // Da aggiungere condizione su invincibilità, vedi stessa funzione in Enemy su BubbleBobble
     {
         scrooge->lifeDown();
         return true;
-    }
+    }/*
+    else if(scrooge && scrooge->pogoing() && fromDir == Direction::UP){
+        die();
+
+        scrooge->_y_acc_up;
+        return true;
+    }*/
     else if (what->to<StaticObject*>() &&  _dying) // && fromDir == Direction::DOWN
     {
         //setVisible(false);
         // spawn item
+        // schedule respawn?
         return true;
     }
 
@@ -47,15 +54,25 @@ void Enemy::die()
     if (_dying)
         return;
 
-    _x_vel_max = 1;
+         _dying = true;
 
-    if (rand() % 2)
-        _x_dir = Direction::RIGHT;
-    else
-        _x_dir = Direction::LEFT;
+        _collidable=false;
+        schedule("die", 45, [this]() {setVisible(false); });
+        _x_dir = Direction::DOWN;
+           _y_gravity = 0.15;
 
-    velAdd(Vec2Df(0, -_y_acc_up));
+        //_vel.y = -2.0;
 
-    //Sounds::instance()->playSound("enemy_die");
-    _dying = true;
+       _vel.x=0.3;
+
+
+
+        setY(y()-17);
+        _y_acc_up = 2;
+
+        _y_vel_max = 3;
+        //_y_vel_min = 0.01;
+
+        _x_vel_max = 3;
+        _x_vel_min = 0.01;
 }
