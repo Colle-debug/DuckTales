@@ -113,7 +113,7 @@ void Game::nextFrame()
         {
             _player->pogo(true);
         }
-        else if(!_pogo_pressed)
+        else if(_pogo_released)
         _player->pogo(false);
         if (_crouch_pressed && !_pogo_pressed)
         {
@@ -309,6 +309,7 @@ void Game::keyReleaseEvent(QKeyEvent* e)
         }
         else if (e->key() == Qt::Key_Z)
             _pogo_pressed=false;
+            _pogo_released=true;
     }
 }
 
