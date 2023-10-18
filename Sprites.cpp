@@ -53,6 +53,7 @@ Sprites::Sprites()
     scrooge = loadTexture(":/sprites/scroogeNew.png", QColor(0, 89, 255, 255));
     pinkAlien = loadTexture(":/sprites/enemies.png", QColor(255,0,255));
     octopus = loadTexture(":/sprites/enemies.png", QColor(255,0,255));
+    beagleBoy = loadTexture(":/sprites/enemies.png", QColor(255,0,255));
     platform = loadTexture(":/sprites/itemsupdated.png", QColor(255,0,255));
 }
 
@@ -66,6 +67,9 @@ QPixmap* Sprites::getSprite(const std::string& id)
         return &octopus;
     else if(id=="platform")
         return &platform;
+    else if(id=="beagleBoy")
+        return &beagleBoy;
+
     else
         return 0;
 }

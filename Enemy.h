@@ -16,7 +16,7 @@ class DT::Enemy : public Entity
         bool _angry;
         bool _dying;
 
-        QRect _texture_walk[2];
+        QRect _texture_walk[3];
 
         // animations
         QRect _animWalk[2][2];

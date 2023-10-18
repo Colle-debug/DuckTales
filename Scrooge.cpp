@@ -23,7 +23,8 @@ Scrooge::Scrooge(QPointF pos) : Entity(pos, 26, 27)
     _invincible = false;
     _prev_x_dir = Direction::RIGHT;
     _mirror_x_dir = Direction::LEFT;
-    _hp = 1;
+
+    _hp = 100;
     _recentlyHit = 0;
 
     _scripted = false;
@@ -52,24 +53,28 @@ Scrooge::Scrooge(QPointF pos) : Entity(pos, 26, 27)
     Sprites::instance()->get("scrooge-putt-success-1", &_texture_puttsuccess[1]);
     Sprites::instance()->get("scrooge-putt-fail-0", &_texture_puttfail[0]);
     Sprites::instance()->get("scrooge-putt-fail-1", &_texture_puttfail[1]);
-    Sprites::instance()->get("scrooge-dying", &_texture_dying[1]);
+    Sprites::instance()->get("scrooge-dying", &_texture_dying[0]);
    // this->setPixmap(_texture_stand[0]);
 
 }
 
 void Scrooge::advance()
 {
-
-    if (_climbing)
-    {
-        if (_y_dir == Direction::UP && _vel.y >= 0)
-            velAdd(Vec2Df(0, -_y_acc_up));
-        else if (_y_dir == Direction::DOWN && _vel.y <= 0)
-            velAdd(Vec2Df(0, _y_acc_up));
+    if(_climbing){
+        if(_y_dir == Direction::UP){
+            velAdd(Vec2Df(0, -_x_acc));
+        }
+        else if(_y_dir == Direction::DOWN){
+            velAdd(Vec2Df(0, _x_acc));
+        }
+        else if(_y_dir == Direction::NONE){
+            _vel.y = 0;
+        }
     }
+
     if (grounded())
         _y_vel_max = 3;
-    if (falling())
+    if (falling() && !_climbing)
     {
        _y_gravity = 0.18;
     }
@@ -77,7 +82,13 @@ void Scrooge::advance()
     {
         _jumping= false; //when not falling, jumping is over
     }
+
     Entity::advance();
+}
+
+bool Scrooge::midair() const
+{
+    return(Entity::midair() && !_climbing);
 }
 void Scrooge::jump(bool on)
 {
@@ -93,7 +104,11 @@ void Scrooge::jump(bool on)
                 velAdd(Vec2Df(0, -4));
                 _y_gravity = 0.078;
             }
-            
+            else
+            {
+                velAdd(Vec2Df(0, -5));
+                _y_gravity = 0.1;
+            }
 
             _jumping = true;
             //Sounds::instance()->play(std::string("jump-") + (_big ? "big" : "small"));
@@ -101,32 +116,30 @@ void Scrooge::jump(bool on)
     }
     else
         _y_gravity = 0.8;
-          
 }
 
 bool Scrooge::animate()
 {
+    if (midair() && !_pogoing)
+        _animRect = &_texture_jump[0];
+    if (_pogoing )
+   _animRect = &_texture_bounce[0];
+    if (!midair() && _pogoing && _vel.y==0)
+    _animRect= &_texture_bounce[1];
 
-        if (midair() && !_pogoing)
-            _animRect = &_texture_jump[0];
-        if (_pogoing )
-       _animRect = &_texture_bounce[0];
-        if (!midair() && _pogoing && _vel.y==0)
-        _animRect= &_texture_bounce[1];
+    if (_vel.y == 0 && !_pogoing)
+        _animRect = &_texture_stand[0];
+     if((_vel.x >0 || _vel.x<0)  && !midair() && !_pogoing)
+        _animRect = &_texture_walk[(FRAME_COUNT / 9) % 4];
+    if(_vel.x == 0 && _crouch && !_pogoing && !midair())
+        //_animRect = &_texture_crouch[0];
+        _animRect = &_texture_crouch[1];
+    if(_dead || _dying)
+    {
+        _animRect = &_texture_dying[1];
+    }
 
-        if (_vel.y == 0 && !_pogoing)
-            _animRect = &_texture_stand[0];
-         if((_vel.x >0 || _vel.x<0)  && !midair() && !_pogoing)
-            _animRect = &_texture_walk[(FRAME_COUNT / 9) % 4];
-        if(_vel.x == 0 && _crouch && !_pogoing && !midair())
-            //_animRect = &_texture_crouch[0];
-            _animRect = &_texture_crouch[1];
-        if(_dead || _dying)
-        {
-            _animRect = &_texture_dying[1];
-        }
-
-        return 1;
+    return 1;
 }
 /*else if (_vel.x == 0 && !_crouch)
             _animRect = &_texture_stand[0];
@@ -160,16 +173,6 @@ bool Scrooge::hit(Object* what, Direction fromDir)
     }
     return false;
 }
-
-/*bool Scrooge::midair() const
-{
-    if(!_climbing){
-        Entity::midair();
-    }
-    else{
-        return false;
-    }
-}*/
 
 void Scrooge::crouch(bool on)
 {
@@ -225,7 +228,7 @@ void Scrooge::climbingPhysics(){
     _vel.x = 0;
     _x_dir = Direction::NONE;
     _y_gravity = 0;
-
+    //_y_acc_up = 1.6;
 }
 
 void Scrooge::pogo(bool on)
@@ -250,9 +253,9 @@ void Scrooge::pogo(bool on)
         }
         else if(midair())
         _pogoing=true;
-        
+
     }
-    else 
+    else
     {
         _y_gravity = 0.8;
         _pogoing=false;

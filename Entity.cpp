@@ -64,15 +64,15 @@ void Entity::velAdd(Vec2Df amount)
     // min velocity clipping
     if (_x_dir == Direction::NONE && std::abs(_vel.x) < _x_vel_min)
         _vel.x = 0;
-    if (std::abs(_vel.y) < _y_vel_min)
+    if (_y_dir == Direction::NONE && std::abs(_vel.y) < _y_vel_min)
         _vel.y = 0;
 }
 
 void Entity::move(Direction dir)
 {
-    /*if (dir != _x_dir)
+    if (dir != _x_dir)
         _prev_x_dir = _x_dir;
-    */
+
     if(dir == Direction::RIGHT || dir == Direction::LEFT){
         _x_dir = dir;
     }
@@ -111,7 +111,6 @@ void Entity::advance()
 {
     // velocity backup (useful to determine object state)
     _prev_vel = _vel;
-
     //apply gravity acceleration
     velAdd(Vec2Df(0, _y_gravity));
 

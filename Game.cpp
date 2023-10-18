@@ -1,9 +1,11 @@
 #include "Game.h"
+#include "BBoy.h"
 #include "GameConfig.h"
 #include "Loader.h"
 #include "Scheduler.h"
 #include "Object.h"
 #include "Scrooge.h"
+#include "BBoy.h"
 #include <QKeyEvent>
 #include <QOpenGLWidget>
 #include <QApplication>
@@ -25,7 +27,7 @@ Game* Game::instance()
 Game::Game(QGraphicsView *parent) : QGraphicsView(parent)
 {
     _world = new QGraphicsScene();
-    //_world->setSceneRect(TILE * 0, TILE * 56.5, TILE * 128, TILE * 15); // Vista di default è 0 56.5
+    //_world->setSceneRect(TILE * 120, TILE * 81, TILE * 128, TILE * 15); // Vista di default è 0 56.5
     setScene(_world);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -38,6 +40,7 @@ Game::Game(QGraphicsView *parent) : QGraphicsView(parent)
 
     _builder = new Loader();
     _player = 0;
+    beagleActive = 1;
 
     /*
     QOpenGLWidget* gl = new QOpenGLWidget();
@@ -55,6 +58,7 @@ void Game::reset()
     _world->clear();
 
     _player = 0;
+    beagleActive = 1;
 
     _left_pressed = false;
     _right_pressed = false;
@@ -109,12 +113,14 @@ void Game::nextFrame()
             }
         else
             _player->move(Direction::NONE);
-        if (_pogo_pressed) // Qui va aggiunta una condizione che non consente di attivare il pogo se si è a terra ma che non impedisca di rimbalzara quando si è in pogoing
+        if (_pogo_pressed) // Qui va aggiunta una condizione che non consente di attivare il pogo se si è a terra ma che non impedisca di rimbalzare quando si è in pogoing
         {
             _player->pogo(true);
         }
-        else if(_pogo_released)
-        _player->pogo(false);
+        else if(_pogo_released){
+            _player->pogo(false);
+            _pogo_released=false;
+        }
         if (_crouch_pressed && !_pogo_pressed)
         {
             _player->crouch(true);
@@ -126,11 +132,14 @@ void Game::nextFrame()
 
         }
         else{
-            if(_down_pressed){
-                _player->move(Direction::DOWN);
+            if(_down_pressed && _up_pressed){
+                _player->move(Direction::NONE);
             }
             else if(_up_pressed){
                 _player->move(Direction::UP);
+            }
+            else if(_down_pressed){
+                _player->move(Direction::DOWN);
             }
             else if(_jump_pressed){
                 _player->setClimbing(false);
@@ -147,6 +156,12 @@ void Game::nextFrame()
         {
             _player->jump(false);
             _jump_released = false;
+        }
+
+        if(!beagleActive){
+            // Meglio schedulare il respawn dopo un paio di FRAME
+            new BBoy(QPointF(_player->x() - 7*TILE, _player->y() - 2 * TILE)); // Respawing naive, funzione per valutare il primo blocco utile su cui potersi poggiare
+            beagleActive = true; // C'è unironically un memory leak...
         }
 
     // advance game
@@ -295,11 +310,11 @@ void Game::keyReleaseEvent(QKeyEvent* e)
             _jump_released=true;
         }
         else if (e->key() == Qt::Key_Down){
-            if(!_player->climbing()){
-                _crouch_pressed = false;
+            if(_player->climbing()){
+                _down_pressed = false;
             }
             else{
-                _down_pressed = false;
+                _crouch_pressed = false;
             }
         }
         else if (e->key() == Qt::Key_Up){
@@ -307,9 +322,10 @@ void Game::keyReleaseEvent(QKeyEvent* e)
                 _up_pressed = false;
             }
         }
-        else if (e->key() == Qt::Key_Z)
-            _pogo_pressed=false;
-            _pogo_released=true;
+        else if (e->key() == Qt::Key_Z){
+            _pogo_pressed = false;
+            _pogo_released = true;
+        }
     }
 }
 

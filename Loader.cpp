@@ -7,6 +7,7 @@
 #include "PinkAlien.h"
 #include "Octopus.h"
 #include "DynamicPlatform.h"
+#include "BBoy.h"
 
 
 using namespace DT;
@@ -463,8 +464,9 @@ Scrooge* Loader::load(std::string levelName)
         new StaticObject(QPointF(53*TILE, 71.5*TILE), 56*TILE, 0, StaticObject::Type::DEATHLINE);
         new StaticObject(QPointF(98*TILE, 11.5*TILE), 30*TILE, 0, StaticObject::Type::DEATHLINE);
 
+        new BBoy(QPointF(111 * TILE, 80* TILE));
 
-        return new Scrooge(QPointF(35* TILE, 30*TILE));
+        return new Scrooge(QPointF(116* TILE, 80*TILE));
     }
     else{
         return nullptr;

@@ -28,8 +28,7 @@ protected:
     QRect _texture_puttsuccess[2];
     QRect _texture_puttfail[2];
     QRect _texture_bounce[2];
-
-
+    QRect _texture_dying[1];
 
     bool _scripted;
     bool _jumping;
@@ -66,6 +65,7 @@ public:
     //bool midair()  override const;
     // reimplemented methods
     virtual void advance() override;
+    virtual bool midair() const override;
 
     // player actions
     virtual void pogo(bool on);

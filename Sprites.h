@@ -12,6 +12,7 @@ private:
     QPixmap hud;
     QPixmap pinkAlien;
     QPixmap octopus;
+    QPixmap beagleBoy;
     QPixmap scrooge;
     QPixmap title_screen;
     QPixmap platform;

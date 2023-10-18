@@ -36,6 +36,7 @@ private:
     bool _pogo_pressed;
     bool _jump_released;
     bool _pogo_released;
+    bool beagleActive;
 
     int startingX = 0;
     int startingY = 64;
@@ -46,6 +47,7 @@ private:
 public:
     static Game* instance();
     bool grabStatus(){return _grab_pressed;}
+    void setBeagleStatus(bool on){beagleActive = on;}
     QGraphicsScene* world(){return _world;}
     Scrooge* player(){return _player;}
     double aspectRatio() { return 16 * 1.14 / 15; }
