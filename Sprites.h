@@ -16,6 +16,8 @@ private:
     QPixmap scrooge;
     QPixmap title_screen;
     QPixmap platform;
+    QPixmap block;
+    QPixmap sphere;
 
     Sprites();
 

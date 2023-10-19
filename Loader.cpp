@@ -23,36 +23,36 @@ Scrooge* Loader::load(std::string levelName)
         new StaticObject(QPointF(0, 69*TILE), 54*TILE, 2.5*TILE); //primo rappresenta la posizione dall'alto verso il basso, il secondo rappresenta la lunghezza, il terzo invece lo spessore
         for (int i=0; i<5; i++)
         {
-            new StaticObject(QPointF((13+i)*TILE, 68*TILE), TILE, TILE);
+            new Block(QPointF((13+i)*TILE, 68*TILE), TILE, TILE,Block::Type::BRICK);
         }
-        new StaticObject(QPointF(15*TILE,67*TILE),2*TILE,TILE);
+       
         //in alternativa si puo fare un unico blocco di dimensione 4
-        //new StaticObject(QPointF(13*TILE,68*TILE,4*TILE,TILE))
-        new StaticObject(QPointF(26*TILE,68*TILE), 2*TILE,TILE);
-
+        
+        new Block(QPointF(16*TILE,67*TILE), TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(15*TILE,67*TILE), TILE,TILE,Block::Type::BRICK);
         for (int i=0; i<5; i++)
         {
-            new StaticObject(QPointF((42+i)*TILE, 68*TILE), TILE, TILE);
+            new Block(QPointF((42+i)*TILE, 68*TILE), TILE, TILE);
         }
         for (int i=0; i<3; i++)
         {
-            new StaticObject(QPointF((43+i)*TILE, 67*TILE), TILE, TILE);
+            new Block(QPointF((43+i)*TILE, 67*TILE), TILE, TILE);
         }
 
         new StaticObject(QPointF(0, 60*TILE), 0, 9*TILE);
-        new StaticObject(QPointF(19*TILE,67*TILE),TILE,TILE);
-        new StaticObject(QPointF(19*TILE,68*TILE),TILE,TILE);
+        new Block(QPointF(19*TILE,67*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(19*TILE,68*TILE),TILE,TILE,Block::Type::BRICK);
         new StaticObject(QPointF(58*TILE,69*TILE),4*TILE,2.5*TILE);
         new StaticObject(QPointF(64*TILE,69*TILE),18*TILE,2.5*TILE);
         new StaticObject(QPointF(48*TILE, 68*TILE), 2*TILE, TILE);
         for(int i=0;i<4;i++){
-            new StaticObject(QPointF((66+i)*TILE, 68*TILE), TILE, TILE);
+            new Block(QPointF((66+i)*TILE, 68*TILE), TILE, TILE,Block::Type::BRICK);
         }
-        new StaticObject(QPointF(67*TILE, 67*TILE), TILE, TILE);
-        new StaticObject(QPointF(67*TILE, 66*TILE), TILE, TILE);
-        new StaticObject(QPointF(67*TILE, 65*TILE), TILE, TILE);
-        new StaticObject(QPointF(69*TILE, 67*TILE), TILE, 2*TILE);
-        new StaticObject(QPointF(69*TILE, 66*TILE), TILE, 2*TILE);
+        new Block(QPointF(67*TILE, 67*TILE), TILE, TILE,Block::Type::BRICK);
+        new Block(QPointF(67*TILE, 66*TILE), TILE, TILE,Block::Type::BRICK);
+        new Block(QPointF(67*TILE, 65*TILE), TILE, TILE,Block::Type::BRICK);
+        new Block(QPointF(69*TILE, 67*TILE), TILE, 2*TILE,Block::Type::BRICK);
+        new Block(QPointF(69*TILE, 66*TILE), TILE, 2*TILE,Block::Type::BRICK);
         new StaticObject(QPointF(93*TILE,65*TILE),3*TILE,6.5*TILE); //sistema questo
         new StaticObject(QPointF(98*TILE,69*TILE),8*TILE,2.5*TILE);
         new StaticObject(QPointF(100*TILE,68*TILE),2*TILE,TILE); // ultimo tronco in fondo
@@ -140,20 +140,20 @@ Scrooge* Loader::load(std::string levelName)
         new StaticObject(QPointF(85*TILE,44*TILE),TILE,2*TILE, StaticObject::Type::SPIKE);
 
         //rocce primo livello
-        new StaticObject(QPointF(60*TILE,52*TILE),TILE,TILE);
-        new StaticObject(QPointF(61*TILE,52*TILE),TILE,TILE);
-        new StaticObject(QPointF(60*TILE,53*TILE),TILE,TILE);
-        new StaticObject(QPointF(61*TILE,53*TILE),TILE,TILE);
-        new StaticObject(QPointF(84*TILE,51*TILE),TILE,TILE);
-        new StaticObject(QPointF(85*TILE,51*TILE),TILE,TILE);
-        new StaticObject(QPointF(86*TILE,51*TILE),TILE,TILE);
-        new StaticObject(QPointF(87*TILE,51*TILE),TILE,TILE);
-        new StaticObject(QPointF(88*TILE,51*TILE),TILE,TILE);
-        new StaticObject(QPointF(85*TILE,50*TILE),TILE,TILE);
-        new StaticObject(QPointF(86*TILE,50*TILE),TILE,TILE);
+        new Block(QPointF(60*TILE,52*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(61*TILE,52*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(60*TILE,53*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(61*TILE,53*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(84*TILE,51*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(85*TILE,51*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(86*TILE,51*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(87*TILE,51*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(88*TILE,51*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(85*TILE,50*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(86*TILE,50*TILE),TILE,TILE,Block::Type::BRICK);
         //rocce sui funghi
-        new StaticObject(QPointF(71*TILE,48*TILE),TILE,TILE);
-        new StaticObject(QPointF(74*TILE,48*TILE),TILE,TILE);
+        new Block(QPointF(71*TILE,48*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(74*TILE,48*TILE),TILE,TILE,Block::Type::BRICK);
 
 
 
@@ -197,6 +197,7 @@ Scrooge* Loader::load(std::string levelName)
         new StaticObject(QPointF(106*TILE,30*TILE),2*TILE,5*TILE);
         new StaticObject(QPointF(2*TILE,30*TILE),4*TILE,9*TILE);
 
+
         //blocchi tra primo e secondo verde
         new StaticObject(QPointF(26*TILE,24*TILE),44*TILE,7*TILE);
         new StaticObject(QPointF(70*TILE,24*TILE),16*TILE,6*TILE);
@@ -210,38 +211,38 @@ Scrooge* Loader::load(std::string levelName)
         new StaticObject(QPointF(42*TILE,35*TILE),2*TILE,4*TILE);
         new StaticObject(QPointF(44*TILE,35*TILE),2*TILE,4*TILE); //funghi
 
-        new StaticObject(QPointF(21*TILE,36*TILE),TILE,TILE);
-        new StaticObject(QPointF(21*TILE,37*TILE),TILE,TILE);
-        new StaticObject(QPointF(22*TILE,36*TILE),TILE,TILE);
-        new StaticObject(QPointF(22*TILE,37*TILE),TILE,TILE);
-        new StaticObject(QPointF(23*TILE,37*TILE),TILE,TILE);
-        new StaticObject(QPointF(23*TILE,38*TILE),TILE,TILE);
-        new StaticObject(QPointF(24*TILE,38*TILE),TILE,TILE);
-        new StaticObject(QPointF(58*TILE,38*TILE),TILE,TILE);
-        new StaticObject(QPointF(61*TILE,38*TILE),TILE,TILE);
-        new StaticObject(QPointF(63*TILE,38*TILE),TILE,TILE);
-        new StaticObject(QPointF(63*TILE,37*TILE),TILE,TILE);
-        new StaticObject(QPointF(63*TILE,36*TILE),TILE,TILE);
+        new Block(QPointF(21*TILE,36*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(21*TILE,37*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(22*TILE,36*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(22*TILE,37*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(23*TILE,37*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(23*TILE,38*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(24*TILE,38*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(58*TILE,38*TILE),TILE,TILE,Block::Type::SPHERE);
+        new Block(QPointF(61*TILE,38*TILE),TILE,TILE,Block::Type::SPHERE);
+        new Block(QPointF(63*TILE,38*TILE),TILE,TILE,Block::Type::SPHERE);
+        new Block(QPointF(63*TILE,37*TILE),TILE,TILE,Block::Type::SPHERE);
+        new Block(QPointF(63*TILE,36*TILE),TILE,TILE,Block::Type::SPHERE);
 
-        new StaticObject(QPointF(70*TILE,38*TILE),TILE,TILE);
-        new StaticObject(QPointF(70*TILE,37*TILE),TILE,TILE);
-        new StaticObject(QPointF(70*TILE,36*TILE),TILE,TILE);
-        new StaticObject(QPointF(71*TILE,38*TILE),TILE,TILE);
-        new StaticObject(QPointF(71*TILE,37*TILE),TILE,TILE);
-        new StaticObject(QPointF(71*TILE,36*TILE),TILE,TILE);
-        new StaticObject(QPointF(72*TILE,38*TILE),TILE,TILE);
-        new StaticObject(QPointF(72*TILE,37*TILE),TILE,TILE);
-        new StaticObject(QPointF(92*TILE,38*TILE),TILE,TILE);
-        new StaticObject(QPointF(93*TILE,38*TILE),TILE,TILE);
-        new StaticObject(QPointF(94*TILE,37*TILE),TILE,TILE);
-        new StaticObject(QPointF(96*TILE,37*TILE),TILE,TILE);
-        new StaticObject(QPointF(98*TILE,37*TILE),TILE,TILE);
-        new StaticObject(QPointF(102*TILE,35*TILE),TILE,TILE);
-        new StaticObject(QPointF(103*TILE,35*TILE),TILE,TILE);
-        new StaticObject(QPointF(97*TILE,30*TILE),TILE,TILE);
-        new StaticObject(QPointF(97*TILE,31*TILE),TILE,TILE);
-        new StaticObject(QPointF(98*TILE,30*TILE),TILE,TILE);
-        new StaticObject(QPointF(98*TILE,31*TILE),TILE,TILE);
+        new Block(QPointF(70*TILE,38*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(70*TILE,37*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(70*TILE,36*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(71*TILE,38*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(71*TILE,37*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(71*TILE,36*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(72*TILE,38*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(72*TILE,37*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(92*TILE,38*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(93*TILE,38*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(94*TILE,37*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(96*TILE,37*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(98*TILE,37*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(102*TILE,35*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(103*TILE,35*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(97*TILE,30*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(97*TILE,31*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(98*TILE,30*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(98*TILE,31*TILE),TILE,TILE,Block::Type::BRICK);
 
         new StaticObject(QPointF(31*TILE,31*TILE), 2*TILE, TILE);
         new StaticObject(QPointF(31*TILE,32*TILE),2*TILE, TILE, StaticObject::Type::SPIKE);
@@ -311,23 +312,23 @@ Scrooge* Loader::load(std::string levelName)
         new StaticObject(QPointF(124*TILE,8*TILE),4*TILE,TILE);
 
 
-        new StaticObject(QPointF(11*TILE,23*TILE),TILE,TILE);
-        new StaticObject(QPointF(12*TILE,22*TILE),TILE,TILE);
-        new StaticObject(QPointF(13*TILE,22*TILE),TILE,TILE);
-        new StaticObject(QPointF(14*TILE,22*TILE),TILE,TILE);
-        new StaticObject(QPointF(14*TILE,21*TILE),TILE,TILE);
-        new StaticObject(QPointF(15*TILE,22*TILE),TILE,TILE);
-        new StaticObject(QPointF(19*TILE,22*TILE),TILE,TILE);
-        new StaticObject(QPointF(19*TILE,21*TILE),TILE,TILE);
-        new StaticObject(QPointF(19*TILE,20*TILE),TILE,TILE);
-        new StaticObject(QPointF(20*TILE,22*TILE),TILE,TILE);
-        new StaticObject(QPointF(28*TILE,23*TILE),TILE,TILE);
-        new StaticObject(QPointF(36*TILE,23*TILE),TILE,TILE);
+        new Block(QPointF(11*TILE,23*TILE),TILE,TILE,Block::Type::SPHERE);
+        new Block(QPointF(12*TILE,22*TILE),TILE,TILE,Block::Type::SPHERE);
+        new Block(QPointF(13*TILE,22*TILE),TILE,TILE,Block::Type::SPHERE);
+        new Block(QPointF(14*TILE,22*TILE),TILE,TILE,Block::Type::SPHERE);
+        new Block(QPointF(14*TILE,21*TILE),TILE,TILE,Block::Type::SPHERE);
+        new Block(QPointF(15*TILE,22*TILE),TILE,TILE,Block::Type::SPHERE);
+        new Block(QPointF(19*TILE,22*TILE),TILE,TILE,Block::Type::SPHERE);
+        new Block(QPointF(19*TILE,21*TILE),TILE,TILE,Block::Type::SPHERE);
+        new Block(QPointF(19*TILE,20*TILE),TILE,TILE,Block::Type::SPHERE);
+        new Block(QPointF(20*TILE,22*TILE),TILE,TILE,Block::Type::SPHERE);
+        new Block(QPointF(28*TILE,23*TILE),TILE,TILE,Block::Type::SPHERE);
+        new Block(QPointF(36*TILE,23*TILE),TILE,TILE,Block::Type::SPHERE);
 
-        new StaticObject(QPointF(31*TILE,23*TILE),TILE,TILE);
-        new StaticObject(QPointF(32*TILE,23*TILE),TILE,TILE);
-        new StaticObject(QPointF(39*TILE,23*TILE),TILE,TILE);
-        new StaticObject(QPointF(40*TILE,23*TILE),TILE,TILE);
+        new Block(QPointF(31*TILE,23*TILE),TILE,TILE);
+        new Block(QPointF(32*TILE,23*TILE),TILE,TILE);
+        new Block(QPointF(39*TILE,23*TILE),TILE,TILE);
+        new Block(QPointF(40*TILE,23*TILE),TILE,TILE);
 
 
 
@@ -361,25 +362,25 @@ Scrooge* Loader::load(std::string levelName)
 
 
 
-        new StaticObject(QPointF(86*TILE,83*TILE),TILE,TILE);
-        new StaticObject(QPointF(87*TILE,83*TILE),TILE,TILE);
-        new StaticObject(QPointF(97*TILE,83*TILE),TILE,TILE);
-        new StaticObject(QPointF(98*TILE,83*TILE),TILE,TILE);
-        new StaticObject(QPointF(108*TILE,83*TILE),TILE,TILE);
-        new StaticObject(QPointF(107*TILE,83*TILE),TILE,TILE);
-        new StaticObject(QPointF(123*TILE,83*TILE),TILE,TILE);
-        new StaticObject(QPointF(89*TILE,82*TILE),TILE,TILE);
-        new StaticObject(QPointF(98*TILE,82*TILE),TILE,TILE);
-        new StaticObject(QPointF(111*TILE,82*TILE),TILE,TILE);
-        new StaticObject(QPointF(112*TILE,82*TILE),TILE,TILE);
-        new StaticObject(QPointF(123*TILE,82*TILE),TILE,TILE);
-        new StaticObject(QPointF(102*TILE,81*TILE),TILE,TILE);
-        new StaticObject(QPointF(112*TILE,81*TILE),TILE,TILE);
-        new StaticObject(QPointF(123*TILE,81*TILE),TILE,TILE);
-        new StaticObject(QPointF(90*TILE,80*TILE),TILE,TILE);
-        new StaticObject(QPointF(102*TILE,80*TILE),TILE,TILE);
-        new StaticObject(QPointF(112*TILE,80*TILE),TILE,TILE);
-        new StaticObject(QPointF(123*TILE,80*TILE),TILE,TILE);
+        new Block(QPointF(86*TILE,83*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(87*TILE,83*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(97*TILE,83*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(98*TILE,83*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(108*TILE,83*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(107*TILE,83*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(123*TILE,83*TILE),TILE,TILE),Block::Type::BRICK;
+        new Block(QPointF(89*TILE,82*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(98*TILE,82*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(111*TILE,82*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(112*TILE,82*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(123*TILE,82*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(102*TILE,81*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(112*TILE,81*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(123*TILE,81*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(90*TILE,80*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(102*TILE,80*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(112*TILE,80*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(123*TILE,80*TILE),TILE,TILE,Block::Type::BRICK);
 
         new StaticObject(QPointF(21*TILE,24*TILE),TILE,7*TILE);
         new StaticObject(QPointF(22*TILE,26*TILE),TILE,3*TILE);
@@ -468,8 +469,8 @@ Scrooge* Loader::load(std::string levelName)
         new BBoy(QPointF(111 * TILE, 80* TILE));
 
 
-        new Block(QPointF(7* TILE, 68*TILE), TILE, TILE);
-        return new Scrooge(QPointF(3* TILE, 67*TILE));
+       // new Block(QPointF(7* TILE, 68*TILE), TILE, TILE);
+        return new Scrooge(QPointF(98* TILE, 80*TILE));
     }
     else{
         return nullptr;

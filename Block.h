@@ -22,7 +22,9 @@ protected:
     bool _spawned;
     bool _launchable;
     bool _breakable;
-    QRect _texture_block[1];
+    QRect _texture_block[3];
+    
+
     bool _what_type;
     // animation textures
 
@@ -38,7 +40,7 @@ public:
             double height,
             Block::Type _type = Block::Type::BRICK);
     virtual bool animate() override;
-    virtual std::string name() override { return "Block"; }
+    virtual std::string name() override { return "Block[" + std::to_string(_id) + "]"; ; }
     virtual bool hit(Object* what, Direction fromDir) override;
                                                                 // implemented abstract methods
     /*

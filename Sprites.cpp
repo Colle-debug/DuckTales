@@ -41,6 +41,8 @@ static QRect _pinkAlien(42,5,32,35);
 static QRect _octopus(4,7,16,24);
 static QRect _platform(79,31,33,17);
 static QRect _beagleBoy(113,7,25,32);
+static QRect _block(256,193,256,256);
+static QRect _sphere(16,32,16,16);
 
 Sprites* Sprites::instance()
 {
@@ -55,6 +57,8 @@ Sprites::Sprites()
     octopus = loadTexture(":/sprites/enemies.png", QColor(255,0,255));
     beagleBoy = loadTexture(":/sprites/enemies.png", QColor(255,0,255));
     platform = loadTexture(":/sprites/itemsupdated.png", QColor(255,0,255));
+    block = loadTexture(":/sprites/rocks.png", QColor(255,0,255));
+    sphere = loadTexture(":/sprites/itemsupdated.png", QColor(255,0,255));
 }
 
 QPixmap* Sprites::getSprite(const std::string& id)
@@ -69,6 +73,10 @@ QPixmap* Sprites::getSprite(const std::string& id)
         return &platform;
     else if(id=="beagleBoy")
         return &beagleBoy;
+    else if(id=="block")
+        return &block;
+    else if (id=="sphere")
+        return &sphere;    
 
     else
         return 0;
@@ -164,6 +172,17 @@ void Sprites::get(const std::string & id, QRect animOutput[])
     {
         animOutput[0] = moveBy(_platform,0,0);
     }
+     else if(id == "block-0"){
+        animOutput[0] = moveBy(_block,0,0);
+    }
+     else if(id == "block-1"){
+        animOutput[0] = moveBy(_block,32,0);
+    }
+     else if(id == "sphere"){
+        animOutput[0] = moveBy(_sphere,0,0);
+     }
+
+   
 
     else
     {

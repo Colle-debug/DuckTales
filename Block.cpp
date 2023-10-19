@@ -22,7 +22,10 @@ Block::Block(QPointF pos, double width, double height,Block::Type type) : Entity
 
     _compenetrable=false;
     _sprite= Sprites::instance()->getSprite("block");
-    Sprites::instance()->get("block",&_texture_block[0]);
+    Sprites::instance()->get("block-0",&_texture_block[0]);
+    Sprites::instance()->get("block-1",&_texture_block[1]);
+    
+
 
     // default texture
     /*_sprite= Sprites::instance()->getSprite("scrooge");
@@ -45,7 +48,7 @@ Block::Block(QPointF pos, double width, double height,Block::Type type) : Entity
         _compenetrable = true;
         setPixmap(Sprites::instance()->get("invisible"));
     }*/
-    setZValue(50);
+    setZValue(1);
 
            // default physics
     _y_gravity = 0;
