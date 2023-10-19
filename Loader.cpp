@@ -8,6 +8,7 @@
 #include "Octopus.h"
 #include "DynamicPlatform.h"
 #include "BBoy.h"
+#include "Block.h"
 
 
 using namespace DT;
@@ -466,7 +467,9 @@ Scrooge* Loader::load(std::string levelName)
 
         new BBoy(QPointF(111 * TILE, 80* TILE));
 
-        return new Scrooge(QPointF(96* TILE, 4*TILE));
+
+        new Block(QPointF(7* TILE, 68*TILE), TILE, TILE);
+        return new Scrooge(QPointF(3* TILE, 67*TILE));
     }
     else{
         return nullptr;

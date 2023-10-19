@@ -155,6 +155,8 @@ bool Scrooge::hit(Object* what, Direction fromDir)
 {
     StaticObject* sobj = what->to<StaticObject*>();
     Enemy* enemy = what->to<Enemy*>();
+    Block* block = what->to<Block*>();
+
     if(_grab){
         if(sobj && sobj->_type==StaticObject::Type::ROPE){
         std::cout<<"climbing";
@@ -176,6 +178,11 @@ bool Scrooge::hit(Object* what, Direction fromDir)
         _y_gravity = 0.065;
         _animRect = &_texture_bounce[1];
         enemy->die();
+    }
+
+    if(block && fromDir == Direction::DOWN && _pogoing){
+        velAdd(Vec2Df(0, -15.5));
+        _y_gravity = 0.065;
     }
     return false;
 }

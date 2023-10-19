@@ -5,47 +5,53 @@
 
 namespace DT
 {
-    class Block;
+class Block;
 }
 
-class DT::Block : public DynamicPlatform
+class DT::Block : public Entity
 {
-    public:
 
-        enum class Type {BRICK, SPHERE, QUESTION, HIDDEN};
 
-    protected:
+protected:
 
-        QPointF _pos;
-        Block::Type _type;
-        //Spawnable::Type _spawnable;
-        bool _bouncing;
-        bool _disabled;
-        bool _spawned;
+    QPointF _pos;
 
-        // animation textures
-        QPixmap _texture_question[5];
+           //Spawnable::Type _spawnable;
+    bool _bouncing;
+    bool _disabled;
+    bool _spawned;
+    bool _launchable;
+    bool _breakable;
+    QRect _texture_block[1];
+    bool _what_type;
+    // animation textures
 
-    public:
 
-        Block(
+public:
+
+    enum class Type {BRICK, SPHERE, QUESTION, HIDDEN, CHEST};
+    Block::Type _type;
+
+    Block(
             QPointF pos,
             double width,
             double height,
-            Block::Type type = Block::Type::BRICK);
+            Block::Type _type = Block::Type::BRICK);
+    virtual bool animate() override;
+    virtual std::string name() override { return "Block"; }
+    virtual bool hit(Object* what, Direction fromDir) override;
+                                                                // implemented abstract methods
+    /*
+    virtual bool animate() override;
+    virtual bool hit(Object* what, Direction fromDir) override;
+    virtual std::string name() override { return "Block"; }
 
-        // implemented abstract methods
-        /*
-        virtual bool animate() override;
-        virtual bool hit(Object* what, Direction fromDir) override;
-        virtual std::string name() override { return "Block"; }
+         // actions
+         virtual void smash();
+         virtual void disable();
+         virtual void smashAttached();
 
-        // actions
-        virtual void smash();
-        virtual void disable();
-        virtual void smashAttached();
-
-        // utility methods to create a rectangle filled will wall blocks
-        static void createWall(int x, int y, int w, int h);
-        */
+          // utility methods to create a rectangle filled will wall blocks
+          static void createWall(int x, int y, int w, int h);
+          */
 };
