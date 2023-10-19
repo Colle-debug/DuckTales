@@ -80,6 +80,12 @@ void BBoy::jump(bool on)
         _y_gravity = 0.8;
 }
 
+void BBoy::die()
+{
+    Game::instance()->setBeagleStatus(false);
+    Enemy::die();
+}
+
 void BBoy::checkPos(){
     if(x() == _prev_x_val){
         _x_dir = fromDirBackup;

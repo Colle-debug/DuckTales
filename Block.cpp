@@ -3,9 +3,9 @@
 #include "Scrooge.h"
 //#include "Sounds.h"
 #include "Enemy.h"
-//#include "Spawnable.h"
-//#include "BrokenBrick.h"
+#include "Spawnable.h"
 #include "Game.h"
+
 
 using namespace DT;
 
@@ -22,9 +22,11 @@ Block::Block(QPointF pos, double width, double height,Block::Type type) : Entity
 
     _compenetrable=false;
     _sprite= Sprites::instance()->getSprite("block");
+
     Sprites::instance()->get("block-0",&_texture_block[0]);
     Sprites::instance()->get("block-1",&_texture_block[1]);
-    
+    Sprites::instance()->get("block-2",&_texture_block[2]);
+
 
 
     // default texture
@@ -69,6 +71,11 @@ bool Block::hit(Object* what, Direction fromDir)
       {
         setVisible(false);
         _compenetrable = true;
+
+        if (chanceCalculator(0.25)) { // 25% di probabilità di spawnare un oggetto
+            new Spawnable(this->_pos, TILE, TILE, Spawnable::Type::STAR);
+        }
+
         /*_x_dir = Direction::RIGHT;
         _y_acc_up = 0;
         velAdd(Vec2Df(10, -10));*/

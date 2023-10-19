@@ -9,6 +9,7 @@
 #include "DynamicPlatform.h"
 #include "BBoy.h"
 #include "Block.h"
+#include "Spawnable.h"
 
 
 using namespace DT;
@@ -25,9 +26,9 @@ Scrooge* Loader::load(std::string levelName)
         {
             new Block(QPointF((13+i)*TILE, 68*TILE), TILE, TILE,Block::Type::BRICK);
         }
-       
+
         //in alternativa si puo fare un unico blocco di dimensione 4
-        
+
         new Block(QPointF(16*TILE,67*TILE), TILE,TILE,Block::Type::BRICK);
         new Block(QPointF(15*TILE,67*TILE), TILE,TILE,Block::Type::BRICK);
         for (int i=0; i<5; i++)
@@ -310,6 +311,7 @@ Scrooge* Loader::load(std::string levelName)
         new StaticObject(QPointF(122*TILE,8*TILE),TILE,TILE, StaticObject::Type::SPIKE);
         new StaticObject(QPointF(122*TILE,7*TILE),TILE,TILE, StaticObject::Type::SPIKE);
         new StaticObject(QPointF(124*TILE,8*TILE),4*TILE,TILE);
+        new StaticObject(QPointF(26*TILE, 68*TILE), 2*TILE, TILE);
 
 
         new Block(QPointF(11*TILE,23*TILE),TILE,TILE,Block::Type::SPHERE);
@@ -457,7 +459,7 @@ Scrooge* Loader::load(std::string levelName)
 
         new StaticObject(QPointF(92* TILE, 66*TILE), 0*TILE, 0.5*TILE, StaticObject::Type::BUMPER);
         new StaticObject(QPointF(83* TILE, 66*TILE), 0*TILE, 0.5*TILE, StaticObject::Type::BUMPER);
-        new StaticObject(QPointF(3* TILE, 62*TILE), TILE, 6*TILE, StaticObject::Type::ROPE);
+        //new StaticObject(QPointF(3* TILE, 62*TILE), TILE, 6*TILE, StaticObject::Type::ROPE); ROPE nello Spawn per testing
 
 
 
@@ -468,9 +470,12 @@ Scrooge* Loader::load(std::string levelName)
 
         new BBoy(QPointF(111 * TILE, 80* TILE));
 
+        new Spawnable(QPointF(5* TILE, 64*TILE), TILE, TILE, Spawnable::Type::ICE_CREAM); // Vedi se width e height effettivamente servono qui, penso di no
+        new Spawnable(QPointF(6* TILE, 64*TILE), TILE, TILE, Spawnable::Type::DIAMOND_BIG);
+        new Spawnable(QPointF(7* TILE, 64*TILE), TILE, TILE, Spawnable::Type::STAR);
 
        // new Block(QPointF(7* TILE, 68*TILE), TILE, TILE);
-        return new Scrooge(QPointF(98* TILE, 80*TILE));
+        return new Scrooge(QPointF(1* TILE, 67*TILE));
     }
     else{
         return nullptr;

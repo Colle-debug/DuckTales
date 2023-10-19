@@ -76,6 +76,8 @@ public:
            // show / hide collider
     void toggleCollider();
 
+    bool chanceCalculator(double probability);
+
 };
 
 #endif // OBJECT_H

@@ -3,6 +3,7 @@
 #include <QPen>
 #include "Object.h"
 #include "Game.h"
+#include <random>
 
 using namespace DT;
 
@@ -13,7 +14,7 @@ Object::Object(QPointF pos, double width, double height)
     _id = created++;
     _collidable = true;
     _compenetrable = false;
-    _colliderVisible = true;
+    _colliderVisible = false;
     _boundingRect = QRectF(0, 0, width, height);
     _collider = _boundingRect;
 
@@ -47,6 +48,21 @@ void Object::toggleCollider()
 {
     if (_collidable)
         _colliderVisible = !_colliderVisible;
+}
+
+bool Object::chanceCalculator(double probability)
+{
+    std::random_device rd; // Istanza della classe random_device, rd() restituisce un valore intero casuale-->seed del generatore (punto di partenza)
+    std::mt19937 gen(rd()); // Generatore di numeri casuali basato sull'algoritmo Mersenne Twister
+    std::uniform_real_distribution<double> dis(0.0, 1.0); // Distribuzione uniforme di numeri reali nell'intervallo 0-1
+
+    double randomValue = dis(gen); // Genero un numero casuale usando la distribuzione dis e il generatore gen
+    if (randomValue <= probability) {
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 
 void Object::schedule(const std::string& id, int delay, std::function<void()> action, bool overwrite)

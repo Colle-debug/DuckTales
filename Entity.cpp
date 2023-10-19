@@ -3,6 +3,7 @@
 #include "Object.h"
 #include "Game.h"
 #include "Block.h"
+#include "Spawnable.h"
 #include "CollisionDetection.h"
 
 using namespace DT;
@@ -177,7 +178,7 @@ void Entity::resolveCollisions()
     for (auto obj : sortedByContactTime)
         if (DynamicRectVsRect(sceneCollider(), vel(), obj.first->sceneCollider(), cp, cn, ct))
         {
-            if (!obj.first->compenetrable() || (obj.first->isBumper() && (!this->isScrooge() && !(dynamic_cast<Block*>(this))))) //Verifica se cambiare ZValue a Block rende inutile questa condizione
+            if (!obj.first->compenetrable() || ((obj.first->isBumper()) && (!this->isScrooge() && !(dynamic_cast<Block*>(this))))) //Verifica se cambiare ZValue a Block rende inutile questa condizione
                 velAdd(cn * Vec2Df(std::abs(_vel.x), std::abs(_vel.y)) * (1 - ct));
 
 

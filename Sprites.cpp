@@ -1,5 +1,6 @@
 #include "Sprites.h"
 #include <QBitmap>
+#include <iostream>
 #include <string>
 #include <QPainter>
 #include <QPixmap>
@@ -43,6 +44,7 @@ static QRect _platform(79,31,33,17);
 static QRect _beagleBoy(113,7,25,32);
 static QRect _block(111,31,16,16);
 static QRect _sphere(16,32,16,16);
+static QRect _spawnable(0, 16, 16, 16);
 
 Sprites* Sprites::instance()
 {
@@ -59,6 +61,7 @@ Sprites::Sprites()
     platform = loadTexture(":/sprites/itemsupdated.png", QColor(255,0,255));
     block = loadTexture(":/sprites/itemsupdated.png", QColor(255,0,255));
     sphere = loadTexture(":/sprites/itemsupdated.png", QColor(255,0,255));
+    spawnable = loadTexture(":/sprites/itemsupdated.png", QColor(255,0,255));
 }
 
 QPixmap* Sprites::getSprite(const std::string& id)
@@ -76,7 +79,9 @@ QPixmap* Sprites::getSprite(const std::string& id)
     else if(id=="block")
         return &block;
     else if (id=="sphere")
-        return &sphere;    
+        return &sphere;
+    else if (id=="spawnable")
+        return &spawnable;
 
     else
         return 0;
@@ -172,20 +177,44 @@ void Sprites::get(const std::string & id, QRect animOutput[])
     {
         animOutput[0] = moveBy(_platform,0,0);
     }
-     else if(id == "block-0"){
-        animOutput[0] = moveBy(_block,0,0);
+    else if(id == "block-0"){
+       animOutput[0] = moveBy(_block,0, 0 );
     }
-     else if(id == "block-1"){
-        animOutput[0] = moveBy(_block,-1,0,96);
+    else if(id == "block-1"){
+       animOutput[0] = moveBy(_block,-1, 0, 96);
     }
-    else if(id == "block-2"){
-        animOutput[0] = moveBy(_block,-1,0,112);
+     else if(id == "block-2"){
+       animOutput[0] = moveBy(_block,-1, 0, 112);
     }
-     else if(id == "sphere"){
-        animOutput[0] = moveBy(_sphere,0,0);
-     }
+    else if(id == "sphere"){ // non serve, già preso in block-1 la ""sphere""
+       animOutput[0] = moveBy(_sphere,0,0);
+    }
+    else if(id=="ice-cream"){
+        animOutput[0] = moveBy(_spawnable, 0, 0);
+    }
+    else if(id=="diamond-big-0"){
+        animOutput[0] = moveBy(_spawnable, 1, -1, 16, 16);
+    }
+    else if(id=="diamond-big-1"){
+        animOutput[0] = moveBy(_spawnable, 2, -1, 16, 16);
+    }
+    else if(id=="diamond-big-2"){
+        animOutput[0] = moveBy(_spawnable, 3, -1, 16, 16);
+    }
+    else if(id=="diamond-big-3"){
+        animOutput[0] = moveBy(_spawnable, 4, -1, 16, 16);
+    }
+    else if(id=="diamond-big-4"){
+        animOutput[0] = moveBy(_spawnable, 5, -1, 16, 16);
+    }
+    else if(id=="star-0"){
+        animOutput[0] = moveBy(_spawnable, 2, 0, 16, 16);
+    }
+    else if(id=="star-1"){
+        animOutput[0] = moveBy(_spawnable, 3, 0, 16, 16);
+    }
 
-   
+
 
     else
     {

@@ -22,6 +22,7 @@ Scrooge::Scrooge(QPointF pos) : Entity(pos, 26, 27)
     _crouch = false;
     _climbing = false;
     _invincible = false;
+    _grab = false;
     _prev_x_dir = Direction::RIGHT;
     _mirror_x_dir = Direction::LEFT;
 

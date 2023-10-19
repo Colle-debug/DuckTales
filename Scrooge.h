@@ -39,11 +39,12 @@ protected:
 
     bool _recentlyHit;
     int _hp;
+    double _score = 0;
 
 
 public:
     Scrooge(QPointF pos);
-
+    void scoreAdd(double amount){_score += amount;}
     bool swinging(){ return _swinging; }
     bool dying(){ return _dying; }
     bool dead(){ return _dead; }
@@ -51,7 +52,7 @@ public:
     bool climbing(){ return _climbing; }
     void setClimbing(bool on){_climbing = on;}
     bool invincibile(){ return _invincible; }
-
+    double score(){return _score;}
     void recentlyHit(bool on);
     void climbingPhysics();
 

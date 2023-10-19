@@ -23,7 +23,7 @@ protected:
     bool _launchable;
     bool _breakable;
     QRect _texture_block[3];
-    
+
 
     bool _what_type;
     // animation textures

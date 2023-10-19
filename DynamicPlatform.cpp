@@ -13,7 +13,7 @@ DynamicPlatform::DynamicPlatform(QPointF pos) : Entity(pos, 33, 17)
 {
     _compenetrable = false;
     _sprite = Sprites::instance()->getSprite("platform");
-     Sprites::instance()->get("platform", &_texture_platform[0]);
+    Sprites::instance()->get("platform", &_texture_platform[0]);
 
 
     _y_vel_max=0;

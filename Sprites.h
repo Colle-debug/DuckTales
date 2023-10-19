@@ -18,6 +18,7 @@ private:
     QPixmap platform;
     QPixmap block;
     QPixmap sphere;
+    QPixmap spawnable;
 
     Sprites();
 

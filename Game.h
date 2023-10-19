@@ -57,6 +57,7 @@ public:
     virtual void wheelEvent(QWheelEvent* e) override;
     virtual void resizeEvent(QResizeEvent* event) override;
     void gameOver()  { _state = GameState::GAME_OVER; }
+    void spawningPoint();
 
 public slots:
     void reset();

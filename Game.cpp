@@ -27,7 +27,7 @@ Game* Game::instance()
 Game::Game(QGraphicsView *parent) : QGraphicsView(parent)
 {
     _world = new QGraphicsScene();
-    //_world->setSceneRect(TILE * 120, TILE * 81, TILE * 128, TILE * 15); // Vista di default è 0 56.5
+    _world->setSceneRect(0, 0, TILE * 128, TILE * 81); // Vista di default è 0 56.5
     setScene(_world);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -162,8 +162,11 @@ void Game::nextFrame()
 
         if(!beagleActive){
             // Meglio schedulare il respawn dopo un paio di FRAME
-            new BBoy(QPointF(_player->x() - 7*TILE, _player->y() - 2 * TILE)); // Respawing naive, funzione per valutare il primo blocco utile su cui potersi poggiare
+            beagleActive = true;
+            _player->schedule("restore", 100, [this](){ spawningPoint();});
+            /*spawningPoint(); // Respawing naive, funzione per valutare il primo blocco utile su cui potersi poggiare
             beagleActive = true; // C'è unironically un memory leak...
+*/
         }
 
     // advance game
@@ -343,6 +346,12 @@ void Game::wheelEvent(QWheelEvent* e)
 void Game::resizeEvent(QResizeEvent* evt)
 {
     fitInView(0, 0, TILE * 16-4, TILE * 15-4);
+}
+
+void Game::spawningPoint()
+{
+    BBoy *test = new BBoy(QPointF(_player->x() - 6* TILE, _player->y() - 2*TILE));
+
 }
 
 void Game::gameEnd()

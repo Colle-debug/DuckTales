@@ -27,6 +27,8 @@ class DT::BBoy : public Enemy
         virtual void advance() override;
         virtual bool animate() override;
         virtual void jump(bool on = true) override;
+        virtual void die() override;
+
 
 };
 
