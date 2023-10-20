@@ -65,6 +65,8 @@ void Game::reset()
     _jump_pressed = false;
     _crouch_pressed = false;
     _grab_pressed = false;
+    _swing_pressed = false;
+    _swing_released = false;
     //restoreDefaultView();
     _state = GameState::READY;
     _engine.stop();
@@ -147,6 +149,19 @@ void Game::nextFrame()
                 _player->setClimbing(false);
             }
 
+        }
+        if (_swing_pressed)
+        {
+            _player->swing(true);
+            _swing_pressed=false;
+            
+     
+        }
+        else if(_swing_released)
+        {
+            _player->swing(false);
+            _swing_released=false;
+           
         }
 
         if (_jump_pressed)
@@ -251,6 +266,12 @@ void Game::keyPressEvent(QKeyEvent* e)
             _jump_pressed = true;
             _jump_released = false;
         }
+        else if (e->key() == Qt::Key_X)
+        {
+            _swing_pressed=true;
+            _swing_released=false;
+            
+        }
         else if (e->key() == Qt::Key_Up)
         {
             if(_player->climbing()){
@@ -322,6 +343,14 @@ void Game::keyReleaseEvent(QKeyEvent* e)
                 _crouch_pressed = false;
             }
         }
+        else if (e->key() == Qt::Key_X)
+        {
+            
+            _swing_pressed=false;
+            _swing_released=true;
+           
+        }
+
         else if (e->key() == Qt::Key_Up){
             if(_player->climbing()){
                 _up_pressed = false;

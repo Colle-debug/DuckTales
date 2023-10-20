@@ -37,6 +37,8 @@ private:
     bool _jump_released;
     bool _pogo_released;
     bool beagleActive;
+    bool _swing_pressed;
+    bool _swing_released;
 
     int startingX = 0;
     int startingY = 64;

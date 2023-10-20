@@ -47,12 +47,12 @@ Scrooge::Scrooge(QPointF pos) : Entity(pos, 26, 27)
     Sprites::instance()->get("scrooge-stuck", &_texture_stuck[0]);
     Sprites::instance()->get("scrooge-climb-0", &_texture_climb[0]);
     Sprites::instance()->get("scrooge-climb-1", &_texture_climb[1]);
-    Sprites::instance()->get("scrooge-preputt-0", &_texture_preputt[0]);
-    Sprites::instance()->get("scrooge-preputt-1", &_texture_preputt[1]);
     Sprites::instance()->get("scrooge-putt-0", &_texture_putt[0]);
     Sprites::instance()->get("scrooge-putt-1", &_texture_putt[1]);
-    Sprites::instance()->get("scrooge-putt-success-0", &_texture_puttsuccess[0]);
-    Sprites::instance()->get("scrooge-putt-success-1", &_texture_puttsuccess[1]);
+    Sprites::instance()->get("scrooge-putt-2", &_texture_putt[2]);
+    Sprites::instance()->get("scrooge-putt-3", &_texture_putt[3]);
+    Sprites::instance()->get("scrooge-putt-4", &_texture_putt[4]);
+    Sprites::instance()->get("scrooge-putt-5", &_texture_putt[5]);
     Sprites::instance()->get("scrooge-putt-fail-0", &_texture_puttfail[0]);
     Sprites::instance()->get("scrooge-putt-fail-1", &_texture_puttfail[1]);
     Sprites::instance()->get("scrooge-dying", &_texture_dying[0]);
@@ -99,7 +99,7 @@ void Scrooge::jump(bool on)
 
     if (on)
     {
-        if (!midair() && !_pogoing)
+        if (!midair() && !_pogoing && !_swinging)
         {
             if (std::abs(_vel.x) <= 2)
             {
@@ -140,6 +140,14 @@ bool Scrooge::animate()
     {
         _animRect = &_texture_dying[1];
     }
+     if(_swinging && !_jumping && !_pogoing && _vel.x==0)
+    {
+        _animRect = &_texture_putt[(FRAME_COUNT / 9) % 5];   
+       // _animRect = &_texture_putt[2];
+       /* _animRect = &_texture_putt[0];
+        _animRect = &_texture_putt[1];   
+    */
+    }
 
     return 1;
 }
@@ -177,13 +185,20 @@ bool Scrooge::hit(Object* what, Direction fromDir)
     if(enemy && fromDir == Direction::DOWN && _pogoing){
         velAdd(Vec2Df(0, -15.5));
         _y_gravity = 0.065;
-        _animRect = &_texture_bounce[1];
+        
         enemy->die();
     }
-
+  
     if(block && fromDir == Direction::DOWN && _pogoing){
         velAdd(Vec2Df(0, -15.5));
         _y_gravity = 0.065;
+    }
+   /* if(sobj && _swinging)
+    {
+        animate();
+    }*/
+    if(block){
+       // Entity::move(Direction::NONE);
     }
     return false;
 }
@@ -276,3 +291,16 @@ void Scrooge::pogo(bool on)
 
         }
 }
+
+void Scrooge::swing(bool on)
+{
+    if(on){
+        if(!_jumping && !_pogoing && _vel.x==0){
+      _swinging=true;
+      
+        }
+    }
+    else _swinging=false;
+}
+
+

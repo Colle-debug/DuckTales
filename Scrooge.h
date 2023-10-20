@@ -23,9 +23,7 @@ protected:
     QRect _texture_climb[2];
     QRect _texture_crouch[2];
     QRect _texture_stuck[1];
-    QRect _texture_putt[2];
-    QRect _texture_preputt[2];
-    QRect _texture_puttsuccess[2];
+    QRect _texture_putt[6];
     QRect _texture_puttfail[2];
     QRect _texture_bounce[2];
     QRect _texture_dying[1];
@@ -74,6 +72,7 @@ public:
     virtual void jump(bool on = true) override;
     virtual void die();
     virtual void crouch(bool on = true);
+    virtual void swing(bool on = true);
 };
 
 #endif // SCROOGE_H

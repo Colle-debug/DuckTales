@@ -4,7 +4,7 @@
         <file>scrooge.png</file>
         <file>scroogeNew.png</file>
         <file>enemies.png</file>
-        <file>itemsupdated.png</file>
+        <file>itemsfinal.png</file>
     </qresource>
     <qresource prefix="/background">
         <file>theMoon.png</file>

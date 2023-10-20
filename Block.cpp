@@ -5,183 +5,144 @@
 #include "Enemy.h"
 #include "Spawnable.h"
 #include "Game.h"
-
+#include "StaticObject.h"
 
 using namespace DT;
 
-Block::Block(QPointF pos, double width, double height,Block::Type type) : Entity(pos,16,16)
+Block::Block(QPointF pos, double width, double height, Block::Type type) : Entity(pos, 16, 16)
 {
     _pos = pos;
     _type = type;
-    //_spawnable = spawnable;
-    _bouncing = false;
-    _disabled = false;
-    _spawned = false;
+    _spawned = false; // serve per gesittre quando respawna
     _breakable = false;
-    _launchable = false;
+    _launched = false;
+    _collided = false;
+    
 
-    _compenetrable=false;
-    _sprite= Sprites::instance()->getSprite("block");
+    _compenetrable = false;
+    _sprite = Sprites::instance()->getSprite("block");
 
-    Sprites::instance()->get("block-0",&_texture_block[0]);
-    Sprites::instance()->get("block-1",&_texture_block[1]);
-    Sprites::instance()->get("block-2",&_texture_block[2]);
+    Sprites::instance()->get("block-0", &_texture_block[0]);
+    Sprites::instance()->get("block-1", &_texture_block[1]);
+    Sprites::instance()->get("block-2", &_texture_block[2]);
+    Sprites::instance()->get("block-broken-0", &_texture_broken_block[0]);
+    Sprites::instance()->get("block-broken-1", &_texture_broken_block[1]);
 
-
-
-    // default texture
-    /*_sprite= Sprites::instance()->getSprite("scrooge");
-    Sprites::instance()->get("scrooge-stand", &_texture_stand[0]);
-    _texture_question[0] = Sprites::instance()->get("question-0");
-    _texture_question[1] = Sprites::instance()->get("question-1");
-    _texture_question[2] = Sprites::instance()->get("question-2");
-    _texture_question[3] = Sprites::instance()->get("question-1");
-    _texture_question[4] = Sprites::instance()->get("question-0");
-    */
-    /*
-    if (_type == Type::QUESTION)
-        setPixmap(_texture_question[0]);
-    else if (_type == Type::BRICK)
-        setPixmap(Sprites::instance()->get("brick"));
-    else if (_type == Type::WALL)
-        setPixmap(Sprites::instance()->get("wall"));
-    else // hidden
-    {
-        _compenetrable = true;
-        setPixmap(Sprites::instance()->get("invisible"));
-    }*/
     setZValue(1);
-
-           // default physics
     _y_gravity = 0;
-
 }
 
 bool Block::animate()
 {
+     
     if (_type == Type::BRICK)
         _animRect = &_texture_block[0];
+
+
+    if (_type == Type::SPHERE)
+    {
+        _animRect = &_texture_block[1];
+    }
+
+    if (_type == Type::SPHERE && _breakable == true)
+    {
+        _animRect = &_texture_broken_block[(FRAME_COUNT / 4) % 4];
+    }
+
+    if(_launched && _type==Type::BRICK)   
+    {
+        if(_vel.y<0)
+        _animRect = &_texture_block[2];
+       else if (_vel.y>0)
+        _animRect = &_texture_broken_block[(FRAME_COUNT / 4) % 4];    
+
+
+    }
+
     return true;
 }
 
 bool Block::hit(Object* what, Direction fromDir)
 {
-    Scrooge* mario = what->to<Scrooge*>();
-    if (mario && fromDir == Direction::UP && _type == Type::BRICK && mario->pogoing())
-      {
-        setVisible(false);
-        _compenetrable = true;
+    Scrooge* scrooge = what->to<Scrooge*>();
+    Enemy* enm = what->to<Enemy*>();
+    StaticObject* sobj = what->to<StaticObject*>();
+    Block* block = what->to<Block*>();
 
-        if (chanceCalculator(0.25)) { // 25% di probabilità di spawnare un oggetto
-            new Spawnable(this->_pos, TILE, TILE, Spawnable::Type::STAR);
-        }
-
-        /*_x_dir = Direction::RIGHT;
-        _y_acc_up = 0;
-        velAdd(Vec2Df(10, -10));*/
-
-          return true;
-      }
-    /*           // smash
-               if ((_type == Block::Type::BRICK)
-               {
-
-                 // do 1-frame bounce to capture objects walking on this
-                 //bounce();
-                // schedule("one-frame-bounce", 1, [this]() {smash(); });
-             }
-             // bounce / bump
-             else
-             {
-                 //Sounds::instance()->play("bump");
-                 if (!_disabled)
-                     //bounce();
-             }
-         }*/
-
-    return false;
-
-}
-
-
-
-
-/*
-
-void Block::bounce()
-{
- if (_bouncing)
-     return;
- _bouncing = true;
-
- // single spawnable cause the block to disable immediately
- if (_spawnable != Spawnable::Type::NONE && _spawnable != Spawnable::Type::MULTICOIN)
-     disable();
- // multicoin becomes single coin after expiration
- if (!_spawned && _spawnable == Spawnable::Type::MULTICOIN)
-     schedule("multicoin", 300, [this]() {_spawnable = Spawnable::Type::COIN; });
- // coins spawn immediately
- if (_spawnable == Spawnable::Type::COIN || _spawnable == Spawnable::Type::MULTICOIN)
- {
-     Spawnable::instance(_spawnable, pos());
-     _spawned = true;
- }
-
- // bounce physics with delayed spawn
- _y_gravity = 0.2;
- _vel.y = -2;
- schedule("spawn", 19, [this]() {
-     _y_gravity = 0;
-     _vel.y = 0;
-     _bouncing = false;
-     setPos(_pos);
-     if (_spawnable != Spawnable::Type::NONE &&
-         _spawnable != Spawnable::Type::COIN &&
-         _spawnable != Spawnable::Type::MULTICOIN)
-     {
-         Spawnable::instance(_spawnable, pos());
-         _spawned = true;
-     }
- });
-}
-
-void Block::smash()
-{
- setVisible(false);
- Sounds::instance()->play("smash");
- new BrokenBrick(_pos + QPointF(8, 0), -3, 2);
- new BrokenBrick(_pos + QPointF(0, 0), -3, -2);
- new BrokenBrick(_pos + QPointF(8, 8), -1, 2);
- new BrokenBrick(_pos + QPointF(0, 8), -1, -2);
- Game::instance()->hud()->addScore(50);
-}
-void Block::disable()
-{
-    _disabled = true;
-    setPixmap(Sprites::instance()->get("block-disabled"));
-}
-
-void Block::createWall(int x, int y, int w, int h)
-{
-    for (int i = y; i < y + h; i++)
-        for (int j = x; j < x + w; j++)
-            new Block(QPoint(j * TILE, i * TILE), Block::Type::WALL);
-}
-
-void Block::smashAttached()
-{
-    for (auto obj : _attached)
+    if (scrooge && fromDir == Direction::UP && scrooge->pogoing())
     {
-        Enemy* enemy = obj.first->to<Enemy*>();
-        Spawnable* spawnable = obj.first->to<Spawnable*>();
-        if (enemy)
-            enemy->smash(this);
-        else if (spawnable)
-        {
-            spawnable->jump();
-            spawnable->move(spawnable->isRightTo(this) ? Direction::RIGHT : Direction::LEFT);
-        }
+        _breakable = true; //utilizzo breakable per gestire le interazioni con pogoing
+        schedule("disappear", 20, [this]() { setVisible(false); });
     }
-    _attached.clear();
+
+    if (scrooge && scrooge->swinging())
+    {
+        if (_type == Type::SPHERE)
+        {
+        if (fromDir == Direction::LEFT)
+        {
+            _x_dir = Direction::RIGHT;
+            _y_acc_up = 0;
+            velAdd(Vec2Df(10, -10));
+        }
+         if (fromDir == Direction::RIGHT)
+        {
+            _x_dir = Direction::LEFT;
+            _y_acc_up = 0;
+            velAdd(Vec2Df(-10, -10));
+        }
+       
+    }
+
+    if ( _type == Type::BRICK)
+    {
+        if (fromDir == Direction::LEFT)
+        {
+            velAdd(Vec2Df(0.15, -3));
+            _x_dir = Direction::RIGHT;
+            _y_gravity = 0.13;
+            _compenetrable = true;
+           schedule("disappear", 40, [this]() { setVisible(false); });
+        }
+        if (fromDir == Direction::RIGHT)
+        {
+            velAdd(Vec2Df(-0.15, -3));
+            _x_dir = Direction::LEFT;
+            _y_gravity = 0.13;
+            _compenetrable = true;
+            schedule("disappear", 40, [this]() { setVisible(false); });
+        }
+        
+       _launched=true; //launched  serve per gestire le animazioni di brick quando viene hittato da scrooge
+    }
+     
+    }
+
+    if (enm && midair())
+    {
+        enm->die();
+    }
+
+    if ( sobj && fromDir==Direction::UP )
+    {
+        
+        _compenetrable = true;
+        _breakable=true;
+       schedule("disappear", 8, [this]() { setVisible(false); });
+        
+
+        
+    }
+ 
+   /* if (block)  // da implementare le collisioni tra due blocchi. se si toccano solamente quello lanciato da scrooge deve rompersi. se collidano, il blocco deve essere non compenetrable e deve rompersi subito, attivo _breakable=true
+
+    {
+       
+    }*/
+
+    return true;
 }
-*/
+
+
+
+

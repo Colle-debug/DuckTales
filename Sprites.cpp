@@ -42,7 +42,7 @@ static QRect _pinkAlien(42,5,32,35);
 static QRect _octopus(4,7,16,24);
 static QRect _platform(79,31,33,17);
 static QRect _beagleBoy(113,7,25,32);
-static QRect _block(111,31,16,16);
+static QRect _block(112,32,16,16);
 static QRect _sphere(16,32,16,16);
 static QRect _spawnable(0, 16, 16, 16);
 
@@ -58,10 +58,9 @@ Sprites::Sprites()
     pinkAlien = loadTexture(":/sprites/enemies.png", QColor(255,0,255));
     octopus = loadTexture(":/sprites/enemies.png", QColor(255,0,255));
     beagleBoy = loadTexture(":/sprites/enemies.png", QColor(255,0,255));
-    platform = loadTexture(":/sprites/itemsupdated.png", QColor(255,0,255));
-    block = loadTexture(":/sprites/itemsupdated.png", QColor(255,0,255));
-    sphere = loadTexture(":/sprites/itemsupdated.png", QColor(255,0,255));
-    spawnable = loadTexture(":/sprites/itemsupdated.png", QColor(255,0,255));
+    platform = loadTexture(":/sprites/itemsfinal.png", QColor(255,0,255));
+    block = loadTexture(":/sprites/itemsfinal.png", QColor(255,0,255));
+    spawnable = loadTexture(":/sprites/itemsfinal.png", QColor(255,0,255));
 }
 
 QPixmap* Sprites::getSprite(const std::string& id)
@@ -128,22 +127,22 @@ void Sprites::get(const std::string & id, QRect animOutput[])
     else if(id == "scrooge-climb-1"){
         animOutput[0] = moveBy(scrooge_stand,0,4);
     }
-    else if(id == "scrooge-preputt-0"){
+    else if(id == "scrooge-putt-0"){
         animOutput[0] = moveBy(scrooge_stand,1,4);
     }
-    else if(id == "scrooge-preputt-1"){
+    else if(id == "scrooge-putt-1"){
         animOutput[0] = moveBy(scrooge_stand,2,4);
     }
-    else if(id == "scrooge-putt-0"){
+    else if(id == "scrooge-putt-2"){
         animOutput[0] = moveBy(scrooge_stand,3,4);
     }
-    else if(id == "scrooge-putt-1"){
+    else if(id == "scrooge-putt-3"){
         animOutput[0] = moveBy(scrooge_stand,4,4);
     }
-    else if(id == "scrooge-putt-success-0"){
+    else if(id == "scrooge-putt-4"){
         animOutput[0] = moveBy(scrooge_stand,5,4);
     }
-    else if(id == "scrooge-putt-success-1"){
+    else if(id == "scrooge-putt-5å"){
         animOutput[0] = moveBy(scrooge_stand,0,6);
     }
     else if(id == "scrooge-putt-fail-0"){
@@ -181,14 +180,18 @@ void Sprites::get(const std::string & id, QRect animOutput[])
        animOutput[0] = moveBy(_block,0, 0 );
     }
     else if(id == "block-1"){
-       animOutput[0] = moveBy(_block,-1, 0, 96);
+       animOutput[0] = moveBy(_block,-1, 0, 96,0);
     }
      else if(id == "block-2"){
        animOutput[0] = moveBy(_block,-1, 0, 112);
     }
-    else if(id == "sphere"){ // non serve, già preso in block-1 la ""sphere""
-       animOutput[0] = moveBy(_sphere,0,0);
+    else if(id == "block-broken-0"){
+       animOutput[0] = moveBy(_block,0,1,16,15);
     }
+     else if(id == "block-broken-1"){
+       animOutput[0] = moveBy(_block,-1, 1,16,15);
+    }
+    
     else if(id=="ice-cream"){
         animOutput[0] = moveBy(_spawnable, 0, 0);
     }
