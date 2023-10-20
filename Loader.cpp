@@ -33,11 +33,11 @@ Scrooge* Loader::load(std::string levelName)
         new Block(QPointF(15*TILE,67*TILE), TILE,TILE,Block::Type::BRICK);
         for (int i=0; i<5; i++)
         {
-            new Block(QPointF((42+i)*TILE, 68*TILE), TILE, TILE);
+            new Block(QPointF((42+i)*TILE, 68*TILE), TILE, TILE,Block::Type::BRICK);
         }
         for (int i=0; i<3; i++)
         {
-            new Block(QPointF((43+i)*TILE, 67*TILE), TILE, TILE);
+            new Block(QPointF((43+i)*TILE, 67*TILE), TILE, TILE, Block::Type::BRICK);
         }
 
         new StaticObject(QPointF(0, 60*TILE), 0, 9*TILE);
@@ -254,8 +254,8 @@ Scrooge* Loader::load(std::string levelName)
 
 
         //new StaticObject(QPointF(89*TILE,36*TILE),TILE,TILE);
-        new StaticObject(QPointF(63*TILE,36*TILE),TILE,TILE);
-        new StaticObject(QPointF(63*TILE,36*TILE),TILE,TILE);
+    // new StaticObject(QPointF(63*TILE,36*TILE),TILE,TILE);
+       // new StaticObject(QPointF(63*TILE,36*TILE),TILE,TILE);
         new StaticObject(QPointF(86*TILE,24*TILE),TILE,5*TILE);
 
         //piattaforma
@@ -326,11 +326,12 @@ Scrooge* Loader::load(std::string levelName)
         new Block(QPointF(20*TILE,22*TILE),TILE,TILE,Block::Type::SPHERE);
         new Block(QPointF(28*TILE,23*TILE),TILE,TILE,Block::Type::SPHERE);
         new Block(QPointF(36*TILE,23*TILE),TILE,TILE,Block::Type::SPHERE);
+        new Block(QPointF(37*TILE,23*TILE),TILE,TILE,Block::Type::SPHERE);
 
-        new Block(QPointF(31*TILE,23*TILE),TILE,TILE);
-        new Block(QPointF(32*TILE,23*TILE),TILE,TILE);
-        new Block(QPointF(39*TILE,23*TILE),TILE,TILE);
-        new Block(QPointF(40*TILE,23*TILE),TILE,TILE);
+        new Block(QPointF(31*TILE,23*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(32*TILE,23*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(39*TILE,23*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(40*TILE,23*TILE),TILE,TILE,Block::Type::BRICK);
 
 
 
@@ -370,7 +371,7 @@ Scrooge* Loader::load(std::string levelName)
         new Block(QPointF(98*TILE,83*TILE),TILE,TILE,Block::Type::BRICK);
         new Block(QPointF(108*TILE,83*TILE),TILE,TILE,Block::Type::BRICK);
         new Block(QPointF(107*TILE,83*TILE),TILE,TILE,Block::Type::BRICK);
-        new Block(QPointF(123*TILE,83*TILE),TILE,TILE),Block::Type::BRICK;
+        new Block(QPointF(123*TILE,83*TILE),TILE,TILE,Block::Type::BRICK);
         new Block(QPointF(89*TILE,82*TILE),TILE,TILE,Block::Type::BRICK);
         new Block(QPointF(98*TILE,82*TILE),TILE,TILE,Block::Type::BRICK);
         new Block(QPointF(111*TILE,82*TILE),TILE,TILE,Block::Type::BRICK);
@@ -474,8 +475,9 @@ Scrooge* Loader::load(std::string levelName)
         new Spawnable(QPointF(6* TILE, 64*TILE), TILE, TILE, Spawnable::Type::DIAMOND_BIG);
         new Spawnable(QPointF(7* TILE, 64*TILE), TILE, TILE, Spawnable::Type::STAR);
 
-       // new Block(QPointF(7* TILE, 68*TILE), TILE, TILE);
-        return new Scrooge(QPointF(1* TILE, 67*TILE));
+       new Block(QPointF(3*TILE, 67*TILE), TILE, TILE,Block::Type::SPHERE);
+        return new Scrooge(QPointF(20* TILE,30*TILE));
+        
     }
     else{
         return nullptr;

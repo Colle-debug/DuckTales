@@ -44,7 +44,7 @@ bool Block::animate()
         _animRect = &_texture_block[1];
     }
 
-    if (_type == Type::SPHERE && _breakable == true)
+    if ((_type == Type::SPHERE || _type== Type::BRICK) && _breakable == true)
     {
         _animRect = &_texture_broken_block[(FRAME_COUNT / 4) % 4];
     }
