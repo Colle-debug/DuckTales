@@ -138,7 +138,7 @@ bool Scrooge::animate()
         _animRect = &_texture_crouch[1];
     if(_dead || _dying)
     {
-        _animRect = &_texture_dying[1];
+        _animRect = &_texture_dying[0];
     }
     if(_climbing){
         _animRect = &_texture_climb[(FRAME_COUNT / 9) % 2];
