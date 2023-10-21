@@ -140,6 +140,9 @@ bool Scrooge::animate()
     {
         _animRect = &_texture_dying[1];
     }
+    if(_climbing){
+        _animRect = &_texture_climb[(FRAME_COUNT / 9) % 2];
+    }
      if(_swinging && !_jumping && !_pogoing && _vel.x==0)
     {
         _animRect = &_texture_putt[(FRAME_COUNT / 9) % 5];   

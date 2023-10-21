@@ -10,6 +10,7 @@ using namespace DT;
 Octopus::Octopus(QPointF pos, Direction _type)
     : Enemy(pos, 16, 24)
 {
+
     this->_type = _type;
     _sprite = Sprites::instance()->getSprite("octopus");
     if(_type == Direction::UP || _type == Direction::DOWN){
@@ -22,7 +23,7 @@ Octopus::Octopus(QPointF pos, Direction _type)
     }
     Sprites::instance()->get("octopus-0", &_texture_walk[0]);
     Sprites::instance()->get("octopus-1", &_texture_walk[1]);
-
+    _mirror_x_dir = Direction::RIGHT;
     /*Sprites::instance()->getAnimation("zenchan", &_animWalk[0][0]);
     Sprites::instance()->getAnimation("zenchan_angry", &_animWalk[1][0]);
     Sprites::instance()->getAnimation("zenchan_ball", &_animBubble[0][0]);
