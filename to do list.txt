@@ -1,19 +1,23 @@
-Vines -> work in progress, funziona ma malino V
-Sprites Octopus -> facile
-Beagle Boy -> quasi fatto
-Checkpoint -> facile
---------- 
-HUD -> in fase di studio V
-Suoni -> facile
--------
-Spawnable
-Boxer
-Fisica Projectiles
-Rat
+Ricevimento:
+1) Sistemare Rope
+2) Colpo su Block
+3) Idee su Boxer & Rat
 
-Bria 1
-Definire la classe Projectile, in modo da poter piazzare i blocchi. L'importante è che carichi bene la texture: sia blocchi bianchi che gialli.
-Tutto Projectiles + Boxer
-
-Bria 2
-Problemi
+HUD --> M WIP
+Sprites Octopus --> M DONE
+Sprites _climbing --> M DONE
+Sistemare camera;
+Aggiungere {SMALL_CHEST, BIG_CHEST, BATTERY} in Block --> R WIP
+Pogo: Scrooge deve poter salire sopra tutti i dislivelli --> R DONE
+Checkpoint --> V WIP
+Animazione danno subito da Scrooge
+Beagle Boys: Algoritmo di respawning, simile a punto 2 di Spawnable
+Algoritmo di respawning degli altri nemici --> V WIP
+Chiave livello inferiore
+Suoni: basta solo farne funzionare uno, poi si mettono --> R WIP
+Launchpad McQuack --> V WIP
+Spawnable (V WIP tutte e 5):	1) Da capire comportamento e punti
+							2) Algoritmo di spawning 
+							3) Diamanti piccoli? Come si può modificare il collider?
+							4) Vedere altre cose da posizionare
+							5) Aggiungere {TREASURE, KEY}
