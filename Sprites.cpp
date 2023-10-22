@@ -45,6 +45,8 @@ static QRect _beagleBoy(113,7,25,32);
 static QRect _block(112,32,16,16);
 static QRect _sphere(16,32,16,16);
 static QRect _spawnable(0, 16, 16, 16);
+static QRect _chest(96,1,32,30);
+
 
 Sprites* Sprites::instance()
 {
@@ -61,6 +63,7 @@ Sprites::Sprites()
     platform = loadTexture(":/sprites/itemsfinal.png", QColor(255,0,255));
     block = loadTexture(":/sprites/itemsfinal.png", QColor(255,0,255));
     spawnable = loadTexture(":/sprites/itemsfinal.png", QColor(255,0,255));
+    chest = loadTexture(":/sprites/itemsfinal.png", QColor(255,0,255));
 }
 
 QPixmap* Sprites::getSprite(const std::string& id)
@@ -81,6 +84,8 @@ QPixmap* Sprites::getSprite(const std::string& id)
         return &sphere;
     else if (id=="spawnable")
         return &spawnable;
+        else if (id=="chest")
+        return &chest;
 
     else
         return 0;
@@ -142,7 +147,7 @@ void Sprites::get(const std::string & id, QRect animOutput[])
     else if(id == "scrooge-putt-4"){
         animOutput[0] = moveBy(scrooge_stand,5,4);
     }
-    else if(id == "scrooge-putt-5å"){
+    else if(id == "scrooge-putt-5"){
         animOutput[0] = moveBy(scrooge_stand,0,6);
     }
     else if(id == "scrooge-putt-fail-0"){
@@ -179,10 +184,10 @@ void Sprites::get(const std::string & id, QRect animOutput[])
     else if(id == "block-0"){
        animOutput[0] = moveBy(_block,0, 0 );
     }
-    else if(id == "block-1"){
+    else if(id == "sphere-0"){
        animOutput[0] = moveBy(_block,-1, 0, 96,0);
     }
-     else if(id == "block-2"){
+     else if(id == "block-1"){
        animOutput[0] = moveBy(_block,-1, 0, 112);
     }
     else if(id == "block-broken-0"){
@@ -216,6 +221,20 @@ void Sprites::get(const std::string & id, QRect animOutput[])
     else if(id=="star-1"){
         animOutput[0] = moveBy(_spawnable, 3, 0, 16, 16);
     }
+    else if(id=="chest-small-0")
+    {
+        animOutput[0] = moveBy(_block,-1,0,64);
+    }
+    
+    else if(id=="battery-0")
+    {
+        animOutput[0] = moveBy(_block,-1,0,80);
+    }
+    else if(id=="chest-big-0")
+    {
+        animOutput[0] = moveBy(_chest,0,0);
+    }
+
 
 
 

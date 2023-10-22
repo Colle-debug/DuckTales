@@ -19,6 +19,7 @@ private:
     QPixmap block;
     QPixmap sphere;
     QPixmap spawnable;
+    QPixmap chest;
 
     Sprites();
 

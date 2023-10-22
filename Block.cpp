@@ -7,60 +7,87 @@
 #include "Game.h"
 #include "StaticObject.h"
 
+
+
 using namespace DT;
 
-Block::Block(QPointF pos, double width, double height, Block::Type type) : Entity(pos, 16, 16)
+Block::Block(QPointF pos, double width, double height, Block::Type type, bool invisible) : Entity(pos, width, height)
 {
     _pos = pos;
     _type = type;
     _spawned = false; // serve per gesittre quando respawna
+    _invisible = invisible;
     _breakable = false;
     _launched = false;
     _collided = false;
+    _compenetrable=false;
+
+     _sprite = Sprites::instance()->getSprite("block");
+ if(_type==Type::BRICK){
+
+  Sprites::instance()->get("block-0", &_texture_block[0]);
+  Sprites::instance()->get("block-1", &_texture_block[1]); 
+   Sprites::instance()->get("block-broken-0", &_texture_broken_block[0]); 
+   Sprites::instance()->get("block-broken-1", &_texture_broken_block[1]); 
+   _animRect= &_texture_block[0];
+ }
+      //   _sprite = Sprites::instance()->getSprite("chest");
+   
+   if(_type==Type::CHEST_BIG)
+   {
+
+   
+   Sprites::instance()->get("chest-big-0", &_texture_chest_big[0]);
+ Sprites::instance()->get("block-broken-0", &_texture_broken_block[0]); 
+   Sprites::instance()->get("block-broken-1", &_texture_broken_block[1]); 
+   _animRect = &_texture_chest_big[0];
+   }
+
+if (_type==Type::SPHERE)
+{
+    Sprites::instance()->get("sphere-0", &_texture_block[0]);
+    Sprites::instance()->get("block-broken-0", &_texture_broken_block[0]); 
+   Sprites::instance()->get("block-broken-1", &_texture_broken_block[1]); 
+    _animRect = &_texture_block[0];
+}
+
+
+if (_type == Type::BATTERY)
+{
+    Sprites::instance()->get("battery-0", &_texture_block[0]);
+    _animRect = &_texture_block[0];
+}
+    if (_type == Type::CHEST_SMALL)
+    {
+     Sprites::instance()->get("chest-small-0", &_texture_chest_small[0]);
+     Sprites::instance()->get("block-broken-0", &_texture_broken_block[0]); 
+     Sprites::instance()->get("block-broken-1", &_texture_broken_block[1]); 
+    _animRect = &_texture_chest_small[0];
+
+   
+
+    if (_invisible)
+    {
+        //setVisible(false);
+        _compenetrable = true;
+    }
+    else
+    {
+        setVisible(true);
+        _compenetrable = false;
+    }
+}
+
+
     
 
-    _compenetrable = false;
-    _sprite = Sprites::instance()->getSprite("block");
-
-    Sprites::instance()->get("block-0", &_texture_block[0]);
-    Sprites::instance()->get("block-1", &_texture_block[1]);
-    Sprites::instance()->get("block-2", &_texture_block[2]);
-    Sprites::instance()->get("block-broken-0", &_texture_broken_block[0]);
-    Sprites::instance()->get("block-broken-1", &_texture_broken_block[1]);
 
     setZValue(1);
     _y_gravity = 0;
+
 }
 
-bool Block::animate()
-{
-     
-    if (_type == Type::BRICK)
-        _animRect = &_texture_block[0];
 
-
-    if (_type == Type::SPHERE)
-    {
-        _animRect = &_texture_block[1];
-    }
-
-    if ((_type == Type::SPHERE || _type== Type::BRICK) && _breakable == true)
-    {
-        _animRect = &_texture_broken_block[(FRAME_COUNT / 4) % 4];
-    }
-
-    if(_launched && _type==Type::BRICK)   
-    {
-        if(_vel.y<0)
-        _animRect = &_texture_block[2];
-       else if (_vel.y>0)
-        _animRect = &_texture_broken_block[(FRAME_COUNT / 4) % 4];    
-
-
-    }
-
-    return true;
-}
 
 bool Block::hit(Object* what, Direction fromDir)
 {
@@ -69,14 +96,58 @@ bool Block::hit(Object* what, Direction fromDir)
     StaticObject* sobj = what->to<StaticObject*>();
     Block* block = what->to<Block*>();
 
-    if (scrooge && fromDir == Direction::UP && scrooge->pogoing())
+    if (scrooge && fromDir == Direction::UP && scrooge->pogoing() && _type!=Type::BATTERY)
     {
         _breakable = true; //utilizzo breakable per gestire le interazioni con pogoing
         schedule("disappear", 20, [this]() { setVisible(false); });
+        this->setZValue(3);
     }
+
+   if (scrooge && _type == Type::CHEST_SMALL)
+{
+    if (_invisible)
+    {
+        setVisible(true);
+        _compenetrable = false;
+        _invisible=false; // metto invisible a false così puo diventare visible
+    }
+}
+
 
     if (scrooge && scrooge->swinging())
     {
+        if(_type==Type::BATTERY)
+       {
+           if (fromDir == Direction::LEFT)
+        {
+            _x_dir = Direction::RIGHT;
+            _y_acc_up = 0;
+            
+        }
+         if (fromDir == Direction::RIGHT)
+        {
+            _x_dir = Direction::LEFT;
+            _y_acc_up = 0;
+            velAdd(Vec2Df(-20, 0));
+        }
+       }
+        if(_type==Type::CHEST_SMALL)
+       {
+           if (fromDir == Direction::LEFT)
+        {
+            _x_dir = Direction::RIGHT;
+            _y_acc_up = 0;
+            velAdd(Vec2Df(20, 0));
+        }
+         if (fromDir == Direction::RIGHT)
+        {
+            _x_dir = Direction::LEFT;
+            _y_acc_up = 0;
+            velAdd(Vec2Df(-20, 0));
+        }
+       }
+       
+       
         if (_type == Type::SPHERE)
         {
         if (fromDir == Direction::LEFT)
@@ -93,6 +164,10 @@ bool Block::hit(Object* what, Direction fromDir)
         }
        
     }
+    if (_type==Type::CHEST_BIG)
+    {
+        schedule("disappear", 30, [this]() { setVisible(false); });
+    }
 
     if ( _type == Type::BRICK)
     {
@@ -102,7 +177,7 @@ bool Block::hit(Object* what, Direction fromDir)
             _x_dir = Direction::RIGHT;
             _y_gravity = 0.13;
             _compenetrable = true;
-           schedule("disappear", 40, [this]() { setVisible(false); });
+           schedule("disappear", 30, [this]() { setVisible(false); });
         }
         if (fromDir == Direction::RIGHT)
         {
@@ -110,7 +185,7 @@ bool Block::hit(Object* what, Direction fromDir)
             _x_dir = Direction::LEFT;
             _y_gravity = 0.13;
             _compenetrable = true;
-            schedule("disappear", 40, [this]() { setVisible(false); });
+            schedule("disappear", 30, [this]() { setVisible(false); });
         }
         
        _launched=true; //launched  serve per gestire le animazioni di brick quando viene hittato da scrooge
@@ -130,15 +205,51 @@ bool Block::hit(Object* what, Direction fromDir)
         _breakable=true;
        schedule("disappear", 8, [this]() { setVisible(false); });
         
+     }
 
-        
-    }
+    
  
    /* if (block)  // da implementare le collisioni tra due blocchi. se si toccano solamente quello lanciato da scrooge deve rompersi. se collidano, il blocco deve essere non compenetrable e deve rompersi subito, attivo _breakable=true
-
+//da gestire anche la collisione tra battery e brick 
     {
        
     }*/
+
+    return true;
+}
+
+
+bool Block::animate()
+{
+     
+    if(_type==Type::CHEST_SMALL && _invisible)
+    {
+       _animRect = &_texture_chest_small[Qt::transparent]; 
+    }
+    else if(_type==Type::CHEST_SMALL && !_invisible)
+  {
+   schedule("startAnimation", 15, [this]() {
+    // Questo blocco di codice sarà eseguito dopo l'intervallo di tempo specificato (1 secondo)
+    _animRect = &_texture_chest_small[0];
+   
+}, false);
+
+}
+
+
+     if ((_type == Type::SPHERE || _type== Type::BRICK || _type==Type::CHEST_BIG || _type==Type::CHEST_SMALL) && _breakable == true)
+    {
+      
+       _animRect = &_texture_broken_block[(FRAME_COUNT / 10) % 2];
+    }
+
+    if(_launched && _type==Type::BRICK)   
+    {
+        if(_vel.y<0)
+        _animRect = &_texture_block[2];
+       else if (_vel.y>0)
+        _animRect = &_texture_broken_block[(FRAME_COUNT / 9) % 2];    
+    }
 
     return true;
 }
