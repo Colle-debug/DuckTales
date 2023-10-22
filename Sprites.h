@@ -20,6 +20,7 @@ private:
     QPixmap sphere;
     QPixmap spawnable;
     QPixmap chest;
+    QPixmap gizmoduck;
 
     Sprites();
 

@@ -48,6 +48,11 @@ bool StaticObject::animate()
 
 bool StaticObject::hit(Object* what, Direction fromDir)
 {
+    Scrooge* scrooge = dynamic_cast<Scrooge*>(what);
+    if(scrooge && scrooge->hasTheKey() && this->_type == Type::GATE){
+        _compenetrable = true;
+        return true;
+    }
     _hit = true;
     return false;
 }

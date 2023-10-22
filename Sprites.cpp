@@ -47,6 +47,9 @@ static QRect _sphere(16,32,16,16);
 static QRect _spawnable(0, 16, 16, 16);
 static QRect _small_diamond(0, 8, 8, 8);
 static QRect _chest(96,1,32,30);
+static QRect _gizmoduck(122,49,32,39);
+
+
 
 
 Sprites* Sprites::instance()
@@ -65,6 +68,7 @@ Sprites::Sprites()
     block = loadTexture(":/sprites/itemsfinal.png", QColor(255,0,255));
     spawnable = loadTexture(":/sprites/itemsfinal.png", QColor(255,0,255));
     chest = loadTexture(":/sprites/itemsfinal.png", QColor(255,0,255));
+    gizmoduck = loadTexture(":/sprites/npcs.png", QColor(164, 224, 160));
 }
 
 QPixmap* Sprites::getSprite(const std::string& id)
@@ -85,8 +89,10 @@ QPixmap* Sprites::getSprite(const std::string& id)
         return &sphere;
     else if (id=="spawnable")
         return &spawnable;
-        else if (id=="chest")
+    else if (id=="chest")
         return &chest;
+    else if (id=="gizmoduck")
+        return &gizmoduck;
     else
         return 0;
 }
@@ -235,6 +241,9 @@ void Sprites::get(const std::string & id, QRect animOutput[])
     else if(id=="key"){
         animOutput[0] = moveBy(_spawnable, 0, 1, 0, 79);
     }
+    else if(id=="remote"){
+        animOutput[0] = moveBy(_spawnable, 2, 1, 16, 79);
+    }
     else if(id=="chest-small-0")
     {
         animOutput[0] = moveBy(_block,-1,0,64);
@@ -248,10 +257,14 @@ void Sprites::get(const std::string & id, QRect animOutput[])
     {
         animOutput[0] = moveBy(_chest,0,0);
     }
-
-
-
-
+    else if(id=="gizmoduck-0")
+    {
+        animOutput[0] = moveBy(_gizmoduck,0,0);
+    }
+    else if(id=="gizmoduck-1")
+    {
+        animOutput[0] = moveBy(_gizmoduck,1,0,32);
+    }
     else
     {
         printf("warning: cannot get texture \"%s\"\n", id.c_str());

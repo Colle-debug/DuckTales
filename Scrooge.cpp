@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "Block.h"
 #include "Enemy.h"
+#include "Ally.h"
 #include <QDebug>
 #include "GameConfig.h"
 #include <QPainter>
@@ -28,7 +29,7 @@ Scrooge::Scrooge(QPointF pos) : Entity(pos, 26, 27)
 
     _hp = 3;
     _recentlyHit = 0;
-    _key = false;
+    _key = true;
 
     _scripted = false;
     _jumping = false;
@@ -303,5 +304,13 @@ void Scrooge::swing(bool on)
     }
     else _swinging=false;
 }
+
+
+void Scrooge::gizmoduckCinematic()
+{
+    Ally* gizmoduck = new Ally(QPointF(110*TILE, 66.5*TILE), 32, 39, Ally::Type::GIZMODUCK);
+    gizmoduck->velAdd(Vec2Df(5, 0));
+}
+
 
 

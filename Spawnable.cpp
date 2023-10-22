@@ -60,9 +60,13 @@ Spawnable::Spawnable(QPointF pos, double width, double height, Spawnable::Type t
         Sprites::instance()->get("treasure", &_texture_spawnable[0]);
         _animRect = &_texture_spawnable[0];
     }
+    else if(_type == Type::REMOTE){
+        Sprites::instance()->get("remote", &_texture_spawnable[0]);
+        _animRect = &_texture_spawnable[0];
+    }
 }
 
-bool Spawnable::animate()
+bool Spawnable::animate() // Da aggiungere animazione di spawning e metodo migliore per le texture di quelli con un solo frame
 {
     if(_canFall == 0 || (_canFall == 1 && _canFallHit == 1)){
     if(_type == Type::DIAMOND_YELLOW_BIG){
@@ -119,6 +123,9 @@ bool Spawnable::hit(Object* what, Direction fromDir)
         }
         else if(_type == Type::KEY){
             scrooge->setKeyStatus(true);
+        }
+        else if(_type == Type::REMOTE){
+            scrooge->setRemoteStatus(true);
         }
         std::cout <<"Score: " <<scrooge->score() << "\n";
         taken = true;

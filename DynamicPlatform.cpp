@@ -50,23 +50,16 @@ bool DynamicPlatform::hit(Object* what, Direction fromDir)
 {
     Scrooge* ent = what->to<Scrooge*>();
 
-
     if (!_compenetrable && ent && ent->compenetrable())
     {
         _compenetrable=false;
         _attached[ent] = fromDir;
-
     }
 
-
-
-        if(what->to<StaticObject*>() && (fromDir == Direction::RIGHT || fromDir == Direction::LEFT)){
+    if(what->to<StaticObject*>() && (fromDir == Direction::RIGHT || fromDir == Direction::LEFT)){
         move(inverse(_x_dir));
         return true;
-
     }
 
 return false;
-
-
 }

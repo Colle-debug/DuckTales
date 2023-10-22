@@ -13,7 +13,7 @@ namespace DT
 class DT::StaticObject : public Object
 {
     public:
-    enum class Type{TERRAIN, ROPE, SPIKE, BUMPER, DEATHLINE};
+    enum class Type{TERRAIN, ROPE, SPIKE, GATE, BUMPER, DEATHLINE};
     protected:
         bool _hit;
     public:

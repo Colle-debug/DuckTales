@@ -20,15 +20,11 @@ Octopus::Octopus(QPointF pos, Direction _type)
     else{
         move(Direction::RIGHT);
         _y_gravity = 0;
+        _x_vel_max = 1;
     }
     Sprites::instance()->get("octopus-0", &_texture_walk[0]);
     Sprites::instance()->get("octopus-1", &_texture_walk[1]);
     _mirror_x_dir = Direction::RIGHT;
-    /*Sprites::instance()->getAnimation("zenchan", &_animWalk[0][0]);
-    Sprites::instance()->getAnimation("zenchan_angry", &_animWalk[1][0]);
-    Sprites::instance()->getAnimation("zenchan_ball", &_animBubble[0][0]);
-    Sprites::instance()->getAnimation("zenchan_ball_late", &_animBubble[1][0]);
-    Sprites::instance()->getAnimation("zenchan_die", &_animDie[0]);*/
 }
 
 void Octopus::advance()
@@ -52,7 +48,6 @@ bool Octopus::hit(Object* what, Direction fromDir)
 {
     if (Enemy::hit(what, fromDir))
         return true;
-
 
     if (what->to<StaticObject*>() && (fromDir == Direction::UP || fromDir == Direction::DOWN) && (_type == Direction::UP || _type == Direction::DOWN))
     {

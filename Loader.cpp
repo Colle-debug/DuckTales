@@ -275,7 +275,7 @@ Scrooge* Loader::load(std::string levelName)
         new StaticObject(QPointF(12*TILE,15*TILE),6*TILE,3*TILE);
         new StaticObject(QPointF(18*TILE,15*TILE),28*TILE,TILE);
         new StaticObject(QPointF(46*TILE,15*TILE),8*TILE,9*TILE);
-        new StaticObject(QPointF(64*TILE,22*TILE),TILE,2*TILE);
+        new StaticObject(QPointF(64*TILE,22*TILE),TILE,2*TILE, StaticObject::Type::GATE);
         new StaticObject(QPointF(64*TILE,15*TILE),2*TILE,7*TILE);
         new StaticObject(QPointF(66*TILE,19*TILE),2*TILE,TILE);
         new StaticObject(QPointF(66*TILE,15*TILE),18*TILE,TILE);
@@ -431,12 +431,23 @@ Scrooge* Loader::load(std::string levelName)
         new StaticObject(QPointF(25.5 *TILE, 35.5*TILE), 0.5*TILE, 0*TILE, StaticObject::Type::BUMPER);
         new StaticObject(QPointF(19.5 *TILE, 18.5*TILE), 0*TILE, 0.5*TILE, StaticObject::Type::BUMPER);
         new StaticObject(QPointF(17 *TILE, 18.5*TILE), 0*TILE, 0.5*TILE, StaticObject::Type::BUMPER);
+        new StaticObject(QPointF(31.5 *TILE, 23*TILE), 0.5*TILE, 0*TILE, StaticObject::Type::BUMPER);
+        new StaticObject(QPointF(39.5 *TILE, 23*TILE), 0.5*TILE, 0*TILE, StaticObject::Type::BUMPER);
+        new StaticObject(QPointF(22 *TILE, 36*TILE), 0.5*TILE, 0*TILE, StaticObject::Type::BUMPER);
         new StaticObject(QPointF(31.5 *TILE, 18.5*TILE), 0.5*TILE, 0*TILE, StaticObject::Type::BUMPER);
         new StaticObject(QPointF(39.5 *TILE, 18.5*TILE), 0.5*TILE, 0*TILE, StaticObject::Type::BUMPER);
         new StaticObject(QPointF(101.5 *TILE, 5.5*TILE), 0.5*TILE, 0*TILE, StaticObject::Type::BUMPER);
         new StaticObject(QPointF(101.5 *TILE, 9*TILE), 0.5*TILE, 0*TILE, StaticObject::Type::BUMPER);
         new StaticObject(QPointF(105.5 *TILE, 5.5*TILE), 0.5*TILE, 0*TILE, StaticObject::Type::BUMPER);
         new StaticObject(QPointF(105.5 *TILE, 9*TILE), 0.5*TILE, 0*TILE, StaticObject::Type::BUMPER);
+        new StaticObject(QPointF(54 *TILE, 17.3*TILE), 0.5*TILE, 0*TILE, StaticObject::Type::BUMPER);
+        new StaticObject(QPointF(57.8 *TILE, 17.3*TILE), 0.5*TILE, 0*TILE, StaticObject::Type::BUMPER);
+        new StaticObject(QPointF(55 *TILE, 16.5*TILE), 0*TILE, 0.5*TILE, StaticObject::Type::BUMPER);
+        new StaticObject(QPointF(87.5 *TILE, 66*TILE), 0.5*TILE, 0*TILE, StaticObject::Type::BUMPER);
+        new StaticObject(QPointF(87.5 *TILE, 62*TILE), 0.5*TILE, 0*TILE, StaticObject::Type::BUMPER);
+        new StaticObject(QPointF(102.5 *TILE, 65*TILE), 0.5*TILE, 0*TILE, StaticObject::Type::BUMPER);
+        new StaticObject(QPointF(101.5 *TILE, 61*TILE), 0.5*TILE, 0*TILE, StaticObject::Type::BUMPER);
+        new StaticObject(QPointF(101.5 *TILE, 65*TILE), 0.5*TILE, 0*TILE, StaticObject::Type::BUMPER);
 
 
         new Octopus(QPointF(10.0 * TILE, 65*TILE), Direction::UP);
@@ -451,6 +462,12 @@ Scrooge* Loader::load(std::string levelName)
         new Octopus(QPointF(39.5 * TILE, 21.5*TILE), Direction::UP);
         new Octopus(QPointF(101.5 * TILE, 6*TILE), Direction::UP);
         new Octopus(QPointF(105.5 * TILE, 6*TILE), Direction::UP);
+        new Octopus(QPointF(54 * TILE, 17*TILE), Direction::UP);
+        new Octopus(QPointF(55 * TILE, 16.5*TILE), Direction::RIGHT);
+        new Octopus(QPointF(57 * TILE, 19*TILE), Direction::UP);
+        new Octopus(QPointF(87.5 * TILE, 63*TILE), Direction::UP);
+        new Octopus(QPointF(101.5 * TILE, 63*TILE), Direction::UP);
+        new Octopus(QPointF(102.5 * TILE, 65*TILE), Direction::UP);
 
         //DynamicPlatform
         new DynamicPlatform(QPointF(91*TILE,66*TILE));
@@ -469,38 +486,45 @@ Scrooge* Loader::load(std::string levelName)
         new StaticObject(QPointF(53*TILE, 71.5*TILE), 56*TILE, 0, StaticObject::Type::DEATHLINE);
         new StaticObject(QPointF(98*TILE, 11.5*TILE), 30*TILE, 0, StaticObject::Type::DEATHLINE);
 
+
+        // BEAGLE BOY
+
         new BBoy(QPointF(111 * TILE, 80* TILE));
 
-        new Spawnable(QPointF(73* TILE, 22*TILE), TILE, TILE, Spawnable::Type::TREASURE); // Vedi se width e height effettivamente servono qui, penso di no
-        new Spawnable(QPointF(74* TILE, 22*TILE), TILE, TILE, Spawnable::Type::DIAMOND_YELLOW_BIG);
-        new Spawnable(QPointF(75* TILE, 22*TILE), TILE, TILE, Spawnable::Type::KEY);
-
-        new Block(QPointF(27*TILE, 38*TILE), TILE, TILE,Block::Type::BATTERY);
-       
-       
-        //chests
+        // CHESTS
 
         new Block(QPointF(102*TILE, 37*TILE), TILE, TILE, Block::Type::CHEST_SMALL); //spawn torta
         new Block(QPointF(103*TILE, 37*TILE), TILE, TILE, Block::Type::CHEST_SMALL); //spawn diamante rosso
         new Block(QPointF(99*TILE, 32*TILE), TILE, TILE, Block::Type::CHEST_SMALL, true);
         new Block(QPointF(100*TILE, 32*TILE), TILE, TILE, Block::Type::CHEST_SMALL, true);
-        new Block(QPointF(88*TILE, 2*TILE), TILE, TILE,Block::Type::CHEST_SMALL); 
-        new Block(QPointF(23*TILE, 61*TILE), TILE, TILE,Block::Type::CHEST_SMALL); 
+        new Block(QPointF(88*TILE, 2*TILE), TILE, TILE,Block::Type::CHEST_SMALL);
+        new Block(QPointF(23*TILE, 61*TILE), TILE, TILE,Block::Type::CHEST_SMALL);
         new Block(QPointF(9*TILE, 23*TILE), TILE, TILE,Block::Type::CHEST_SMALL, false, Spawnable::Type::CAKE);
-        new Block(QPointF(125*TILE, 6*TILE), 2*TILE, 2*TILE,Block::Type::CHEST_BIG); 
+        new Block(QPointF(125*TILE, 6*TILE), 2*TILE, 2*TILE,Block::Type::CHEST_BIG);
+
+
+        // Queste 3 sono per testing
+        new Spawnable(QPointF(73* TILE, 22*TILE), TILE, TILE, Spawnable::Type::TREASURE); // Vedi se width e height effettivamente servono qui, penso di no
+        new Spawnable(QPointF(74* TILE, 22*TILE), TILE, TILE, Spawnable::Type::DIAMOND_YELLOW_BIG);
+        new Spawnable(QPointF(75* TILE, 22*TILE), TILE, TILE, Spawnable::Type::KEY);
+
+        // BATTERY
+
+        new Block(QPointF(27*TILE, 38*TILE), TILE, TILE,Block::Type::BATTERY);
        
 
-
-
-        // new Block(QPointF(28*TILE, 33*TILE), 2*TILE, 2*TILE,Block::Type::CHEST_BIG);
         new Spawnable(QPointF(5*TILE, 67*TILE), 0.5*TILE, 0.5*TILE, Spawnable::Type::DIAMOND_YELLOW_SMALL);
         new Spawnable(QPointF(44*TILE, 62*TILE), TILE, TILE, Spawnable::Type::STAR, 1);
         new Spawnable(QPointF(59*TILE, 32*TILE), TILE, TILE, Spawnable::Type::DIAMOND_RED_BIG, 1);
         new Spawnable(QPointF(56*TILE, 32*TILE), 0.5*TILE, 0.5*TILE, Spawnable::Type::DIAMOND_YELLOW_SMALL, 1);
 
-        return new Scrooge(QPointF(60* TILE, 35*TILE));
 
-        
+        // TELECOMANDO PER ATTIVARE GIZMODUCK
+
+        new Spawnable(QPointF(55.5*TILE, 19*TILE), TILE, TILE, Spawnable::Type::REMOTE);
+
+        return new Scrooge(QPointF(3* TILE, 67*TILE));
+
     }
     else{
         return nullptr;

@@ -17,7 +17,7 @@ protected:
     QRect _texture_spawnable[5];
 public:
     bool canFall(){return _canFall;}
-    enum class Type { NONE, DIAMOND_RED_BIG, DIAMOND_YELLOW_BIG, DIAMOND_YELLOW_SMALL, STAR, ICE_CREAM, CAKE, KEY, TREASURE};
+    enum class Type { NONE, DIAMOND_RED_BIG, DIAMOND_YELLOW_BIG, DIAMOND_YELLOW_SMALL, STAR, ICE_CREAM, CAKE, KEY, TREASURE, REMOTE};
     Spawnable::Type _type;
 
     double value(){return _value;}

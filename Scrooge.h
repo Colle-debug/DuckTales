@@ -35,6 +35,7 @@ protected:
     bool _grab;
     bool _climbing;
     bool _key;
+    bool _remote;
 
     bool _recentlyHit;
     int _hp;
@@ -62,6 +63,11 @@ public:
     void setKeyStatus(bool on) { _key = on; }
     bool hasTheKey() { return _key; }
 
+    // Utilities per "_remote"
+    void setRemoteStatus(bool on) { _remote = on; }
+    bool hasTheRemote() { return _remote; }
+
+
     // Altri metodi
     bool swinging() { return _swinging; }
     bool dying() { return _dying; }
@@ -69,6 +75,7 @@ public:
     bool pogoing() { return _pogoing; }
     void recentlyHit(bool on);
     void climbingPhysics();
+    void gizmoduckCinematic();
 
 
     virtual void lifeDown();
