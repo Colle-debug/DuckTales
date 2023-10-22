@@ -19,8 +19,10 @@ bool Enemy::hit(Object* what, Direction fromDir)
     Scrooge* scrooge = what->to<Scrooge*>();
     if (scrooge && fromDir != Direction::UP) // Da aggiungere condizione su invincibilità, vedi stessa funzione in Enemy su BubbleBobble
     {
-        scrooge->lifeDown();
-        return true;
+        if(!scrooge->invincibile()){
+            scrooge->lifeDown();
+            return true;
+        }
     }/*
     else if(scrooge && scrooge->pogoing() && fromDir == Direction::UP){
         die();

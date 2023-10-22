@@ -26,8 +26,9 @@ Scrooge::Scrooge(QPointF pos) : Entity(pos, 26, 27)
     _prev_x_dir = Direction::RIGHT;
     _mirror_x_dir = Direction::LEFT;
 
-    _hp = 100;
+    _hp = 3;
     _recentlyHit = 0;
+    _key = false;
 
     _scripted = false;
     _jumping = false;
@@ -168,6 +169,7 @@ bool Scrooge::hit(Object* what, Direction fromDir)
     StaticObject* sobj = what->to<StaticObject*>();
     Enemy* enemy = what->to<Enemy*>();
     Block* block = what->to<Block*>();
+    Spawnable* spawnable = what->to<Spawnable*>();
 
     if(_grab){
         if(sobj && sobj->_type==StaticObject::Type::ROPE){
@@ -177,7 +179,7 @@ bool Scrooge::hit(Object* what, Direction fromDir)
         setX(sobj->pos().x() -0.66 * TILE);
         }
     }
-    if(sobj && sobj->_type==StaticObject::Type::SPIKE && !_pogoing){ //check sul gioco se prendi danno anche lateralmente
+    if(sobj && sobj->_type==StaticObject::Type::SPIKE && !_pogoing){
         lifeDown();
     }
 
@@ -187,22 +189,18 @@ bool Scrooge::hit(Object* what, Direction fromDir)
 
     if(enemy && fromDir == Direction::DOWN && _pogoing){
         velAdd(Vec2Df(0, -15.5));
-        _y_gravity = 0.065;
-        
+        _y_gravity = 0.065;   
         enemy->die();
+        if(chanceCalculator(1)){  // 100% probabilità per testing
+            new Spawnable(enemy->pos(), TILE, TILE, Spawnable::Type::ICE_CREAM);
+        }
     }
   
     if(block && fromDir == Direction::DOWN && _pogoing){
         velAdd(Vec2Df(0, -15.5));
         _y_gravity = 0.065;
     }
-   /* if(sobj && _swinging)
-    {
-        animate();
-    }*/
-    if(block){
-       // Entity::move(Direction::NONE);
-    }
+
     return false;
 }
 

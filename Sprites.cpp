@@ -45,6 +45,7 @@ static QRect _beagleBoy(113,7,25,32);
 static QRect _block(112,32,16,16);
 static QRect _sphere(16,32,16,16);
 static QRect _spawnable(0, 16, 16, 16);
+static QRect _small_diamond(0, 8, 8, 8);
 static QRect _chest(96,1,32,30);
 
 
@@ -86,7 +87,6 @@ QPixmap* Sprites::getSprite(const std::string& id)
         return &spawnable;
         else if (id=="chest")
         return &chest;
-
     else
         return 0;
 }
@@ -196,9 +196,17 @@ void Sprites::get(const std::string & id, QRect animOutput[])
      else if(id == "block-broken-1"){
        animOutput[0] = moveBy(_block,-1, 1,16,15);
     }
-    
     else if(id=="ice-cream"){
         animOutput[0] = moveBy(_spawnable, 0, 0);
+    }
+    else if(id=="cake"){
+        animOutput[0] = moveBy(_spawnable, 1, 0, 16);
+    }
+    else if(id=="diamond-small-0"){
+        animOutput[0] = moveBy(_small_diamond, 0, 0);
+    }
+    else if(id=="diamond-small-1"){
+        animOutput[0] = moveBy(_small_diamond, 1, 0, 8);
     }
     else if(id=="diamond-big-0"){
         animOutput[0] = moveBy(_spawnable, 1, -1, 16, 16);
@@ -212,7 +220,7 @@ void Sprites::get(const std::string & id, QRect animOutput[])
     else if(id=="diamond-big-3"){
         animOutput[0] = moveBy(_spawnable, 4, -1, 16, 16);
     }
-    else if(id=="diamond-big-4"){
+    else if(id=="diamond-big-4"){ // 4 è il red
         animOutput[0] = moveBy(_spawnable, 5, -1, 16, 16);
     }
     else if(id=="star-0"){
@@ -221,11 +229,17 @@ void Sprites::get(const std::string & id, QRect animOutput[])
     else if(id=="star-1"){
         animOutput[0] = moveBy(_spawnable, 3, 0, 16, 16);
     }
+    else if(id=="treasure"){
+        animOutput[0] = moveBy(_spawnable, 1, 1, 64, 31);
+    }
+    else if(id=="key"){
+        animOutput[0] = moveBy(_spawnable, 0, 1, 0, 79);
+    }
     else if(id=="chest-small-0")
     {
         animOutput[0] = moveBy(_block,-1,0,64);
     }
-    
+
     else if(id=="battery-0")
     {
         animOutput[0] = moveBy(_block,-1,0,80);

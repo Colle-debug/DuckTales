@@ -189,7 +189,7 @@ void Game::nextFrame()
     {
         Object* obj = dynamic_cast<Object*>(item);
 
-        if (obj && obj->isVisible())
+        if (obj && (obj->isVisible()))
         {
             obj->advance();			 // physics, collision detection and resolution, game logic
             obj->animate();			 // animation

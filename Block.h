@@ -1,7 +1,7 @@
 #pragma once
 
 #include "DynamicPlatform.h"
-//#include "Spawnable.h"
+#include "Spawnable.h"
 
 namespace DT
 {
@@ -31,6 +31,8 @@ protected:
     QRect _texture_chest_big[1];
     QRect _texture_chest_small[1];
 
+    Spawnable::Type _spawnable;
+
 
     //bool _what_type;
     // animation textures
@@ -46,7 +48,8 @@ public:
             double width,
             double height,
             Block::Type _type,
-            bool invisible=false);
+            bool invisible=false,
+            Spawnable::Type spawnable = Spawnable::Type::NONE);
     virtual bool animate() override;
     
     //virtual bool midair() const override;

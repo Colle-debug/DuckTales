@@ -34,6 +34,7 @@ protected:
     bool _crouch;
     bool _grab;
     bool _climbing;
+    bool _key;
 
     bool _recentlyHit;
     int _hp;
@@ -42,17 +43,33 @@ protected:
 
 public:
     Scrooge(QPointF pos);
-    void scoreAdd(double amount){_score += amount;}
-    bool swinging(){ return _swinging; }
-    bool dying(){ return _dying; }
-    bool dead(){ return _dead; }
-    bool pogoing(){ return _pogoing; }
-    bool climbing(){ return _climbing; }
-    void setClimbing(bool on){_climbing = on;}
-    bool invincibile(){ return _invincible; }
-    double score(){return _score;}
+    // Utilities per "_score"
+    void scoreAdd(double amount) { _score += amount; }
+    double score() { return _score; }
+
+    // Utilities per "_hp"
+    void hpAdd(int amount) { _hp += amount; }
+
+    // Utilities per "_climbing"
+    void setClimbing(bool on) { _climbing = on; }
+    bool climbing() { return _climbing; }
+
+    // Utilities per "_invincible"
+    void setInvincible(bool on) { _invincible = on; }
+    bool invincibile() { return _invincible; }
+
+    // Utilities per "_key"
+    void setKeyStatus(bool on) { _key = on; }
+    bool hasTheKey() { return _key; }
+
+    // Altri metodi
+    bool swinging() { return _swinging; }
+    bool dying() { return _dying; }
+    bool dead() { return _dead; }
+    bool pogoing() { return _pogoing; }
     void recentlyHit(bool on);
     void climbingPhysics();
+
 
     virtual void lifeDown();
     //virtual void lifeUp();

@@ -10,16 +10,18 @@ class Spawnable;
 class DT::Spawnable : public Entity
 {
 protected:
-    double _value;
+    double _value = 0;
     bool taken = 0;
+    bool _canFall = 0;
+    bool _canFallHit = 0;
     QRect _texture_spawnable[5];
 public:
-
-    enum class Type { NONE, DIAMOND_BIG, STAR , DIAMOND_SMALL , ICE_CREAM };
+    bool canFall(){return _canFall;}
+    enum class Type { NONE, DIAMOND_RED_BIG, DIAMOND_YELLOW_BIG, DIAMOND_YELLOW_SMALL, STAR, ICE_CREAM, CAKE, KEY, TREASURE};
     Spawnable::Type _type;
 
     double value(){return _value;}
-    Spawnable(QPointF pos, double width, double height, Spawnable::Type _type);
+    Spawnable(QPointF pos, double width, double height, Spawnable::Type _type, bool canFall = 0);
 
     // implemented abstract methods
     virtual bool animate() override;
@@ -27,8 +29,8 @@ public:
     virtual std::string name() override { return "Spawnable"; }
 
 
-           // default spawn and live phases
-    virtual void spawn();
+    // default spawn and live phases
+    //virtual void spawn();
 
 
 };

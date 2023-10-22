@@ -471,28 +471,34 @@ Scrooge* Loader::load(std::string levelName)
 
         new BBoy(QPointF(111 * TILE, 80* TILE));
 
-        new Spawnable(QPointF(5* TILE, 64*TILE), TILE, TILE, Spawnable::Type::ICE_CREAM); // Vedi se width e height effettivamente servono qui, penso di no
-        new Spawnable(QPointF(6* TILE, 64*TILE), TILE, TILE, Spawnable::Type::DIAMOND_BIG);
-        new Spawnable(QPointF(7* TILE, 64*TILE), TILE, TILE, Spawnable::Type::STAR);
+        new Spawnable(QPointF(73* TILE, 22*TILE), TILE, TILE, Spawnable::Type::TREASURE); // Vedi se width e height effettivamente servono qui, penso di no
+        new Spawnable(QPointF(74* TILE, 22*TILE), TILE, TILE, Spawnable::Type::DIAMOND_YELLOW_BIG);
+        new Spawnable(QPointF(75* TILE, 22*TILE), TILE, TILE, Spawnable::Type::KEY);
 
-       new Block(QPointF(27*TILE, 38*TILE), TILE, TILE,Block::Type::BATTERY);
+        new Block(QPointF(27*TILE, 38*TILE), TILE, TILE,Block::Type::BATTERY);
        
        
-       //chests
+        //chests
 
-        new Block(QPointF(102*TILE, 37*TILE), TILE, TILE,Block::Type::CHEST_SMALL); //spawn torta
-        new Block(QPointF(103*TILE, 37*TILE), TILE, TILE,Block::Type::CHEST_SMALL); //spawn diamante rosso
-        new Block(QPointF(99*TILE, 32*TILE), TILE, TILE,Block::Type::CHEST_SMALL,true);
-        new Block(QPointF(100*TILE, 32*TILE), TILE, TILE,Block::Type::CHEST_SMALL,true); 
+        new Block(QPointF(102*TILE, 37*TILE), TILE, TILE, Block::Type::CHEST_SMALL); //spawn torta
+        new Block(QPointF(103*TILE, 37*TILE), TILE, TILE, Block::Type::CHEST_SMALL); //spawn diamante rosso
+        new Block(QPointF(99*TILE, 32*TILE), TILE, TILE, Block::Type::CHEST_SMALL, true);
+        new Block(QPointF(100*TILE, 32*TILE), TILE, TILE, Block::Type::CHEST_SMALL, true);
         new Block(QPointF(88*TILE, 2*TILE), TILE, TILE,Block::Type::CHEST_SMALL); 
         new Block(QPointF(23*TILE, 61*TILE), TILE, TILE,Block::Type::CHEST_SMALL); 
+        new Block(QPointF(9*TILE, 23*TILE), TILE, TILE,Block::Type::CHEST_SMALL, false, Spawnable::Type::CAKE);
         new Block(QPointF(125*TILE, 6*TILE), 2*TILE, 2*TILE,Block::Type::CHEST_BIG); 
        
 
 
 
-      // new Block(QPointF(28*TILE, 33*TILE), 2*TILE, 2*TILE,Block::Type::CHEST_BIG);
-        return new Scrooge(QPointF(125* TILE,4*TILE));
+        // new Block(QPointF(28*TILE, 33*TILE), 2*TILE, 2*TILE,Block::Type::CHEST_BIG);
+        new Spawnable(QPointF(5*TILE, 67*TILE), 0.5*TILE, 0.5*TILE, Spawnable::Type::DIAMOND_YELLOW_SMALL);
+        new Spawnable(QPointF(44*TILE, 62*TILE), TILE, TILE, Spawnable::Type::STAR, 1);
+        new Spawnable(QPointF(59*TILE, 32*TILE), TILE, TILE, Spawnable::Type::DIAMOND_RED_BIG, 1);
+        new Spawnable(QPointF(56*TILE, 32*TILE), 0.5*TILE, 0.5*TILE, Spawnable::Type::DIAMOND_YELLOW_SMALL, 1);
+
+        return new Scrooge(QPointF(60* TILE, 35*TILE));
 
         
     }
