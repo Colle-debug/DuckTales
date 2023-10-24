@@ -74,6 +74,7 @@ bool Block::hit(Object * what, Direction fromDir) {
     //Block * block = what -> to < Block * > ();
 
     if (scrooge && fromDir == Direction::UP && scrooge -> pogoing() && _type != Type::BATTERY) {
+        _collidable=false;
         _breakable = true; //utilizzo breakable per gestire le interazioni con pogoing ---> è broken non breakable...
         schedule("disappear", 20, [this]() {setVisible(false);});
         if(_type == Type::BRICK && chanceCalculator(0.05)){ // 10% di possibilità di spawnare

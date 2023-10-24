@@ -3,6 +3,7 @@
 #include "Scrooge.h"
 #include "StaticObject.h"
 #include "Block.h"
+#include "Sounds.h"
 
 using namespace DT;
 
@@ -19,9 +20,13 @@ bool Enemy::hit(Object* what, Direction fromDir)
     Scrooge* scrooge = what->to<Scrooge*>();
     if (scrooge && fromDir != Direction::UP) // Da aggiungere condizione su invincibilità, vedi stessa funzione in Enemy su BubbleBobble
     {
+       
+       
         if(!scrooge->invincibile()){
             scrooge->lifeDown();
+           
             return true;
+             
         }
     }/*
     else if(scrooge && scrooge->pogoing() && fromDir == Direction::UP){
@@ -55,7 +60,7 @@ void Enemy::die()
 {
     if (_dying)
         return;
-
+  Sounds::instance()->play("enemydie");
          _dying = true;
 
         _collidable=false;
