@@ -9,6 +9,7 @@
 #include <QPixmap>
 #include "Sprites.h"
 #include "StaticObject.h"
+#include "Sounds.h"
 
 using namespace DT;
 Scrooge::Scrooge(QPointF pos) : Entity(pos, 26, 27)
@@ -115,6 +116,7 @@ void Scrooge::jump(bool on)
             }
 
             _jumping = true;
+           // Sounds::instance()->play("ScroogeHit");
             //Sounds::instance()->play(std::string("jump-") + (_big ? "big" : "small"));
         }
     }
@@ -182,17 +184,29 @@ bool Scrooge::hit(Object* what, Direction fromDir)
     }
     if(sobj && sobj->_type==StaticObject::Type::SPIKE && !_pogoing){
         lifeDown();
+        Sounds::instance()->play("hit");
     }
 
     if(sobj && sobj->_type==StaticObject::Type::DEATHLINE){
         die();
+        Sounds::instance()->play("hit");
     }
 
+ /*if(enemy  && !_pogoing){
+        velAdd(Vec2Df(0, -15.5));
+        _y_gravity = 0.065;   
+         Sounds::instance()->play("hit");
+        
+ }*/
+       
+    
     if(enemy && fromDir == Direction::DOWN && _pogoing){
         velAdd(Vec2Df(0, -15.5));
         _y_gravity = 0.065;   
         enemy->die();
+       
         if(chanceCalculator(1)){  // 100% probabilità per testing
+        
             new Spawnable(enemy->pos(), TILE, TILE, Spawnable::Type::ICE_CREAM);
         }
     }
@@ -200,6 +214,8 @@ bool Scrooge::hit(Object* what, Direction fromDir)
     if(block && fromDir == Direction::DOWN && _pogoing){
         velAdd(Vec2Df(0, -15.5));
         _y_gravity = 0.065;
+         Sounds::instance()->play("hit");
+        
     }
 
     return false;
@@ -280,16 +296,18 @@ void Scrooge::pogo(bool on)
             }
 
             _pogoing=true;
-            //Sounds::instance()->play(std::string("jump-") + (_big ? "big" : "small"));
+            Sounds::instance()->play("pogoing");
         }
         else if(midair())
             _pogoing=true;
+           
 
         }
         else
         {
            _y_gravity = 0.8;
            _pogoing=false;
+
 
         }
 }
