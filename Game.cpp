@@ -12,7 +12,8 @@
 #include <QPainter>
 #include <QGraphicsPixmapItem>
 #include <QBrush>
-
+#include <QMediaPlayer>
+#include "Sounds.h"
 using namespace DT;
 
 Game* Game::_uniqueInstance = 0;
@@ -77,6 +78,7 @@ void Game::reset()
     _right_pressed = false;
     _jump_pressed = false;
     _jump_released = false;
+    _current_music_loop = _level_music_loop ="";
 
     //setSceneRect(QRectF());
 
@@ -91,6 +93,9 @@ void Game::start()
         _engine.start();
         //_hud->start();
         _player = _builder->load("theMoon");
+      //  QMediaPlayer * music= new QMediaPlayer();
+      
+      playMusic("themoontheme");
 }
 
 void Game::nextFrame()
@@ -417,3 +422,33 @@ void Game::gameEnd()
     //setSceneRect(QRectF());
     //centerOn(0, 0);
 }
+
+void Game::playMusic(const std::string& name)
+{
+	if (!_current_music_loop.empty())
+		Sounds::instance()->stop(_current_music_loop);
+
+	_current_music_loop = name;
+	if(!_current_music_loop.empty())
+		Sounds::instance()->play("themoontheme", true);
+}
+
+void Game::stopMusic(bool resumable)
+{
+	if (!_current_music_loop.empty())
+		Sounds::instance()->stop(_current_music_loop, resumable);
+}
+
+void Game::resumeMusic()
+{
+	if (!_current_music_loop.empty())
+		Sounds::instance()->resume(_current_music_loop);
+}
+
+void Game::restoreLevelMusic()
+{
+	if (!_current_music_loop.empty())
+		playMusic(_level_music_loop);
+}
+
+

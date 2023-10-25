@@ -39,6 +39,8 @@ private:
     bool beagleActive;
     bool _swing_pressed;
     bool _swing_released;
+    std::string		_level_music_loop;
+		std::string		_current_music_loop;
 
     int startingX = 0;
     int startingY = 64;
@@ -59,6 +61,7 @@ public:
     virtual void wheelEvent(QWheelEvent* e) override;
     virtual void resizeEvent(QResizeEvent* event) override;
     void gameOver()  { _state = GameState::GAME_OVER; }
+    
     void spawningPoint();
 
 public slots:
@@ -66,6 +69,11 @@ public slots:
     void start();
     void nextFrame();
     void gameEnd();
+    void playMusic(const std::string& name);
+		void stopMusic(bool resumable = false);
+		void resumeMusic();
+		void restoreLevelMusic();
+   
 };
 #endif
 
