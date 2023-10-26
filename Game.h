@@ -54,6 +54,7 @@ public:
     void setBeagleStatus(bool on){beagleActive = on;}
     QGraphicsScene* world(){return _world;}
     Scrooge* player(){return _player;}
+    HUD* hud() { return _hud; }
     double aspectRatio() { return 16 * 1.14 / 15; }
     // event handlers
     virtual void keyPressEvent(QKeyEvent* e) override;
