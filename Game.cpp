@@ -5,6 +5,7 @@
 #include "Scheduler.h"
 #include "Object.h"
 #include "Scrooge.h"
+#include "Hud.h"
 #include "BBoy.h"
 #include <QKeyEvent>
 #include <QOpenGLWidget>
@@ -47,8 +48,8 @@ Game::Game(QGraphicsView *parent) : QGraphicsView(parent)
     QOpenGLWidget* gl = new QOpenGLWidget();
     setViewport(gl);
     */
-
-    //_hud = new HUD(width(), height(), this);
+	_hud = new HUD(width(), height(), this);
+	connect(_hud, SIGNAL(timeExpired()), this, SLOT(timeExpired()));
     reset();
 }
 
@@ -57,7 +58,7 @@ void Game::reset()
     _state = GameState::READY;
     _engine.stop();
     _world->clear();
-
+_hud->reset();
     _player = 0;
     beagleActive = 1;
 
@@ -91,7 +92,7 @@ void Game::start()
         _state = GameState::RUNNING;
         _world->clear();
         _engine.start();
-        //_hud->start();
+        _hud->start();
         _player = _builder->load("theMoon");
       //  QMediaPlayer * music= new QMediaPlayer();
       
@@ -397,7 +398,7 @@ void Game::gameEnd()
         return;
 
     _engine.stop();
-    //_hud->togglePause();
+    _hud->togglePause();
     //stopMusic();
     //Sounds::instance()->reset();
     if (_state == GameState::GAME_CLEAR)
