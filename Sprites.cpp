@@ -48,6 +48,9 @@ static QRect _spawnable(0, 16, 16, 16);
 static QRect _small_diamond(0, 8, 8, 8);
 static QRect _chest(96,1,32,30);
 static QRect _gizmoduck(122,49,32,39);
+static QRect _hud(0, 0, 243, 39);
+static QRect hud_letter(1, 130, 7, 7);
+static QRect hud_number(1, 121, 8, 8);
 
 
 
@@ -69,6 +72,7 @@ Sprites::Sprites()
     spawnable = loadTexture(":/sprites/itemsfinal.png", QColor(255,0,255));
     chest = loadTexture(":/sprites/itemsfinal.png", QColor(255,0,255));
     gizmoduck = loadTexture(":/sprites/npcs.png", QColor(164, 224, 160));
+    hud=loadTexture(":/sprites/hud.png", QColor(255,0,255));
 }
 
 QPixmap* Sprites::getSprite(const std::string& id)
@@ -93,6 +97,8 @@ QPixmap* Sprites::getSprite(const std::string& id)
         return &chest;
     else if (id=="gizmoduck")
         return &gizmoduck;
+    else if (id=="hud")
+        return &hud;
     else
         return 0;
 }
@@ -272,7 +278,16 @@ void Sprites::get(const std::string & id, QRect animOutput[])
     }
 }
 
-/*QPixmap Sprites::getNumber(int n, int fill)
+QPixmap Sprites::getHUD(const std::string & id){
+     if (id.rfind("number-", 0) == 0)
+		return hud.copy(moveBy(hud_number, id[7] - '0', 0, 8, 8));
+
+	else if (id.rfind("char-", 0) == 0)
+		return hud.copy(moveBy(hud_letter, id[5] - 'A', 0, 7, 7));
+    else return hud.copy(_hud);
+}
+
+QPixmap Sprites::getNumber(int n, int fill)
 {
     std::string text = std::to_string(n);
 
@@ -287,13 +302,13 @@ void Sprites::get(const std::string & id, QRect animOutput[])
 
     // add numbers
     for (int i = 0; i < text.size(); i++)
-        painter.drawPixmap(8* i, 0, Sprites::instance()->get(std::string("number-") + text[i]));
+        painter.drawPixmap(8* i, 0, Sprites::instance()->getHUD(std::string("number-") + text[i]));
 
     // end painting (necessary for setMask)
     painter.end();
 
     // make background transparent
-    collage.setMask(collage.createMaskFromColor(QColor(147, 187, 236)));
+    collage.setMask(collage.createMaskFromColor(QColor(0, 89, 255)));
 
     return collage;
 }
@@ -312,7 +327,7 @@ QPixmap Sprites::getString(std::string text, int fill)
     // add letters
     for (int i = 0; i < text.size(); i++)
         if(text[i] != ' ')
-            painter.drawPixmap(8 * i, 0, Sprites::instance()->get(std::string("char-") + text[i]));
+            painter.drawPixmap(8 * i, 0, Sprites::instance()->getHUD(std::string("char-") + text[i]));
 
     // end painting (necessary for setMask)
     painter.end();
@@ -322,7 +337,7 @@ QPixmap Sprites::getString(std::string text, int fill)
 
     return collage;
 }
-
+/*
 // score composite from sprite single score pieces
 QPixmap Sprites::getScore(int s)
 {
