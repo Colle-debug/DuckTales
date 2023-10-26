@@ -2,7 +2,7 @@
 #include "Game.h"
 #include "Block.h"
 #include "Enemy.h"
-#include "Ally.h"
+#include "Launchpad.h"
 #include <QDebug>
 #include "GameConfig.h"
 #include <QPainter>
@@ -36,6 +36,7 @@ Scrooge::Scrooge(QPointF pos) : Entity(pos, 26, 27)
     _jumping = false;
     _gliding = false;
     _scr00ge = true;
+    _launchpadAttached = false;
 
     _sprite= Sprites::instance()->getSprite("scrooge");
     Sprites::instance()->get("scrooge-stand", &_texture_stand[0]);
@@ -147,13 +148,16 @@ bool Scrooge::animate()
     if(_climbing){
         _animRect = &_texture_climb[(FRAME_COUNT / 9) % 2];
     }
-     if(_swinging && !_jumping && !_pogoing && _vel.x==0)
+    if(_swinging && !_jumping && !_pogoing && _vel.x==0)
     {
         _animRect = &_texture_putt[(FRAME_COUNT / 9) % 5];   
        // _animRect = &_texture_putt[2];
        /* _animRect = &_texture_putt[0];
         _animRect = &_texture_putt[1];   
     */
+    }
+    if(_launchpadAttached){
+        _animRect = &_texture_climb[0];
     }
 
     return 1;
@@ -324,11 +328,11 @@ void Scrooge::swing(bool on)
 }
 
 
-void Scrooge::gizmoduckCinematic()
+/*void Scrooge::gizmoduckCinematic()
 {
     Ally* gizmoduck = new Ally(QPointF(110*TILE, 66.5*TILE), 32, 39, Ally::Type::GIZMODUCK);
     gizmoduck->velAdd(Vec2Df(5, 0));
-}
+}*/
 
 
 

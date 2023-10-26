@@ -58,7 +58,7 @@ void Game::reset()
     _state = GameState::READY;
     _engine.stop();
     _world->clear();
-_hud->reset();
+    _hud->reset();
     _player = 0;
     beagleActive = 1;
 
@@ -74,7 +74,6 @@ _hud->reset();
     _engine.stop();
     _world->clear();
     //_world->setBackgroundBrush(QBrush(Qt::black));
-    _player = 0;
     _left_pressed = false;
     _right_pressed = false;
     _jump_pressed = false;
@@ -111,7 +110,7 @@ void Game::nextFrame()
         if(!_player->climbing()){
         if (_left_pressed && _right_pressed)
             _player->move(Direction::NONE);
-        else if (_left_pressed)
+        else if (_left_pressed || _player->launchpadAttachment())
             _player->move(Direction::LEFT);
         else if (_right_pressed)
             _player->move(Direction::RIGHT);
@@ -223,9 +222,10 @@ void Game::keyPressEvent(QKeyEvent* e)
     // Game controls
     if (e->key() == Qt::Key_S)
         start();
-    /*
+
     else if (e->key() == Qt::Key_R)
         reset();
+    /*
     else if (e->key() == Qt::Key_P)
         togglePause();
     */

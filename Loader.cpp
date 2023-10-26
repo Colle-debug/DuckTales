@@ -8,6 +8,7 @@
 #include "Octopus.h"
 #include "DynamicPlatform.h"
 #include "BBoy.h"
+#include "Launchpad.h"
 #include "Block.h"
 #include "Spawnable.h"
 
@@ -522,9 +523,8 @@ Scrooge* Loader::load(std::string levelName)
         // TELECOMANDO PER ATTIVARE GIZMODUCK
 
         new Spawnable(QPointF(55.5*TILE, 19*TILE), TILE, TILE, Spawnable::Type::REMOTE);
-
+        new Launchpad(QPointF(44.5*TILE, 16*TILE), 23, 40);
         return new Scrooge(QPointF(3* TILE, 67*TILE));
-
     }
     else{
         return nullptr;

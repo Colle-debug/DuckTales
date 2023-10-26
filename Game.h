@@ -48,6 +48,7 @@ private:
     // singleton
     static Game* _uniqueInstance;
     Game(QGraphicsView *parent=0);
+
 public:
     static Game* instance();
     bool grabStatus(){return _grab_pressed;}

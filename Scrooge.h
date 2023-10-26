@@ -36,10 +36,12 @@ protected:
     bool _climbing;
     bool _key;
     bool _remote;
+    bool _launchpadAttached;
 
     bool _recentlyHit;
     int _hp;
     double _score = 0;
+    friend class Launchpad;
 
 
 public:
@@ -76,6 +78,7 @@ public:
     void recentlyHit(bool on);
     void climbingPhysics();
     void gizmoduckCinematic();
+    bool launchpadAttachment(){return _launchpadAttached;}
 
 
     virtual void lifeDown();

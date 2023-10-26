@@ -47,6 +47,8 @@ static QRect _sphere(16,32,16,16);
 static QRect _spawnable(0, 16, 16, 16);
 static QRect _small_diamond(0, 8, 8, 8);
 static QRect _chest(96,1,32,30);
+static QRect _launchpad(120, 6, 23, 40);
+static QRect _launchpad_flying(3, 6, 53, 71);
 static QRect _gizmoduck(122,49,32,39);
 static QRect _hud(0, 0, 243, 39);
 static QRect hud_letter(1, 130, 7, 7);
@@ -72,6 +74,7 @@ Sprites::Sprites()
     spawnable = loadTexture(":/sprites/itemsfinal.png", QColor(255,0,255));
     chest = loadTexture(":/sprites/itemsfinal.png", QColor(255,0,255));
     gizmoduck = loadTexture(":/sprites/npcs.png", QColor(164, 224, 160));
+    launchpad = loadTexture(":/sprites/npcs.png", QColor(164, 224, 160));
     hud=loadTexture(":/sprites/hud.png", QColor(255,0,255));
 }
 
@@ -97,6 +100,8 @@ QPixmap* Sprites::getSprite(const std::string& id)
         return &chest;
     else if (id=="gizmoduck")
         return &gizmoduck;
+    else if (id=="launchpad")
+        return &launchpad;
     else if (id=="hud")
         return &hud;
     else
@@ -270,6 +275,18 @@ void Sprites::get(const std::string & id, QRect animOutput[])
     else if(id=="gizmoduck-1")
     {
         animOutput[0] = moveBy(_gizmoduck,1,0,32);
+    }
+    else if(id=="launchpad-standing")
+    {
+        animOutput[0] = moveBy(_launchpad,0,0);
+    }
+    else if(id=="launchpad-flying-0")
+    {
+        animOutput[0] = moveBy(_launchpad_flying,0,0);
+    }
+    else if(id=="launchpad-flying-1")
+    {
+        animOutput[0] = moveBy(_launchpad_flying,1,0, 53);
     }
     else
     {
