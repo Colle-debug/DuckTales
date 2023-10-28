@@ -524,7 +524,7 @@ Scrooge* Loader::load(std::string levelName)
 
         new Spawnable(QPointF(55.5*TILE, 19*TILE), TILE, TILE, Spawnable::Type::REMOTE);
         new Launchpad(QPointF(44.5*TILE, 16*TILE), 23, 40);
-        return new Scrooge(QPointF(3* TILE, 67*TILE));
+        return new Scrooge(QPointF(53* TILE, 47*TILE));
     }
     else{
         return nullptr;

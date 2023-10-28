@@ -109,13 +109,11 @@ bool Entity::midair() const
     return _vel.y != 0 || (_vel.y == 0 && _prev_vel.y < 0);
 }
 
-void Entity::advance()
-{
+void Entity::advance() {
     // velocity backup (useful to determine object state)
     _prev_vel = _vel;
     //apply gravity acceleration
     velAdd(Vec2Df(0, _y_gravity));
-
 
     // apply horizontal accelerations and decelerations
     if (_x_dir == Direction::RIGHT && _vel.x >= 0)
@@ -124,7 +122,19 @@ void Entity::advance()
         velAdd(Vec2Df(-_x_acc, 0));
     else if (_x_dir == Direction::NONE)
         velAdd(Vec2Df(-_vel.versX() * _x_dec_rel, 0));
-
+    Scrooge * scrooge = dynamic_cast < Scrooge * > (this);
+    if (scrooge && scrooge -> climbing()) {
+        if (_y_dir == Direction::UP) {
+            scrooge->setClimbingStill(false);
+            velAdd(Vec2Df(0, -_x_acc));}
+        else if (_y_dir == Direction::DOWN) {
+            scrooge->setClimbingStill(false);
+            velAdd(Vec2Df(0, _x_acc));
+        }else if (_y_dir == Direction::NONE) {
+            scrooge->setClimbingStill(true);
+            velAdd(Vec2Df(0, -_vel.y));
+        }
+    }
     // detect and resolve collisions if needed
     if (_collidable)
         resolveCollisions();

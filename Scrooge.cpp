@@ -25,6 +25,7 @@ Scrooge::Scrooge(QPointF pos) : Entity(pos, 26, 27)
     _climbing = false;
     _invincible = false;
     _grab = false;
+    _climbingStill = false;
     _prev_x_dir = Direction::RIGHT;
     _mirror_x_dir = Direction::LEFT;
 
@@ -64,20 +65,22 @@ Scrooge::Scrooge(QPointF pos) : Entity(pos, 26, 27)
 
 }
 
+void Scrooge::setClimbing(bool on) {
+    _climbing = on;
+    _y_dir = Direction::NONE;
+    if(on){
+        std::cout << "Climbing\n";
+        std::cout.flush();
+        _climbing = true;
+        climbingPhysics();
+    }else{
+        defaultPhysics();
+    }
+}
+
+
 void Scrooge::advance()
 {
-    if(_climbing){
-        if(_y_dir == Direction::UP){
-            velAdd(Vec2Df(0, -_x_acc));
-        }
-        else if(_y_dir == Direction::DOWN){
-            velAdd(Vec2Df(0, _x_acc));
-        }
-        else if(_y_dir == Direction::NONE){
-            _vel.y = 0;
-        }
-    }
-
     if (grounded())
         _y_vel_max = 3;
     if (falling() && !_climbing)
@@ -146,7 +149,12 @@ bool Scrooge::animate()
         _animRect = &_texture_dying[0];
     }
     if(_climbing){
+        if(!_climbingStill){
         _animRect = &_texture_climb[(FRAME_COUNT / 9) % 2];
+        }
+        else{
+        _animRect = &_texture_climb[0];
+        }
     }
     if(_swinging && !_jumping && !_pogoing && _vel.x==0)
     {
@@ -171,55 +179,50 @@ bool Scrooge::animate()
     */
 
 
-bool Scrooge::hit(Object* what, Direction fromDir)
-{
-    StaticObject* sobj = what->to<StaticObject*>();
-    Enemy* enemy = what->to<Enemy*>();
-    Block* block = what->to<Block*>();
-    Spawnable* spawnable = what->to<Spawnable*>();
+bool Scrooge::hit(Object * what, Direction fromDir) {
+    StaticObject * sobj = what -> to < StaticObject * > ();
+    Enemy * enemy = what -> to < Enemy * > ();
+    Block * block = what -> to < Block * > ();
+    Spawnable * spawnable = what -> to < Spawnable * > ();
 
-    if(_grab){
-        if(sobj && sobj->_type==StaticObject::Type::ROPE){
-        std::cout<<"climbing";
-        _climbing = true;
-        climbingPhysics();
-        setX(sobj->pos().x() -0.66 * TILE);
+    if (_grab) {
+        if (sobj && sobj -> _type == StaticObject::Type::ROPE) {
+            setClimbing(true);
+            setX(sobj -> pos().x() - 0.66 * TILE);
         }
     }
-    if(sobj && sobj->_type==StaticObject::Type::SPIKE && !_pogoing){
+    if (sobj && sobj -> _type == StaticObject::Type::SPIKE && !_pogoing) {
         lifeDown();
-        Sounds::instance()->play("hit");
+        Sounds::instance() -> play("hit");
     }
 
-    if(sobj && sobj->_type==StaticObject::Type::DEATHLINE){
+    if (sobj && sobj -> _type == StaticObject::Type::DEATHLINE) {
         die();
-        Sounds::instance()->play("hit");
+        Sounds::instance() -> play("hit");
     }
 
- /*if(enemy  && !_pogoing){
-        velAdd(Vec2Df(0, -15.5));
-        _y_gravity = 0.065;   
-         Sounds::instance()->play("hit");
-        
- }*/
-       
-    
-    if(enemy && fromDir == Direction::DOWN && _pogoing){
-        velAdd(Vec2Df(0, -15.5));
-        _y_gravity = 0.065;   
-        enemy->die();
-       
-        if(chanceCalculator(1)){  // 100% probabilità per testing
-        
-            new Spawnable(enemy->pos(), TILE, TILE, Spawnable::Type::ICE_CREAM);
-        }
-    }
-  
-    if(block && fromDir == Direction::DOWN && _pogoing){
+    /*if(enemy  && !_pogoing){
+           velAdd(Vec2Df(0, -15.5));
+           _y_gravity = 0.065;
+            Sounds::instance()->play("hit");
+
+    }*/
+
+    if (enemy && fromDir == Direction::DOWN && _pogoing) {
         velAdd(Vec2Df(0, -15.5));
         _y_gravity = 0.065;
-         Sounds::instance()->play("hit");
-        
+        enemy -> die();
+
+        if (chanceCalculator(1)) { // 100% probabilità per testing
+
+            new Spawnable(enemy -> pos(), TILE, TILE, Spawnable::Type::ICE_CREAM);
+        }
+    }
+
+    if (block && fromDir == Direction::DOWN && _pogoing) {
+        velAdd(Vec2Df(0, -15.5));
+        _y_gravity = 0.065;
+        Sounds::instance() -> play("hit");
     }
 
     return false;
@@ -278,8 +281,9 @@ void Scrooge::recentlyHit(bool on)
 void Scrooge::climbingPhysics(){
     _vel.x = 0;
     _x_dir = Direction::NONE;
+    _y_dir = Direction::NONE;
     _y_gravity = 0;
-    //_y_acc_up = 1.6;
+    _y_acc_up = 0;
 }
 
 void Scrooge::pogo(bool on)

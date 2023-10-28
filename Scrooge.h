@@ -34,6 +34,7 @@ protected:
     bool _crouch;
     bool _grab;
     bool _climbing;
+    bool _climbingStill;
     bool _key;
     bool _remote;
     bool _launchpadAttached;
@@ -53,8 +54,9 @@ public:
     // Utilities per "_hp"
     void hpAdd(int amount) { _hp += amount; }
 
-    // Utilities per "_climbing"
-    void setClimbing(bool on) { _climbing = on; }
+    // Utilities per "_climbing" & "_climbingStill"
+    void setClimbing(bool on);
+    void setClimbingStill(bool on){_climbingStill = on;}
     bool climbing() { return _climbing; }
 
     // Utilities per "_invincible"

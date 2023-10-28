@@ -64,23 +64,21 @@ void Game::reset()
 
     _left_pressed = false;
     _right_pressed = false;
+    _up_pressed = false;
+    _down_pressed = false;
     _jump_pressed = false;
+    _jump_released = false;
     _crouch_pressed = false;
     _grab_pressed = false;
     _swing_pressed = false;
     _swing_released = false;
+
     //restoreDefaultView();
     _state = GameState::READY;
     _engine.stop();
     _world->clear();
     //_world->setBackgroundBrush(QBrush(Qt::black));
-    _left_pressed = false;
-    _right_pressed = false;
-    _jump_pressed = false;
-    _jump_released = false;
     _current_music_loop = _level_music_loop ="";
-
-    //setSceneRect(QRectF());
 
     QTimer::singleShot(0, this, &Game::start);
 }
@@ -98,123 +96,116 @@ void Game::start()
       playMusic("themoontheme");
 }
 
-void Game::nextFrame()
-{
-    if (_state != GameState::RUNNING && _state != GameState::TITLE_SCREEN)
+void Game::nextFrame() {
+      if (_state != GameState::RUNNING && _state != GameState::TITLE_SCREEN)
         return;
 
-    FRAME_COUNT++;
+      FRAME_COUNT++;
 
-    // process inputs	 (PLAYER CONTROLS)
+      // process inputs	 (PLAYER CONTROLS)
 
-        if(!_player->climbing()){
+      if (!_player -> climbing()) {
         if (_left_pressed && _right_pressed)
-            _player->move(Direction::NONE);
-        else if (_left_pressed || _player->launchpadAttachment())
-            _player->move(Direction::LEFT);
+            _player -> move(Direction::NONE);
+        else if (_left_pressed || _player -> launchpadAttachment())
+            _player -> move(Direction::LEFT);
         else if (_right_pressed)
-            _player->move(Direction::RIGHT);
+            _player -> move(Direction::RIGHT);
         else
-            _player->move(Direction::NONE);
+            _player -> move(Direction::NONE);
 
-       if(_grab_pressed){
-            _player->grab(true);
+        if (_grab_pressed) {
+            _player -> grab(true);
             _grab_pressed = false;
-            }
+        }
 
         if (_pogo_pressed) // Qui va aggiunta una condizione che non consente di attivare il pogo se si è a terra ma che non impedisca di rimbalzare quando si è in pogoing
         {
-            _player->pogo(true);
+            _player -> pogo(true);
+        } else if (_pogo_released) {
+            _player -> pogo(false);
+            _pogo_released = false;
         }
-        else if(_pogo_released){
-            _player->pogo(false);
-            _pogo_released=false;
-        }
-        if (_crouch_pressed && !_pogo_pressed)
-        {
-            _player->crouch(true);
-            _player->move(Direction::NONE);
-            
-        }
-        else
-            _player->crouch(false);
+        if (_crouch_pressed && !_pogo_pressed) {
+            _player -> crouch(true);
+            _player -> move(Direction::NONE);
 
-        }
-        else{
-            if(_down_pressed && _up_pressed){
-                _player->move(Direction::NONE);
-            }
-            else if(_up_pressed){
-                _player->move(Direction::UP);
-            }
-            else if(_down_pressed){
-                _player->move(Direction::DOWN);
-            }
-            else if(_jump_pressed){
-                _player->setClimbing(false);
-            }
+        } else
+            _player -> crouch(false);
 
-        }
-        if (_swing_pressed)
-        {
-            _player->swing(true);
-            _swing_pressed=false;
-            
-     
-        }
-        else if(_swing_released)
-        {
-            _player->swing(false);
-            _swing_released=false;
-           
+      } else {
+        if (_down_pressed && _up_pressed) {
+            std::cout << "if(_down_pressed && _up_pressed)\n";
+            std::cout.flush();
+            _player -> move(Direction::NONE);
+        } else if (_up_pressed) {
+            std::cout << "else if(_up_pressed)\n";
+            std::cout.flush();
+            _player -> move(Direction::UP);
+        } else if (_down_pressed) {
+            std::cout << "else if(_down_pressed)\n";
+            std::cout.flush();
+            _player -> move(Direction::DOWN);
+        } else
+            _player -> move(Direction::NONE);
+        if (_jump_pressed) {
+            _player -> setClimbing(false);
         }
 
-        if (_jump_pressed)
-        {
-            _player->jump(true);
-            _jump_pressed = false;
-        }
-        else if (_jump_released)
-        {
-            _player->jump(false);
-            _jump_released = false;
-        }
+      }
+      if (_swing_pressed) {
+        _player -> swing(true);
+        _swing_pressed = false;
 
-        if(!beagleActive){
-            // Meglio schedulare il respawn dopo un paio di FRAME
-            beagleActive = true;
-            _player->schedule("restore", 100, [this](){ spawningPoint();});
-            /*spawningPoint(); // Respawing naive, funzione per valutare il primo blocco utile su cui potersi poggiare
+      } else if (_swing_released) {
+        _player -> swing(false);
+        _swing_released = false;
+
+      }
+
+      if (_jump_pressed) {
+        _player -> jump(true);
+        _jump_pressed = false;
+      } else if (_jump_released) {
+        _player -> jump(false);
+        _jump_released = false;
+      }
+
+      if (!beagleActive) {
+        // Meglio schedulare il respawn dopo un paio di FRAME
+        beagleActive = true;
+        _player -> schedule("restore", 100, [this]() {
+            spawningPoint();
+        });
+        /*spawningPoint(); // Respawing naive, funzione per valutare il primo blocco utile su cui potersi poggiare
             beagleActive = true; // C'è unironically un memory leak...
 */
-        }
+      }
 
-    // advance game
-    for (auto item : _world->items())
-    {
-        Object* obj = dynamic_cast<Object*>(item);
+      // advance game
+      for (auto item: _world -> items()) {
+        Object * obj = dynamic_cast < Object * > (item);
 
-        if (obj && (obj->isVisible()))
-        {
-            obj->advance();			 // physics, collision detection and resolution, game logic
-            obj->animate();			 // animation
-            obj->updateSchedulers(); // game logic
+        if (obj && (obj -> isVisible())) {
+            obj -> advance(); // physics, collision detection and resolution, game logic
+            obj -> animate(); // animation
+            obj -> updateSchedulers(); // game logic
             //obj->paint();			 // graphics, automatically called by Qt
         }
-    }
+      }
 
-    // @TODO update game state (game over, level cleared, etc.)
-    centerOn(QPointF(_player->x(), _player->y()));
-    update();
+      // @TODO update game state (game over, level cleared, etc.)
+      centerOn(QPointF(_player -> x(), _player -> y()));
+      update();
 
-
-    if(_player->dead()){
+      if (_player -> dead()) {
         gameOver();
-    }
-    if (_state == GameState::GAME_OVER || _state == GameState::GAME_CLEAR){
+      }
+      if (_state == GameState::GAME_OVER || _state == GameState::GAME_CLEAR) {
         gameEnd();
-    }
+      }
 }
+
 void Game::keyPressEvent(QKeyEvent* e)
 {
     if (e->isAutoRepeat())
