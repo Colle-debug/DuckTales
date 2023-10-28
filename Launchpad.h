@@ -10,8 +10,6 @@ namespace DT{
 
 class DT::Launchpad : public Entity
 {
-public:
-    enum class Type { GIZMODUCK, LAUNCHPAD, WOMAN};
 protected:
     QRect _texture_launchpad[1];
     QRect _texture_launchpad_flying[2];
