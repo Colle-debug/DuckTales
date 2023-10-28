@@ -9,6 +9,7 @@
 #include "DynamicPlatform.h"
 #include "BBoy.h"
 #include "Launchpad.h"
+#include "Gizmoduck.h"
 #include "Block.h"
 #include "Spawnable.h"
 
@@ -524,7 +525,8 @@ Scrooge* Loader::load(std::string levelName)
 
         new Spawnable(QPointF(55.5*TILE, 19*TILE), TILE, TILE, Spawnable::Type::REMOTE);
         new Launchpad(QPointF(44.5*TILE, 16*TILE), 23, 40);
-        return new Scrooge(QPointF(53* TILE, 47*TILE));
+        new Gizmoduck(QPointF(108* TILE, 65.5*TILE), 32, 39);
+        return new Scrooge(QPointF(105* TILE, 67*TILE));
     }
     else{
         return nullptr;
