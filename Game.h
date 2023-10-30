@@ -4,6 +4,7 @@
 #include <QGraphicsView>
 #include <QTimer>
 #include "GameConfig.h"
+#include "Gizmoduck.h"
 #include "Loader.h"
 #include "Scrooge.h"
 #include "Hud.h"

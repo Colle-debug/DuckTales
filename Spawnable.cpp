@@ -64,43 +64,42 @@ Spawnable::Spawnable(QPointF pos, double width, double height, Spawnable::Type t
         Sprites::instance()->get("remote", &_texture_spawnable[0]);
         _animRect = &_texture_spawnable[0];
     }
+    else if(_type == Type::PROJECTILE){
+        _sprite = Sprites::instance()->getSprite("projectile");
+        Sprites::instance()->get("projectile-0", &_texture_spawnable[0]);
+        Sprites::instance()->get("projectile-1", &_texture_spawnable[1]);
+        _animRect = &_texture_spawnable[0];
+    }
 }
 
 bool Spawnable::animate() // Da aggiungere animazione di spawning e metodo migliore per le texture di quelli con un solo frame
 {
-    if(_canFall == 0 || (_canFall == 1 && _canFallHit == 1)){
-    if(_type == Type::DIAMOND_YELLOW_BIG){
-        _animRect = &_texture_spawnable[(FRAME_COUNT / 9) % 4];
-        }
-    else if(_type == Type::DIAMOND_YELLOW_SMALL){
-        _animRect = &_texture_spawnable[(FRAME_COUNT / 9) % 2];
-        }
-    else if(_type == Type::STAR){
-        _animRect = &_texture_spawnable[(FRAME_COUNT / 9) % 2];
-        }
-    else if(_type == Type::DIAMOND_RED_BIG){
-        _animRect = &_texture_spawnable[(FRAME_COUNT / 9) % 1];
-    }}
-    else{
-        _animRect = &_texture_spawnable[Qt::transparent];
-    }
+  if (_canFall == 0 || (_canFall == 1 && _canFallHit == 1)) {
+    if (_type == Type::DIAMOND_YELLOW_BIG) {
+      _animRect = & _texture_spawnable[(FRAME_COUNT / 9) % 4];
+    } else if (_type == Type::DIAMOND_YELLOW_SMALL) {
+      _animRect = & _texture_spawnable[(FRAME_COUNT / 9) % 2];
+    } else if (_type == Type::STAR) {
+      _animRect = & _texture_spawnable[(FRAME_COUNT / 9) % 2];
+    } else if (_type == Type::DIAMOND_RED_BIG) {
+      _animRect = & _texture_spawnable[(FRAME_COUNT / 9) % 1];
+    } else if (_type == Type::PROJECTILE && !taken) {
+      _animRect = & _texture_spawnable[(FRAME_COUNT / 9) % 2];
+    } else if (_type == Type::PROJECTILE && taken) {
+        _animRect = & _texture_spawnable[(FRAME_COUNT / 9) % 2 + 2]; // +2 così alterna indce 2 e 3
+      }
 
-    return 1;
+  } else {
+    _animRect = & _texture_spawnable[Qt::transparent];
+  }
+
+  return 1;
 }
-
-/*oid Spawnable::spawn()
-{
-    _y_gravity = 0.2;
-    _vel.y = -0.5;
-    _collidable = false;
-    //Sounds::instance()->play("powerup-appear");
-    //schedule("spawn", 32, [this]() { live(); });
-}*/
 
 bool Spawnable::hit(Object* what, Direction fromDir)
 {
     Scrooge* scrooge = what->to<Scrooge*>();
-    //DynamicObject* dyn_obj = what->to<DynamicObject*>();
+    StaticObject* sobj = what->to<StaticObject*>();
 
 
     if(scrooge && !_canFallHit && _canFall){
@@ -111,7 +110,7 @@ bool Spawnable::hit(Object* what, Direction fromDir)
         return true;
     }
 
-    if (scrooge && !taken)
+    if (scrooge && !taken && !(_type == Spawnable::Type::PROJECTILE))
     {
         scrooge->scoreAdd(this->_value);
         if(_type == Type::ICE_CREAM || _type == Type::CAKE){
@@ -131,6 +130,16 @@ bool Spawnable::hit(Object* what, Direction fromDir)
         taken = true;
         setVisible(false);
         return true;
+    }
+
+    if(sobj && sobj->_type == StaticObject::Type::GREEN_GATE && _type == Type::PROJECTILE){
+        taken = true; // Taken su Projectile non significa nulla, ma piuttosto che inizializzare un'altra variabile "hit", utilizzo questa per flaggare la collisione col GREEN_GATE
+        _x_dir = Direction::NONE;
+        _sprite = Sprites::instance()->getSprite("block");
+        _boundingRect = QRect(0, 0, TILE, TILE);
+        Sprites::instance() -> get("block-broken-0", &_texture_spawnable[2]);
+        Sprites::instance() -> get("block-broken-1", &_texture_spawnable[3]);
+        schedule("disappear", 40, [this]() {setVisible(false); });
     }
 
     return false;

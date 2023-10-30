@@ -4,9 +4,10 @@
         <file>scrooge.png</file>
         <file>scroogeNew.png</file>
         <file>enemies.png</file>
-<file>hud.png</file>
+        <file>hud.png</file>
         <file>itemsfinal.png</file>
         <file>npcs.png</file>
+        <file>tileset.png</file>
     </qresource>
     <qresource prefix="/background">
         <file>theMoon.png</file>

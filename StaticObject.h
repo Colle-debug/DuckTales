@@ -13,8 +13,9 @@ namespace DT
 class DT::StaticObject : public Object
 {
     public:
-    enum class Type{TERRAIN, ROPE, SPIKE, GATE, BUMPER, DEATHLINE};
+    enum class Type{TERRAIN, ROPE, SPIKE, GATE, BUMPER, DEATHLINE, GREEN_GATE, ACTIVATOR};
     protected:
+        QRect _texture_green_gate[1];
         bool _hit;
     public:
 

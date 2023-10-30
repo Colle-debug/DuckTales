@@ -60,7 +60,12 @@ Scrooge* Loader::load(std::string levelName)
         new StaticObject(QPointF(98*TILE,69*TILE),8*TILE,2.5*TILE);
         new StaticObject(QPointF(100*TILE,68*TILE),2*TILE,TILE); // ultimo tronco in fondo
         new StaticObject(QPointF(108*TILE,69*TILE),11*TILE,2.5*TILE);
-        new StaticObject(QPointF(119*TILE,64*TILE),2*TILE,TILE*6);
+
+
+        new StaticObject(QPointF(119*TILE,64*TILE),2*TILE,TILE);
+        new StaticObject(QPointF(119*TILE,65*TILE),2*TILE,TILE*7, StaticObject::Type::GREEN_GATE);
+
+
         new StaticObject(QPointF(0,56.5*TILE),16*TILE,3.5*TILE);
         new StaticObject(QPointF(54*TILE,49*TILE),4*TILE,TILE);//FINE LIANA
         new StaticObject(QPointF(22*TILE,47*TILE),4*TILE,TILE);//FINE LIANA
@@ -407,6 +412,7 @@ Scrooge* Loader::load(std::string levelName)
         new StaticObject(QPointF(88*TILE, 4*TILE), 0, 28*TILE, StaticObject::Type::ROPE);
 
 
+
         //TEMPORARY StaticObjectS-->SENZA QUESTI GLI ALIENI NON HANNO IL RIFERIMENTO SU COSA SBATTERE PER CAMBIARE DIREZIONE
         new StaticObject(QPointF(55*TILE, 53*TILE), 0*TILE, 0.5*TILE, StaticObject::Type::BUMPER);
         new StaticObject(QPointF(25.0 *TILE, 51*TILE), 0*TILE, 0.5*TILE, StaticObject::Type::BUMPER);
@@ -525,9 +531,11 @@ Scrooge* Loader::load(std::string levelName)
 
         new Spawnable(QPointF(55.5*TILE, 19*TILE), TILE, TILE, Spawnable::Type::REMOTE);
         new Launchpad(QPointF(44.5*TILE, 16*TILE), 23, 40);
-        new Gizmoduck(QPointF(108* TILE, 65.5*TILE), 32, 39);
-        
-        return new Scrooge(QPointF(3* TILE, 67*TILE));
+        new Gizmoduck(QPointF(107* TILE, 65.5*TILE), 32, 39);
+        new StaticObject(QPointF(117*TILE, 60*TILE), TILE, 9*TILE, StaticObject::Type::ACTIVATOR);
+
+
+        return new Scrooge(QPointF(105* TILE, 67*TILE));
     }
     else{
         return nullptr;

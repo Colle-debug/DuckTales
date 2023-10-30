@@ -103,7 +103,7 @@ void Game::nextFrame() {
       FRAME_COUNT++;
 
       // process inputs	 (PLAYER CONTROLS)
-
+if(!_player->gizmoduckCinematic()){
       if (!_player -> climbing()) {
         if (_left_pressed && _right_pressed)
             _player -> move(Direction::NONE);
@@ -170,7 +170,7 @@ void Game::nextFrame() {
         _player -> jump(false);
         _jump_released = false;
       }
-
+}
       if (!beagleActive) {
         // Meglio schedulare il respawn dopo un paio di FRAME
         beagleActive = true;
