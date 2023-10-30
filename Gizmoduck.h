@@ -17,10 +17,13 @@ protected:
 public:
 
     Gizmoduck(QPointF pos, double width, double height);
+    bool activate();
 
     virtual bool animate() override;
-    virtual bool hit(Object* what, Direction fromDir) override;
+    virtual bool hit(Object* what, Direction fromDir) override {return true;};
     virtual std::string name() override { return "Gizmoduck"; }
+
+    void firing();
 
 };
 

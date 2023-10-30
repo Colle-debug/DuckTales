@@ -38,6 +38,7 @@ protected:
     bool _key;
     bool _remote;
     bool _launchpadAttached;
+    bool _gizmoCinematic;
 
     bool _recentlyHit;
     int _hp;
@@ -72,6 +73,11 @@ public:
     bool hasTheRemote() { return _remote; }
 
 
+    // Utilities per "_gizmoCinematic"
+    bool gizmoduckCinematic() { return _gizmoCinematic;}
+    void setGizmoCinematicStatus(bool on);
+
+
     // Altri metodi
     bool swinging() { return _swinging; }
     bool dying() { return _dying; }
@@ -79,7 +85,6 @@ public:
     bool pogoing() { return _pogoing; }
     void recentlyHit(bool on);
     void climbingPhysics();
-    void gizmoduckCinematic();
     bool launchpadAttachment(){return _launchpadAttached;}
 
 

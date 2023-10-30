@@ -21,7 +21,9 @@ private:
     QPixmap spawnable;
     QPixmap chest;
     QPixmap gizmoduck;
+    QPixmap projectile;
     QPixmap launchpad;
+    QPixmap greenGate;
 
     Sprites();
 
