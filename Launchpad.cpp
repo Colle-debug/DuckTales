@@ -30,18 +30,34 @@ bool Launchpad::hit(Object *what, Direction fromDir)
 {
     Scrooge* scrooge = dynamic_cast<Scrooge*>(what);
     if(scrooge && !_flying){
-        flyingAnimation();
+        flyingAnimation(scrooge);
     }
     return 0;
 }
 
-void Launchpad::flyingAnimation()
+void Launchpad::flyingAnimation(Scrooge* scrooge)
 {
     _flying = true;
-    setPos(40*TILE, 10*TILE);
     _y_gravity = 0;
-    _x_dir == Direction::LEFT;
-    velAdd(Vec2Df(0.5, 0));
+    scrooge->_vel = {0, 0};
+    scrooge->climbingPhysics();
+    scrooge->_launchpadAttached = true;
+    _x_dir = Direction::LEFT;
+    scrooge->_x_dir = Direction::LEFT;
+    scrooge->_y_dir = Direction::NONE;
+
+    setPos(10*TILE, 4.5*TILE);
+    scrooge->setPos(x() + TILE/2, y() + 3*TILE);
+
+    _x_vel_max = 1;
+    scrooge->_x_vel_max = 1,
+    scrooge->_vel = {-_x_vel_max, 0};
+    velAdd(Vec2Df(-_x_vel_max, 0));
+
+    schedule("duckburg", 220, [ scrooge](){scrooge->_duckburg = true;});
+
+
+
 }
 
 

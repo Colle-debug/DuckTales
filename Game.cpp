@@ -103,7 +103,7 @@ void Game::nextFrame() {
       FRAME_COUNT++;
 
       // process inputs	 (PLAYER CONTROLS)
-if(!_player->gizmoduckCinematic()){
+if(!_player->gizmoduckCinematic() && !_player->launchpadAttachment()){ // Commandi di movimento accessibili solo se nessuna delle due è True
       if (!_player -> climbing()) {
         if (_left_pressed && _right_pressed)
             _player -> move(Direction::NONE);
@@ -200,8 +200,12 @@ if(!_player->gizmoduckCinematic()){
 
       if (_player -> dead()) {
         gameOver();
+      }else if(_player->duckburg()){
+          liftToDuckburg();
       }
-      if (_state == GameState::GAME_OVER || _state == GameState::GAME_CLEAR) {
+
+
+      if (_state == GameState::GAME_OVER || _state == GameState::GAME_CLEAR || _state == GameState::LIFT_TO_DUCKBURG) {
         gameEnd();
       }
 }
@@ -385,7 +389,7 @@ void Game::gameEnd()
     //std::cout<<_player->dead();
     if (_state == GameState::GAME_OVER){
     }
-    if (_state != GameState::GAME_CLEAR && _state != GameState::GAME_OVER)
+    if (_state != GameState::GAME_CLEAR && _state != GameState::GAME_OVER && _state != GameState::LIFT_TO_DUCKBURG)
         return;
 
     _engine.stop();

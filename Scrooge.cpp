@@ -38,6 +38,7 @@ Scrooge::Scrooge(QPointF pos): Entity(pos, 26, 27) {
   _gliding = false;
   _scr00ge = true;
   _launchpadAttached = false;
+  _duckburg = false;
   _gizmoCinematic = false;
 
   _sprite = Sprites::instance() -> getSprite("scrooge");

@@ -38,6 +38,7 @@ protected:
     bool _key;
     bool _remote;
     bool _launchpadAttached;
+    bool _duckburg; // Is it arrived in Duckburg after getting a lift from Launchpad McQuack?
     bool _gizmoCinematic;
 
     bool _recentlyHit;
@@ -86,6 +87,7 @@ public:
     void recentlyHit(bool on);
     void climbingPhysics();
     bool launchpadAttachment(){return _launchpadAttached;}
+    bool duckburg(){return _duckburg;}
 
 
     virtual void lifeDown();

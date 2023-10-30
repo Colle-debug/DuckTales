@@ -1,6 +1,7 @@
 #ifndef LAUNCHPAD_H
 #define LAUNCHPAD_H
 #include <QPointF>
+#include "Scrooge.h"
 #include "Entity.h"
 #include <QPixmap>
 
@@ -22,7 +23,7 @@ public:
     virtual bool animate() override;
     virtual bool hit(Object* what, Direction fromDir) override;
     virtual std::string name() override { return "Launchpad"; }
-    void flyingAnimation();
+    void flyingAnimation(Scrooge* scrooge);
 };
 
 #endif // LAUNCHPAD_H

@@ -535,7 +535,12 @@ Scrooge* Loader::load(std::string levelName)
         new StaticObject(QPointF(117*TILE, 60*TILE), TILE, 9*TILE, StaticObject::Type::ACTIVATOR);
 
 
-        return new Scrooge(QPointF(105* TILE, 67*TILE));
+        return new Scrooge(QPointF(40* TILE, 17*TILE));
+        /*
+         Spawning Point 3 67
+         Gizmoduck    105 67
+         Launchpad     40 17 // Al momento implementato tramite collisione e non tramite scelta in HUD
+         */
     }
     else{
         return nullptr;

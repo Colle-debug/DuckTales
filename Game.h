@@ -13,13 +13,12 @@ namespace DT
 {
     class Game;
     class Scrooge;
-    enum class GameState{READY, TITLE_SCREEN, RUNNING, PAUSED, GAME_OVER, GAME_CLEAR};
 }
 
 class DT::Game:public QGraphicsView
 {
     Q_OBJECT
-    enum game_state{READY, RUNNING, PAUSE, GAME_OVER};
+    enum class GameState{READY, TITLE_SCREEN, RUNNING, PAUSED, GAME_OVER, GAME_CLEAR, LIFT_TO_DUCKBURG};
 private:
     GameState _state;
     Scrooge* _player;
@@ -64,6 +63,7 @@ public:
     virtual void wheelEvent(QWheelEvent* e) override;
     virtual void resizeEvent(QResizeEvent* event) override;
     void gameOver()  { _state = GameState::GAME_OVER; }
+    void liftToDuckburg() { _state = GameState::LIFT_TO_DUCKBURG;}
     
     void spawningPoint();
 
