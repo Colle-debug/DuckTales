@@ -194,13 +194,14 @@ bool Scrooge::hit(Object * what, Direction fromDir) {
 
   }*/
 
-  if (enemy && fromDir == Direction::DOWN && _pogoing) {
+  if (enemy && ((fromDir == Direction::DOWN && _pogoing) || _invincible)) {
+    if(!_invincible){
     velAdd(Vec2Df(0, -15.5));
-    _y_gravity = 0.065;
+      _y_gravity = 0.065;
+    }
     enemy -> die();
 
     if (chanceCalculator(1)) { // 100% probabilità per testing
-
       new Spawnable(enemy -> pos(), TILE, TILE, Spawnable::Type::ICE_CREAM);
     }
   }
