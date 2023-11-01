@@ -8,6 +8,7 @@
 #include "Loader.h"
 #include "Scrooge.h"
 #include "Hud.h"
+#include "Menu.h"
 
 namespace DT
 {
@@ -26,6 +27,8 @@ private:
     Loader* _builder;
     QTimer _engine;
     HUD*			_hud;
+    Title* _title;
+
     bool _left_pressed;
     bool _right_pressed;
     bool _up_pressed;
@@ -42,6 +45,7 @@ private:
     std::string		_level_music_loop;
 		std::string		_current_music_loop;
 
+    int _arrowPos = 0;
     int startingX = 0;
     int startingY = 64;
 
@@ -53,7 +57,11 @@ public:
     static Game* instance();
     bool grabStatus(){return _grab_pressed;}
     void setBeagleStatus(bool on){beagleActive = on;}
+    int arrowPos(){return _arrowPos;}
+    void setArrowPos(int on){_arrowPos = on;}
     QGraphicsScene* world(){return _world;}
+    void setTitle(Title* on){_title = on;}
+
     Scrooge* player(){return _player;}
     HUD* hud() { return _hud; }
     double aspectRatio() { return 16 * 1.14 / 15; }
@@ -63,6 +71,7 @@ public:
     virtual void wheelEvent(QWheelEvent* e) override;
     virtual void resizeEvent(QResizeEvent* event) override;
     void gameOver()  { _state = GameState::GAME_OVER; }
+    void welcome();
     void liftToDuckburg() { _state = GameState::LIFT_TO_DUCKBURG;}
     
     void spawningPoint();

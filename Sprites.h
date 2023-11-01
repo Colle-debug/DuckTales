@@ -24,6 +24,10 @@ private:
     QPixmap projectile;
     QPixmap launchpad;
     QPixmap greenGate;
+    QPixmap difficulty;
+    QPixmap difficultyArrow;
+
+
 
     Sprites();
 

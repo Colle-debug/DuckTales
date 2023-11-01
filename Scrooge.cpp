@@ -69,11 +69,9 @@ Scrooge::Scrooge(QPointF pos): Entity(pos, 26, 27) {
 
 void Scrooge::setClimbing(bool on) {
   _climbing = on;
-  _y_dir = Direction::NONE;
   if (on) {
     std::cout << "Climbing\n";
     std::cout.flush();
-    _climbing = true;
     climbingPhysics();
   } else {
     defaultPhysics();

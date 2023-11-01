@@ -1,4 +1,5 @@
 #include <QBrush>
+#include "Menu.h"
 #include "Scrooge.h"
 #include "Loader.h"
 #include "Game.h"
@@ -12,13 +13,19 @@
 #include "Gizmoduck.h"
 #include "Block.h"
 #include "Spawnable.h"
+#include "Menu.h"
 
 
 using namespace DT;
 
 Scrooge* Loader::load(std::string levelName)
 {
-    if(levelName=="theMoon")
+    if(levelName == "Title"){
+
+        new Title();
+        return nullptr;
+    }
+    else if(levelName=="theMoon")
     {
         Game::instance()->world()->addPixmap(QPixmap(":/background/theMoon.png"));
         //primo livello
@@ -535,7 +542,7 @@ Scrooge* Loader::load(std::string levelName)
         new StaticObject(QPointF(117*TILE, 60*TILE), TILE, 9*TILE, StaticObject::Type::ACTIVATOR);
 
 
-        return new Scrooge(QPointF(40* TILE, 17*TILE));
+        return new Scrooge(QPointF(60* TILE, 37*TILE));
         /*
          Spawning Point 3 67
          Gizmoduck    105 67

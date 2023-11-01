@@ -11,7 +11,8 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOMOC ON)
 
 # aggiungo eseguibile
-add_executable(DuckTales ${my_sources})
+add_executable(DuckTales ${my_sources}
+    Menu.h Menu.cpp)
 
 
 # verifico l'esistenza delle librerie Qt necessarie

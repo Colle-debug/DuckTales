@@ -55,6 +55,9 @@ static QRect _hud(0, 0, 243, 39);
 static QRect hud_letter(1, 130, 7, 7);
 static QRect hud_number(1, 121, 8, 8);
 static QRect _greenGate(172, 360, 32, 80);
+static QRect _titleScreen(0, 0, 256, 224);
+static QRect _titleArrow(258, 111, 5, 8);
+
 
 
 
@@ -80,6 +83,9 @@ Sprites::Sprites()
     launchpad = loadTexture(":/sprites/npcs.png", QColor(164, 224, 160));
     greenGate = loadTexture(":/sprites/tileset.png", QColor(164, 224, 160));
     hud = loadTexture(":/sprites/hud.png", QColor(255,255,255));
+    difficulty = loadTexture(":/sprites/difficulty.png");
+    difficultyArrow = loadTexture(":/sprites/titlescreen.png", QColor(0,210,249));
+
 }
 
 QPixmap* Sprites::getSprite(const std::string& id)
@@ -112,6 +118,10 @@ QPixmap* Sprites::getSprite(const std::string& id)
         return &projectile;
     else if (id=="greenGate")
         return &greenGate;
+    else if (id=="titleScreen")
+        return &difficulty;
+    else if (id=="titleArrow")
+        return &difficultyArrow;
     else
         return 0;
 }
@@ -307,6 +317,14 @@ void Sprites::get(const std::string & id, QRect animOutput[])
     else if(id=="green-gate")
     {
         animOutput[0] = moveBy(_greenGate,0,0);
+    }
+    else if(id=="title-arrow")
+    {
+        animOutput[0] = moveBy(_titleArrow,0,0);
+    }
+    else if(id=="title-0")
+    {
+        animOutput[0] = moveBy(_titleScreen,0,0);
     }
     else
     {

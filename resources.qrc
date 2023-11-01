@@ -8,6 +8,8 @@
         <file>itemsfinal.png</file>
         <file>npcs.png</file>
         <file>tileset.png</file>
+        <file>titlescreen.png</file>
+        <file>difficulty.png</file>
     </qresource>
     <qresource prefix="/background">
         <file>theMoon.png</file>

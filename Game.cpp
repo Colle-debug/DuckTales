@@ -48,7 +48,8 @@ Game::Game(QGraphicsView *parent) : QGraphicsView(parent)
     QOpenGLWidget* gl = new QOpenGLWidget();
     setViewport(gl);
     */
-	_hud = new HUD(width(), height(), this);
+    _hud = new HUD(width(), height(), this);
+
 	connect(_hud, SIGNAL(timeExpired()), this, SLOT(timeExpired()));
     reset();
 }
@@ -58,6 +59,7 @@ void Game::reset()
     _state = GameState::READY;
     _engine.stop();
     _world->clear();
+    _hud->setVisible(false);
     _hud->reset();
     _player = 0;
     beagleActive = 1;
@@ -73,37 +75,62 @@ void Game::reset()
     _swing_pressed = false;
     _swing_released = false;
 
-    //restoreDefaultView();
-    _state = GameState::READY;
-    _engine.stop();
-    _world->clear();
-    //_world->setBackgroundBrush(QBrush(Qt::black));
+
     _current_music_loop = _level_music_loop ="";
 
-    QTimer::singleShot(0, this, &Game::start);
+    QTimer::singleShot(0, this, &Game::welcome);
+}
+
+
+void Game::welcome()
+{
+    if (_state == GameState::READY)
+    {
+        _state = GameState::TITLE_SCREEN;
+        _world->clear();
+        _engine.setInterval(1000 / (FPS/10)); // 6 FPS durante il Menù
+        _engine.start();
+        //Sounds::instance()->stopMusic(_music);
+        Loader::load("Title");
+        //Sounds::instance()->playMusic(_music, false);
+    }
 }
 
 void Game::start()
 {
+    std::cout<<"Start\n";
+    std::cout.flush();
+    if (_state == GameState::TITLE_SCREEN){
         FRAME_COUNT = 0;
         _state = GameState::RUNNING;
         _world->clear();
+        _engine.setInterval(1000 / FPS);
         _engine.start();
+        _hud->setVisible(true);
         _hud->start();
         _player = _builder->load("theMoon");
-      //  QMediaPlayer * music= new QMediaPlayer();
-      
-      playMusic("themoontheme");
+        //QMediaPlayer * music= new QMediaPlayer();
+        playMusic("themoontheme");
+
+    }
 }
 
 void Game::nextFrame() {
-      if (_state != GameState::RUNNING && _state != GameState::TITLE_SCREEN)
+    FRAME_COUNT++;
+    if (_state == GameState::TITLE_SCREEN){ // era if (_state != GameState::RUNNING && _state != GameState::TITLE_SCREEN), non ne capisco il senso, da vedere
+        if(_arrowPos != 0){
+            //std::cout<<_arrowPos<<"\n";
+            std::cout.flush();}
         return;
 
-      FRAME_COUNT++;
+    }
+
+
+
 
       // process inputs	 (PLAYER CONTROLS)
-if(!_player->gizmoduckCinematic() && !_player->launchpadAttachment()){ // Commandi di movimento accessibili solo se nessuna delle due è True
+
+      if(!_player->gizmoduckCinematic() && !_player->launchpadAttachment()){ // Commandi di movimento accessibili solo se nessuna delle due è True
       if (!_player -> climbing()) {
         if (_left_pressed && _right_pressed)
             _player -> move(Direction::NONE);
@@ -210,83 +237,64 @@ if(!_player->gizmoduckCinematic() && !_player->launchpadAttachment()){ // Comman
       }
 }
 
-void Game::keyPressEvent(QKeyEvent* e)
-{
-    if (e->isAutoRepeat())
+void Game::keyPressEvent(QKeyEvent * e) {
+      if (e -> isAutoRepeat())
         return;
-    // Game controls
-    if (e->key() == Qt::Key_S)
+      // Game controls
+      if (e -> key() == Qt::Key_S)
         start();
 
-    else if (e->key() == Qt::Key_R)
+      else if (e -> key() == Qt::Key_R)
         reset();
-    /*
+      /*
     else if (e->key() == Qt::Key_P)
         togglePause();
     */
-    else if (e->key() == Qt::Key_C)
-    {
-        for (auto item : _world->items())
-        {
-            if (dynamic_cast<Object*>(item))
-            {
-                dynamic_cast<Object*>(item)->toggleCollider();
+      else if (e -> key() == Qt::Key_C) {
+        for (auto item: _world -> items()) {
+            if (dynamic_cast < Object * > (item)) {
+            dynamic_cast < Object * > (item) -> toggleCollider();
             }
         }
-    }
-    else if (e->key() == Qt::Key_Minus)
-    {
+      } else if (e -> key() == Qt::Key_Minus) {
         _engine.setInterval(250);
-    }
-    else if (e->key() == Qt::Key_Plus)
-    {
+      } else if (e -> key() == Qt::Key_Plus) {
         _engine.setInterval(1000 / FPS);
-    }
+      }
 
-    // Player controls
-    if (_state == GameState::RUNNING && _player)
-    {
-        if (e->key() == Qt::Key_Left)
-        {
+      // Player controls
+      if ((_state == GameState::RUNNING && _player)) // if (_state == GameState::RUNNING && _player)
+      {
+        if (e -> key() == Qt::Key_Left) {
+
             _left_pressed = true;
-        }
-        else if (e->key() == Qt::Key_Right)
-        {
+
+        } else if (e -> key() == Qt::Key_Right) {
+
             _right_pressed = true;
-        }
-        else if (e->key() == Qt::Key_Down){
-            if(!_player->climbing()){
-                _crouch_pressed = true;
+
+        } else if (e -> key() == Qt::Key_Down) {
+            if (!_player -> climbing()) {
+            _crouch_pressed = true;
+            } else {
+            _down_pressed = true;
             }
-            else{
-                _down_pressed = true;
-            }
-        }
-        else if (e->key() == Qt::Key_Space)
-        {
+        } else if (e -> key() == Qt::Key_Space) {
             _jump_pressed = true;
             _jump_released = false;
-        }
-        else if (e->key() == Qt::Key_X)
-        {
-            _swing_pressed=true;
-            _swing_released=false;
-            
-        }
-        else if (e->key() == Qt::Key_Up)
-        {
-            if(_player->climbing()){
-                _up_pressed = true;
-            }
-            else{
-                _grab_pressed = true;
-            }
-        }
-        else if(e->key() == Qt::Key_Z)
-        {
-            _pogo_pressed=true;
-        }
+        } else if (e -> key() == Qt::Key_X) {
+            _swing_pressed = true;
+            _swing_released = false;
 
+        } else if (e -> key() == Qt::Key_Up) {
+            if (_player -> climbing()) {
+            _up_pressed = true;
+            } else {
+            _grab_pressed = true;
+            }
+        } else if (e -> key() == Qt::Key_Z) {
+            _pogo_pressed = true;
+        }
 
         // Cheats
         /*
@@ -295,27 +303,29 @@ void Game::keyPressEvent(QKeyEvent* e)
             // invincibility
         }
         */
-        else if (e->key() == Qt::Key_K)
-        {
+        else if (e -> key() == Qt::Key_K) {
             startingX++;
             setSceneRect(TILE * startingX, TILE * startingY, TILE * 128, TILE * 15);
-        }
-        else if (e->key() == Qt::Key_H)
-        {
+        } else if (e -> key() == Qt::Key_H) {
             startingX--;
             setSceneRect(TILE * startingX--, TILE * startingY, TILE * 128, TILE * 15);
-        }
-        else if (e->key() == Qt::Key_U)
-        {
+        } else if (e -> key() == Qt::Key_U) {
             startingY--;
             setSceneRect(TILE * startingX, TILE * startingY, TILE * 128, TILE * 15);
-        }
-        else if (e->key() == Qt::Key_J)
-        {
+        } else if (e -> key() == Qt::Key_J) {
             startingY++;
             setSceneRect(TILE * startingX, TILE * startingY, TILE * 128, TILE * 15);
         }
-    }
+      } else if (_state == GameState::TITLE_SCREEN) {
+        if (e -> key() == Qt::Key_Left && _arrowPos > 0) {
+            _arrowPos--;
+            //_title->move(_arrowPos);
+        } else if (e -> key() == Qt::Key_Right && _arrowPos < 2) {
+            _arrowPos++;
+            //_title->move(_arrowPos);
+
+        }
+      }
 }
 
 
@@ -325,7 +335,7 @@ void Game::keyReleaseEvent(QKeyEvent* e)
         return;
 
     // player controls
-    if (_state == GameState::RUNNING && _player)
+    if ((_state == GameState::RUNNING || _state == GameState::TITLE_SCREEN) && _player)
     {
         if (e->key() == Qt::Key_Left)
             _left_pressed = false;
@@ -381,7 +391,6 @@ void Game::resizeEvent(QResizeEvent* evt)
 void Game::spawningPoint()
 {
     BBoy *test = new BBoy(QPointF(_player->x() - 6* TILE, _player->y() - 2*TILE));
-
 }
 
 void Game::gameEnd()
