@@ -26,6 +26,8 @@ private:
     QPixmap greenGate;
     QPixmap difficulty;
     QPixmap difficultyArrow;
+    QPixmap level;
+
 
 
 

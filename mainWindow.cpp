@@ -16,8 +16,8 @@ MainWindow::MainWindow() : QWidget(0)
     _layout->addItem(new QSpacerItem(0, 0));
     setLayout(_layout);
     setStyleSheet("background-color: black;");
-    setFixedWidth(16*30);
-    setFixedHeight(16*30);
+    setFixedWidth(16*TILE*2);
+    setFixedHeight(16*TILE*2);
     //resize(_game->aspectRatio() * 480, 480);
     setWindowTitle("DuckTales [NES]");
 

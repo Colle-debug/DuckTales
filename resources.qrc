@@ -10,6 +10,7 @@
         <file>tileset.png</file>
         <file>titlescreen.png</file>
         <file>difficulty.png</file>
+        <file>levelSelection.png</file>
     </qresource>
     <qresource prefix="/background">
         <file>theMoon.png</file>

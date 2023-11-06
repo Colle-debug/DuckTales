@@ -23,6 +23,11 @@ Scrooge* Loader::load(std::string levelName)
     if(levelName == "Title"){
 
         new Title();
+        new Arrow();
+        return nullptr;
+    }
+    else if(levelName == "Level"){
+        new Level();
         return nullptr;
     }
     else if(levelName=="theMoon")

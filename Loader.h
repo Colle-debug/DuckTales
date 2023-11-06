@@ -14,7 +14,6 @@ class DT::Loader
 {
     public:
         static Scrooge* load(std::string levelName);
-        static Title* load();
 
 };
 

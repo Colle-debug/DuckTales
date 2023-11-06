@@ -15,6 +15,7 @@
 #include <QBrush>
 #include <QMediaPlayer>
 #include "Sounds.h"
+#include "Menu.h"
 using namespace DT;
 
 Game* Game::_uniqueInstance = 0;
@@ -88,7 +89,7 @@ void Game::welcome()
     {
         _state = GameState::TITLE_SCREEN;
         _world->clear();
-        _engine.setInterval(1000 / (FPS/10)); // 6 FPS durante il Menù
+        _engine.setInterval(1000 / FPS);
         _engine.start();
         //Sounds::instance()->stopMusic(_music);
         Loader::load("Title");
@@ -96,11 +97,18 @@ void Game::welcome()
     }
 }
 
+void Game::levelSelection()
+{
+    _state = GameState::LEVEL_SELECTION;
+    _world->clear();
+    Loader::load("Level");
+}
+
 void Game::start()
 {
     std::cout<<"Start\n";
     std::cout.flush();
-    if (_state == GameState::TITLE_SCREEN){
+    if (_state == GameState::LEVEL_SELECTION){
         FRAME_COUNT = 0;
         _state = GameState::RUNNING;
         _world->clear();
@@ -117,13 +125,27 @@ void Game::start()
 
 void Game::nextFrame() {
     FRAME_COUNT++;
-    if (_state == GameState::TITLE_SCREEN){ // era if (_state != GameState::RUNNING && _state != GameState::TITLE_SCREEN), non ne capisco il senso, da vedere
-        if(_arrowPos != 0){
-            //std::cout<<_arrowPos<<"\n";
-            std::cout.flush();}
+    if (_state == GameState::TITLE_SCREEN || _state == GameState::LEVEL_SELECTION){ // era if (_state != GameState::RUNNING && _state != GameState::TITLE_SCREEN), non ne capisco il senso, da vedere
+
+            std::cout<<_arrowPos<<"\n";
+            std::cout.flush();
+
+        for (auto item: _world -> items()) {
+            Object * obj = dynamic_cast < Object * > (item);
+
+            if (obj && (obj -> isVisible())) {
+                obj -> advance(); // physics, collision detection and resolution, game logic
+                obj -> animate(); // animation
+                //obj -> updateSchedulers(); // game logic
+                //obj->paint();			 // graphics, automatically called by Qt
+            }
+        }
+
         return;
 
-    }
+        }
+
+
 
 
 
@@ -241,9 +263,13 @@ void Game::keyPressEvent(QKeyEvent * e) {
       if (e -> isAutoRepeat())
         return;
       // Game controls
-      if (e -> key() == Qt::Key_S)
-        start();
-
+      if (e -> key() == Qt::Key_S){
+        if(_state == GameState::TITLE_SCREEN){
+            levelSelection();}
+        else if(_state == GameState::LEVEL_SELECTION){
+            start();
+        }
+      }
       else if (e -> key() == Qt::Key_R)
         reset();
       /*
@@ -319,11 +345,8 @@ void Game::keyPressEvent(QKeyEvent * e) {
       } else if (_state == GameState::TITLE_SCREEN) {
         if (e -> key() == Qt::Key_Left && _arrowPos > 0) {
             _arrowPos--;
-            //_title->move(_arrowPos);
         } else if (e -> key() == Qt::Key_Right && _arrowPos < 2) {
             _arrowPos++;
-            //_title->move(_arrowPos);
-
         }
       }
 }

@@ -19,7 +19,7 @@ namespace DT
 class DT::Game:public QGraphicsView
 {
     Q_OBJECT
-    enum class GameState{READY, TITLE_SCREEN, RUNNING, PAUSED, GAME_OVER, GAME_CLEAR, LIFT_TO_DUCKBURG};
+    enum class GameState{READY, TITLE_SCREEN, RUNNING, PAUSED, GAME_OVER, GAME_CLEAR, LIFT_TO_DUCKBURG, LEVEL_SELECTION};
 private:
     GameState _state;
     Scrooge* _player;
@@ -72,6 +72,8 @@ public:
     virtual void resizeEvent(QResizeEvent* event) override;
     void gameOver()  { _state = GameState::GAME_OVER; }
     void welcome();
+    void levelSelection();
+
     void liftToDuckburg() { _state = GameState::LIFT_TO_DUCKBURG;}
     
     void spawningPoint();

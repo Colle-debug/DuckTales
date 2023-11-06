@@ -57,6 +57,7 @@ static QRect hud_number(1, 121, 8, 8);
 static QRect _greenGate(172, 360, 32, 80);
 static QRect _titleScreen(0, 0, 256, 224);
 static QRect _titleArrow(258, 111, 5, 8);
+static QRect _level(0, 0, 256, 224);
 
 
 
@@ -85,6 +86,7 @@ Sprites::Sprites()
     hud = loadTexture(":/sprites/hud.png", QColor(255,255,255));
     difficulty = loadTexture(":/sprites/difficulty.png");
     difficultyArrow = loadTexture(":/sprites/titlescreen.png", QColor(0,210,249));
+    level = loadTexture(":/sprites/levelSelection.png", QColor(0,210,249));
 
 }
 
@@ -122,6 +124,8 @@ QPixmap* Sprites::getSprite(const std::string& id)
         return &difficulty;
     else if (id=="titleArrow")
         return &difficultyArrow;
+    else if (id=="level")
+        return &level;
     else
         return 0;
 }

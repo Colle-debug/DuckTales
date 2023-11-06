@@ -16,14 +16,26 @@ Title::Title() : Object(QPoint(0, 0), TILE * 30, TILE * 30)
 
 void Title::advance()
 {
-    if (_moving)
-        setY(y());
+    return;
 }
 
 
+Level::Level():Object(QPoint(0, 0), TILE * 30, TILE * 30)
+{
+    QPixmap fullPixmap(":/sprites/levelSelection.png");
+    QPixmap croppedPixmap = fullPixmap.copy(0, 0, 256, 224);
+    Game::instance()->world()->addPixmap(croppedPixmap);
+}
+
+void Level::advance()
+{
+    return;
+}
 
 Arrow::Arrow() : Object(QPoint(32, 129), 5, 8)
 {
+    _pos = 0;
+    prev_pos = 0;
     _sprite = Sprites::instance()->getSprite("titleArrow");
     Sprites::instance()->get("title-arrow", &_anim[0]);
     _animRect = &_anim[0];
@@ -32,7 +44,17 @@ Arrow::Arrow() : Object(QPoint(32, 129), 5, 8)
 
 void Arrow::advance()
 {
-    return;
+    int newPos = Game::instance()->arrowPos();
+    if(prev_pos == newPos){
+        return;
+    }else{
+    if(newPos == 2 || _pos == 2){
+            setPos((x() + (newPos - _pos) * TILE * 4), y());}
+    else{
+        setPos((x() + (newPos - _pos) * TILE * 3), y());}
+    prev_pos = _pos;
+    _pos = newPos;
+    }
 }
 
 bool Arrow::animate()
@@ -40,24 +62,7 @@ bool Arrow::animate()
     return true;
 }
 
-void Title::move(int newPos)
-{
-    _arrow->_pos = newPos;
-    _arrow->setX(x() + 15);
-}
 
 
-FlashingText::FlashingText() : Object(QPoint(4*TILE, 14*TILE), TILE * 8, TILE)
-{
-    //_pixText = Sprites::instance()->getText("PRESS S TO START", 0, QColor(255, 110, 204));
-    _sprite = &_pixText;
-    _animText = QRect(0, 0, TILE * 8, TILE);
-    _animRect = &_animText;
 
-    setZValue(1);
-}
 
-bool FlashingText::animate()
-{
-    setVisible((FRAME_COUNT / 17) % 2);
-}
