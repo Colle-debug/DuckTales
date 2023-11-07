@@ -40,6 +40,8 @@ Scrooge::Scrooge(QPointF pos): Entity(pos, 26, 27) {
   _launchpadAttached = false;
   _duckburg = false;
   _gizmoCinematic = false;
+  _sitting = true;
+
 
   _sprite = Sprites::instance() -> getSprite("scrooge");
   Sprites::instance() -> get("scrooge-stand", & _texture_stand[0]);
@@ -63,6 +65,8 @@ Scrooge::Scrooge(QPointF pos): Entity(pos, 26, 27) {
   Sprites::instance() -> get("scrooge-putt-fail-0", & _texture_puttfail[0]);
   Sprites::instance() -> get("scrooge-putt-fail-1", & _texture_puttfail[1]);
   Sprites::instance() -> get("scrooge-dying", & _texture_dying[0]);
+  Sprites::instance() -> get("scrooge-sit", & _texture_sitting[0]);
+
   // this->setPixmap(_texture_stand[0]);
 
 }
@@ -86,6 +90,10 @@ void Scrooge::advance() {
   }
   if (!falling()) {
     _jumping = false; //when not falling, jumping is over
+  }
+  if(_sitting){
+    _boundingRect = QRectF(0, 0, 20, 20);
+    _collider = _boundingRect;
   }
 
   Entity::advance();
@@ -151,6 +159,10 @@ bool Scrooge::animate() {
     }
     if (_launchpadAttached) {
       _animRect = & _texture_climb[0];
+    }
+
+    if(_sitting){
+      _animRect = & _texture_sitting[0];
     }
   }
   return 1;

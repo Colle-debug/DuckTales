@@ -34,6 +34,8 @@ public:
 
 class DT::Level : public Object
 {
+private:
+    Arrow* _arrow;
 public:
     Level();
 
@@ -57,7 +59,7 @@ private:
 
 public:
 
-    Arrow();
+    Arrow(QPointF pos, double width, double height);
 
     // implemented abstract methods
     virtual void advance() override;

@@ -64,6 +64,7 @@ void Game::reset()
     _hud->reset();
     _player = 0;
     beagleActive = 1;
+    _arrowPos = 0;
 
     _left_pressed = false;
     _right_pressed = false;
@@ -101,7 +102,12 @@ void Game::levelSelection()
 {
     _state = GameState::LEVEL_SELECTION;
     _world->clear();
+    _engine.setInterval(1000 / FPS);
+    _engine.start();
     Loader::load("Level");
+    _player = _builder->load("levelSelection");
+
+
 }
 
 void Game::start()
@@ -117,6 +123,7 @@ void Game::start()
         _hud->setVisible(true);
         _hud->start();
         _player = _builder->load("theMoon");
+        _player->setSitting(false);
         //QMediaPlayer * music= new QMediaPlayer();
         playMusic("themoontheme");
 

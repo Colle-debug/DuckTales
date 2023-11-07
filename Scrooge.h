@@ -27,6 +27,8 @@ protected:
     QRect _texture_puttfail[2];
     QRect _texture_bounce[2];
     QRect _texture_dying[1];
+    QRect _texture_sitting[1];
+
 
     bool _scripted;
     bool _jumping;
@@ -40,6 +42,7 @@ protected:
     bool _launchpadAttached;
     bool _duckburg; // Is it arrived in Duckburg after getting a lift from Launchpad McQuack?
     bool _gizmoCinematic;
+    bool _sitting;
 
     bool _recentlyHit;
     int _hp;
@@ -88,7 +91,7 @@ public:
     void climbingPhysics();
     bool launchpadAttachment(){return _launchpadAttached;}
     bool duckburg(){return _duckburg;}
-
+    void setSitting(bool on){_sitting = on;}
 
     virtual void lifeDown();
     //virtual void lifeUp();

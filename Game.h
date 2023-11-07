@@ -19,6 +19,7 @@ namespace DT
 class DT::Game:public QGraphicsView
 {
     Q_OBJECT
+public:
     enum class GameState{READY, TITLE_SCREEN, RUNNING, PAUSED, GAME_OVER, GAME_CLEAR, LIFT_TO_DUCKBURG, LEVEL_SELECTION};
 private:
     GameState _state;
@@ -73,7 +74,7 @@ public:
     void gameOver()  { _state = GameState::GAME_OVER; }
     void welcome();
     void levelSelection();
-
+    GameState state(){return _state;}
     void liftToDuckburg() { _state = GameState::LIFT_TO_DUCKBURG;}
     
     void spawningPoint();

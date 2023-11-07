@@ -38,6 +38,8 @@ static QPixmap loadTexture(const std::string file, QColor mask_color = Qt::white
 
 // main object positions within sprites
 static QRect scrooge_stand(1, 1, 24, 30);
+static QRect scrooge_sitting(130, 259, 20, 20);
+
 static QRect _pinkAlien(42,5,32,35);
 static QRect _octopus(4,7,16,24);
 static QRect _platform(79,31,33,17);
@@ -58,6 +60,8 @@ static QRect _greenGate(172, 360, 32, 80);
 static QRect _titleScreen(0, 0, 256, 224);
 static QRect _titleArrow(258, 111, 5, 8);
 static QRect _level(0, 0, 256, 224);
+static QRect _nephews(25, 226, 17, 22);
+
 
 
 
@@ -195,6 +199,9 @@ void Sprites::get(const std::string & id, QRect animOutput[])
     else if(id == "scrooge-putt-fail-1"){
         animOutput[0] = moveBy(scrooge_stand,2,6);
     }
+    else if(id == "scrooge-sit"){
+        animOutput[0] = moveBy(scrooge_sitting,0,0);
+    }
     else if(id == "pink-alien-0"){
         animOutput[0] = moveBy(_pinkAlien,0,0);
     }
@@ -329,6 +336,14 @@ void Sprites::get(const std::string & id, QRect animOutput[])
     else if(id=="title-0")
     {
         animOutput[0] = moveBy(_titleScreen,0,0);
+    }
+    else if(id=="huey")
+    {
+        animOutput[0] = moveBy(_nephews,0,0);
+    }
+    else if(id=="dewey")
+    {
+        animOutput[0] = moveBy(_titleScreen,1,0, 17);
     }
     else
     {

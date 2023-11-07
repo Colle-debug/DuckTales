@@ -23,12 +23,13 @@ Scrooge* Loader::load(std::string levelName)
     if(levelName == "Title"){
 
         new Title();
-        new Arrow();
+        //new Arrow();
         return nullptr;
     }
     else if(levelName == "Level"){
         new Level();
-        return nullptr;
+        new StaticObject(QPointF(7*TILE,11.7*TILE),3*TILE,1*TILE);
+        return new Scrooge(QPointF(7.35* TILE, 10.4*TILE));;
     }
     else if(levelName=="theMoon")
     {
