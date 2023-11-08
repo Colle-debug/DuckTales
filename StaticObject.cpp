@@ -8,6 +8,7 @@
 #include <QPen>
 
 using namespace DT;
+
 StaticObject::StaticObject(QPointF pos, double width, double height, StaticObject::Type type) : Object(pos, width, height){
     _type = type;
     _hit = false;

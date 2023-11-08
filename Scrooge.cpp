@@ -281,6 +281,8 @@ void Scrooge::climbingPhysics() {
   _y_acc_up = 0;
 }
 
+
+
 void Scrooge::setGizmoCinematicStatus(bool on) {
   _gizmoCinematic = on;
 

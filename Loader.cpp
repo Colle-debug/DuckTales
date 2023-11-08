@@ -14,6 +14,7 @@
 #include "Block.h"
 #include "Spawnable.h"
 #include "Menu.h"
+#include "Rat.h"
 
 
 using namespace DT;
@@ -547,8 +548,8 @@ Scrooge* Loader::load(std::string levelName)
         new Gizmoduck(QPointF(107* TILE, 65.5*TILE), 32, 39);
         new StaticObject(QPointF(117*TILE, 60*TILE), TILE, 9*TILE, StaticObject::Type::ACTIVATOR);
 
-
-        return new Scrooge(QPointF(60* TILE, 37*TILE));
+        new Rat(QPointF(70 * TILE, 80* TILE));
+        return new Scrooge(QPointF(72* TILE, 80*TILE));
         /*
          Spawning Point 3 67
          Gizmoduck    105 67

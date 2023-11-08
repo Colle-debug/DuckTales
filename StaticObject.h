@@ -3,12 +3,12 @@
 
 #include "Object.h"
 
-
 namespace DT
 {
     class StaticObject;
 
 }
+using Activator = std::function<void()>;
 
 class DT::StaticObject : public Object
 {
@@ -20,6 +20,8 @@ class DT::StaticObject : public Object
     public:
 
         StaticObject(QPointF pos, double width, double height, StaticObject::Type type = StaticObject::Type::TERRAIN);
+        StaticObject(QPointF pos, double width, double height, void (*func)()); //ACTIVATOR CLASS
+
         // implemented abstract methods
         StaticObject::Type _type;
         virtual void advance() override {}
