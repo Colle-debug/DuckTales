@@ -30,7 +30,7 @@ Game* Game::instance()
 Game::Game(QGraphicsView *parent) : QGraphicsView(parent)
 {
     _world = new QGraphicsScene();
-    _world->setSceneRect(0, 0, TILE * 128, TILE * 81); // Vista di default è 0 56.5
+    _world->setSceneRect(0, 0, TILE * 128, TILE * 86.5); // Vista di default è 0 56.5
     setScene(_world);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -60,6 +60,7 @@ void Game::reset()
     _state = GameState::READY;
     _engine.stop();
     _world->clear();
+    //_world->setSceneRect(0, 0, TILE * 30, TILE * 30);
     _hud->setVisible(false);
     _hud->reset();
     _player = 0;
@@ -90,7 +91,7 @@ void Game::welcome()
     {
         _state = GameState::TITLE_SCREEN;
         _world->clear();
-        _engine.setInterval(1000 / FPS);
+        _engine.setInterval(1000 / (FPS/2));
         _engine.start();
         //Sounds::instance()->stopMusic(_music);
         Loader::load("Title");
@@ -102,12 +103,8 @@ void Game::levelSelection()
 {
     _state = GameState::LEVEL_SELECTION;
     _world->clear();
-    _engine.setInterval(1000 / FPS);
-    _engine.start();
     Loader::load("Level");
     _player = _builder->load("levelSelection");
-
-
 }
 
 void Game::start()
@@ -118,6 +115,7 @@ void Game::start()
         FRAME_COUNT = 0;
         _state = GameState::RUNNING;
         _world->clear();
+        //_world->setSceneRect(64*TILE, 75*TILE, TILE * 64, TILE * 11.5);
         _engine.setInterval(1000 / FPS);
         _engine.start();
         _hud->setVisible(true);
@@ -134,9 +132,9 @@ void Game::nextFrame() {
     FRAME_COUNT++;
     if (_state == GameState::TITLE_SCREEN || _state == GameState::LEVEL_SELECTION){ // era if (_state != GameState::RUNNING && _state != GameState::TITLE_SCREEN), non ne capisco il senso, da vedere
 
-            std::cout<<_arrowPos<<"\n";
+            /*std::cout<<_arrowPos<<"\n";
             std::cout.flush();
-
+            */
         for (auto item: _world -> items()) {
             Object * obj = dynamic_cast < Object * > (item);
 
@@ -251,7 +249,7 @@ void Game::nextFrame() {
       }
 
       // @TODO update game state (game over, level cleared, etc.)
-      centerOn(QPointF(_player -> x(), _player -> y()));
+      centerOn(_player);
       update();
 
       if (_player -> dead()) {
@@ -407,10 +405,12 @@ void Game::keyReleaseEvent(QKeyEvent* e)
 
 void Game::wheelEvent(QWheelEvent* e)
 {
+
     if (e->angleDelta().y() > 0)
         scale(1.1, 1.1);
     else
         scale(1 / 1.1, 1 / 1.1);
+
 }
 
 void Game::resizeEvent(QResizeEvent* evt)

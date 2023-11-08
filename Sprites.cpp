@@ -39,7 +39,6 @@ static QPixmap loadTexture(const std::string file, QColor mask_color = Qt::white
 // main object positions within sprites
 static QRect scrooge_stand(1, 1, 24, 30);
 static QRect scrooge_sitting(130, 259, 20, 20);
-
 static QRect _pinkAlien(42,5,32,35);
 static QRect _octopus(4,7,16,24);
 static QRect _platform(79,31,33,17);
@@ -61,6 +60,12 @@ static QRect _titleScreen(0, 0, 256, 224);
 static QRect _titleArrow(258, 111, 5, 8);
 static QRect _level(0, 0, 256, 224);
 static QRect _nephews(25, 226, 17, 22);
+static QRect _levelArrow(260, 3, 8, 8);
+static QRect _winkingScrooge(260, 2, 34, 48);
+static QRect _rat(141, 45, 39, 27);
+
+
+
 
 
 
@@ -91,7 +96,7 @@ Sprites::Sprites()
     difficulty = loadTexture(":/sprites/difficulty.png");
     difficultyArrow = loadTexture(":/sprites/titlescreen.png", QColor(0,210,249));
     level = loadTexture(":/sprites/levelSelection.png", QColor(0,210,249));
-
+    rat = loadTexture(":/sprites/bosses.png", QColor(164,224,160));
 }
 
 QPixmap* Sprites::getSprite(const std::string& id)
@@ -130,6 +135,8 @@ QPixmap* Sprites::getSprite(const std::string& id)
         return &difficultyArrow;
     else if (id=="level")
         return &level;
+    else if (id=="rat")
+        return &rat;
     else
         return 0;
 }
@@ -344,6 +351,26 @@ void Sprites::get(const std::string & id, QRect animOutput[])
     else if(id=="dewey")
     {
         animOutput[0] = moveBy(_titleScreen,1,0, 17);
+    }
+    else if(id=="level-arrow-0")
+    {
+        animOutput[0] = moveBy(_levelArrow,0,0);
+    }
+    else if(id=="level-arrow-1")
+    {
+        animOutput[0] = moveBy(_levelArrow, 1, 0, 8);
+    }
+    else if(id=="scrooge-title-0")
+    {
+        animOutput[0] = moveBy(_winkingScrooge, 0, 0);
+    }
+    else if(id=="scrooge-title-1")
+    {
+        animOutput[0] = moveBy(_levelArrow, 0, 1, 0, 50);
+    }
+    else if(id=="rat-default")
+    {
+        animOutput[0] = moveBy(_rat, 0, 0);
     }
     else
     {

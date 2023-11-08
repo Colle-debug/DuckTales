@@ -11,6 +11,7 @@
         <file>titlescreen.png</file>
         <file>difficulty.png</file>
         <file>levelSelection.png</file>
+        <file>bosses.png</file>
     </qresource>
     <qresource prefix="/background">
         <file>theMoon.png</file>

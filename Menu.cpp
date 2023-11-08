@@ -10,13 +10,34 @@ Title::Title() : Object(QPoint(0, 0), TILE * 30, TILE * 30)
 {
     Game::instance()->world()->addPixmap(QPixmap(":/sprites/difficulty.png"));
     Game::instance()->centerOn(0, 0);
-    _arrow = new Arrow(QPoint(32, 129), 5, 8);
+
+    QPixmap fullPixmap = *Sprites::instance()->getSprite("titleArrow");
+    _scrooge_0 = new QGraphicsPixmapItem(fullPixmap.copy(260, 2, 34, 48));
+    _scrooge_1 = new QGraphicsPixmapItem(fullPixmap.copy(260, 52, 34, 48));
+    _scrooge_0->setPos(QPoint(4.5*TILE - 2, 1.5*TILE - 3));
+    _scrooge_1->setPos(QPoint(4.5*TILE - 2, 1.5*TILE - 3));
+    _scrooge_1->setVisible(false);
+    Game::instance()->world()->addItem(_scrooge_0);
+    Game::instance()->world()->addItem(_scrooge_1);
+    _arrow = new Arrow(QPoint(32, 129), 5, 8, Arrow::Type::HORIZONTAL);
     setZValue(1);
 }
 
 void Title::advance()
 {
     return;
+}
+
+bool Title::animate()
+{
+    if(((FRAME_COUNT / 9) % 9) == 0){
+        _scrooge_1->setVisible(true);
+    }
+    else{
+        _scrooge_1->setVisible(false);
+
+    }
+    return true;
 }
 
 
@@ -38,7 +59,6 @@ Level::Level():Object(QPoint(0, 0), TILE * 30, TILE * 30)
     iconLeft->setPos(QPoint(42, 139));
     iconRight->setPos(QPoint(202, 139));
 
-
     Game::instance()->world()->addPixmap(croppedPixmap);
     Game::instance()->world()->addItem(Louie);
     Game::instance()->world()->addItem(Hewey);
@@ -46,10 +66,7 @@ Level::Level():Object(QPoint(0, 0), TILE * 30, TILE * 30)
     Game::instance()->world()->addItem(iconLeft);
     Game::instance()->world()->addItem(iconRight);
 
-
-
-
-    _arrow = new Arrow(QPoint(4.5*TILE + 1, 8.5*TILE + 1), 5, 8);
+    _arrow = new Arrow(QPoint(10*TILE, 2.5*TILE), 8, 8, Arrow::Type::VERTICAL);
 
 }
 
@@ -58,13 +75,21 @@ void Level::advance()
     return;
 }
 //Arrow::Arrow() : Object(QPoint(32, 129), 5, 8)
-Arrow::Arrow(QPointF pos, double width, double height) : Object(pos, width, height)
+Arrow::Arrow(QPointF pos, double width, double height, Type type) : Object(pos, width, height)
 {
+    _type = type;
     _pos = 0;
     prev_pos = 0;
-    _sprite = Sprites::instance()->getSprite("titleArrow");
-    Sprites::instance()->get("title-arrow", &_anim[0]);
-    _animRect = &_anim[0];
+    if(type == Type::HORIZONTAL){
+        _sprite = Sprites::instance()->getSprite("titleArrow");
+        Sprites::instance()->get("title-arrow", &_anim[0]);
+        _animRect = &_anim[0];
+    }
+    else if(type == Type::VERTICAL){
+        _sprite = Sprites::instance()->getSprite("level");
+        Sprites::instance()->get("level-arrow-0", &_anim[0]);
+        Sprites::instance()->get("level-arrow-1", &_anim[1]);
+    }
 }
 
 
@@ -81,12 +106,15 @@ void Arrow::advance()
         setPos((x() + (newPos - _pos) * TILE * 3), y());}
     prev_pos = _pos;
     _pos = newPos;
-    }
+        }
     }
 }
 
 bool Arrow::animate()
 {
+    if(_type == Type::VERTICAL){
+      _animRect = &_anim[(FRAME_COUNT / 9) % 2];
+    }
     return true;
 }
 
