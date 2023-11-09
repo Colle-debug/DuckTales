@@ -66,7 +66,8 @@ void Game::reset()
     _player = 0;
     beagleActive = 1;
     _arrowPos = 0;
-
+    _bossFight = 0;
+    _bossFightAnimation = 0;
     _left_pressed = false;
     _right_pressed = false;
     _up_pressed = false;
@@ -91,7 +92,7 @@ void Game::welcome()
     {
         _state = GameState::TITLE_SCREEN;
         _world->clear();
-        _engine.setInterval(1000 / (FPS/2));
+        _engine.setInterval(1000 / (FPS/2)); // 30 FPS per avere l'occhiolino nel menù iniziale come nel gioco originale
         _engine.start();
         //Sounds::instance()->stopMusic(_music);
         Loader::load("Title");
@@ -105,6 +106,24 @@ void Game::levelSelection()
     _world->clear();
     Loader::load("Level");
     _player = _builder->load("levelSelection");
+}
+
+void Game::gizmo()
+{
+    for (auto item: _world -> items()) {
+        Gizmoduck * gizmo = dynamic_cast < Gizmoduck * > (item);
+        if(gizmo){
+            gizmo->activate();
+            _player->setGizmoCinematicStatus(true);
+        }
+    }
+}
+
+void Game::bossFight()
+{
+    _bossFight = true;
+    _bossFightAnimation = true;
+    _player->startBossFightAnimation();
 }
 
 void Game::start()
@@ -154,10 +173,9 @@ void Game::nextFrame() {
 
 
 
-
       // process inputs	 (PLAYER CONTROLS)
 
-      if(!_player->gizmoduckCinematic() && !_player->launchpadAttachment()){ // Commandi di movimento accessibili solo se nessuna delle due è True
+      if(!_player->gizmoduckCinematic() && !_player->launchpadAttachment() && !_bossFightAnimation){ // Commandi di movimento accessibili solo se nessuna delle due è True
       if (!_player -> climbing()) {
         if (_left_pressed && _right_pressed)
             _player -> move(Direction::NONE);
@@ -225,7 +243,7 @@ void Game::nextFrame() {
         _jump_released = false;
       }
 }
-      if (!beagleActive) {
+      if (!beagleActive && !_bossFight && _player->x() > 90*TILE && _player->y() > 70 * TILE) {
         // Meglio schedulare il respawn dopo un paio di FRAME
         beagleActive = true;
         _player -> schedule("restore", 100, [this]() {

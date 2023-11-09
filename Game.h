@@ -43,6 +43,9 @@ private:
     bool beagleActive;
     bool _swing_pressed;
     bool _swing_released;
+
+    bool _bossFight;
+    bool _bossFightAnimation;
     std::string		_level_music_loop;
 		std::string		_current_music_loop;
 
@@ -62,7 +65,6 @@ public:
     void setArrowPos(int on){_arrowPos = on;}
     QGraphicsScene* world(){return _world;}
     void setTitle(Title* on){_title = on;}
-
     Scrooge* player(){return _player;}
     HUD* hud() { return _hud; }
     double aspectRatio() { return 16 * 1.14 / 15; }
@@ -76,9 +78,12 @@ public:
     void levelSelection();
     GameState state(){return _state;}
     void liftToDuckburg() { _state = GameState::LIFT_TO_DUCKBURG;}
-    
+    void gizmo();
+    void bossFight();
     void spawningPoint();
-
+    void setBossFightAnim(bool on){_bossFightAnimation = on;};
+    bool GBFA(){return _bossFightAnimation;};
+    void setBossFight(bool on){ _bossFight = on;};
 public slots:
     void reset();
     void start();
