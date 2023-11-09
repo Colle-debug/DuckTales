@@ -246,6 +246,9 @@ void Sprites::get(const std::string & id, QRect animOutput[])
     else if(id == "block-broken-0"){
        animOutput[0] = moveBy(_block,0,1,16,15);
     }
+      else if(id=="block-hit-0"){
+        animOutput[0] = moveBy(_block,-2,-1,16,16 );
+    }
      else if(id == "block-broken-1"){
        animOutput[0] = moveBy(_block,-1, 1,16,15);
     }

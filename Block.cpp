@@ -20,6 +20,8 @@ Block::Block(QPointF pos, double width, double height, Block::Type type, bool in
     _collided = false;
     _compenetrable = false;
     _spawnable = spawnable;
+    _block_hit=false; //gestisco l'animazione della collisione tra due blocchi
+    _enemy_hit=false; //gestisco l'animazione per la collisione tra nemici;
     _sprite = Sprites::instance() -> getSprite("block");
 
     if (_type == Type::BRICK) {
@@ -28,6 +30,7 @@ Block::Block(QPointF pos, double width, double height, Block::Type type, bool in
         Sprites::instance() -> get("block-1", & _texture_block[1]);
         Sprites::instance() -> get("block-broken-0", & _texture_broken_block[0]);
         Sprites::instance() -> get("block-broken-1", & _texture_broken_block[1]);
+        Sprites::instance() -> get("block-hit-0", & _texture_block_hit[0]);
         _animRect = & _texture_block[0];
     }
     else if (_type == Type::CHEST_BIG) {
@@ -55,12 +58,14 @@ Block::Block(QPointF pos, double width, double height, Block::Type type, bool in
         Sprites::instance() -> get("sphere-0", & _texture_block[0]);
         Sprites::instance() -> get("block-broken-0", & _texture_broken_block[0]);
         Sprites::instance() -> get("block-broken-1", & _texture_broken_block[1]);
+        Sprites::instance() -> get("block-hit-0", & _texture_block_hit[0]);
         _animRect = & _texture_block[0];
     }
     else if (_type == Type::BATTERY) {
         Sprites::instance() -> get("battery-0", & _texture_block[0]);
         _animRect = & _texture_block[0];
     }
+    
 
     setZValue(1);
     _y_gravity = 0;
@@ -71,7 +76,7 @@ bool Block::hit(Object * what, Direction fromDir) {
     Scrooge * scrooge = what -> to < Scrooge * > ();
     Enemy * enm = what -> to < Enemy * > ();
     StaticObject * sobj = what -> to < StaticObject * > ();
-    //Block * block = what -> to < Block * > ();
+    Block * block = what -> to < Block * > ();
 
     if (scrooge && fromDir == Direction::UP && scrooge -> pogoing() && _type != Type::BATTERY) {
         _collidable=false;
@@ -93,6 +98,14 @@ bool Block::hit(Object * what, Direction fromDir) {
             _invisible = false; // metto invisible a false così puo diventare visible
         }
     }
+
+
+    if(_type==Type::BATTERY)
+    {
+
+     
+    }
+
 
     if (scrooge && scrooge -> swinging()) {
         if (_type == Type::BATTERY) {
@@ -164,20 +177,36 @@ bool Block::hit(Object * what, Direction fromDir) {
 
     }
 
-    if (enm && midair()) {
+    if (enm && this->midair()) {
+       this->move(Direction::NONE);
+        schedule("disappear",4,[this](){
+
+        setVisible(false);});
+
         enm -> die();
+         _enemy_hit=true;
     }
 
-    if (sobj && fromDir == Direction::UP) {
-
-        _compenetrable = true;
+    if (sobj && fromDir == Direction::UP && sobj->_type!=StaticObject::Type::BUMPER) {
+      move(Direction::NONE);
+        _compenetrable = false;
         _breakable = true;
         schedule("disappear", 8, [this]() {
+            
             setVisible(false);
+        
         });
-
     }
+   if(sobj && sobj->_type==StaticObject::Type::BUMPER && (fromDir==Direction::DOWN || fromDir==Direction::LEFT || fromDir==Direction::RIGHT))
+     {
+        _compenetrable=true;
+     }
+     if (sobj && _type==Type::BRICK && fromDir==Direction::DOWN)
+     {
+         move(Direction::NONE);
+     }
 
+    
     /* if (block)  // da implementare le collisioni tra due blocchi. se si toccano solamente quello lanciato da scrooge deve rompersi. se collidano, il blocco deve essere non compenetrable e deve rompersi subito, attivo _breakable=true
 //da gestire anche la collisione tra battery e brick
     {
@@ -207,10 +236,20 @@ bool Block::animate() {
 
     if (_launched && _type == Type::BRICK) {
         if (_vel.y < 0)
-            _animRect = & _texture_block[2];
+            _animRect = & _texture_block[1];
         else if (_vel.y > 0)
             _animRect = & _texture_broken_block[(FRAME_COUNT / 9) % 2];
     }
 
+
+    if ((_type==Type::BRICK || _type==Type::SPHERE) && _enemy_hit)
+    {
+        _animRect = &_texture_block_hit[0];
+    }
+
+    /*if(_type==Type::BRICK)
+    {
+        _animRect = & _texture_broken_block[(FRAME_COUNT / 9) % 2];
+    }*/
     return true;
 }

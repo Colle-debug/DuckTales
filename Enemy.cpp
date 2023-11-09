@@ -49,7 +49,7 @@ bool Enemy::hit(Object* what, Direction fromDir)
 bool Enemy::animate()
 {
     if(_dying)
-        _animRect = &_texture_walk[(FRAME_COUNT / 4) % 4];
+        _animRect = &_texture_walk[1];
     else
         _animRect = &_texture_walk[(FRAME_COUNT / 9) % 2];
 

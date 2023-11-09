@@ -25,11 +25,14 @@ protected:
     bool  _collided;
     bool _brick_breakable;
     bool _invisible;
+    bool _enemy_hit;
+    bool _block_hit;
     QRect _texture_block[3];
     QRect _texture_broken_block[2];
     QRect _texture_battery[1];
     QRect _texture_chest_big[1];
     QRect _texture_chest_small[1];
+    QRect _texture_block_hit[1];
 
     Spawnable::Type _spawnable;
 
