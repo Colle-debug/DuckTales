@@ -12,7 +12,7 @@ using namespace DT;
 StaticObject::StaticObject(QPointF pos, double width, double height, StaticObject::Type type) : Object(pos, width, height){
     _type = type;
     _hit = false;
-    if(_type == Type::ROPE || _type == Type::ACTIVATOR){
+    if(_type == Type::ROPE){
         _compenetrable = true;
     }
     else if(_type == Type::BUMPER){
@@ -28,6 +28,14 @@ StaticObject::StaticObject(QPointF pos, double width, double height, StaticObjec
 
 }
 
+StaticObject::StaticObject(QPointF pos, double width, double height, StaticObject::Activator type) : Object(pos, width, height)
+{
+    _type = Type::ACTIVATOR;
+    _hit = false;
+    activator_type = type;
+    _compenetrable = true;
+
+}
 bool StaticObject::animate()
 {
     if(_type == Type::GREEN_GATE && !_hit){
@@ -52,7 +60,19 @@ bool StaticObject::hit(Object* what, Direction fromDir)
         return true;
     }
 
-    if(scrooge && scrooge->hasTheRemote() && _type == Type::ACTIVATOR){
+    if(scrooge && _type == Type::ACTIVATOR){
+        _hit = true;
+        if(activator_type == Activator::GIZMO){
+            Game::instance()->gizmo();
+        }
+        else if(activator_type == Activator::BOSS){
+            Game::instance()->bossFight();
+            setVisible(false);
+        }
+    }
+
+
+    /*if(scrooge && scrooge->hasTheRemote() && _type == Type::ACTIVATOR){
         for (auto item: Game::instance()->world() -> items()) {
           Gizmoduck * gizmo = dynamic_cast < Gizmoduck * > (item);
           if(gizmo){
@@ -61,13 +81,13 @@ bool StaticObject::hit(Object* what, Direction fromDir)
           }
         }
 
-    }
+    }*/
     if(spawnable && spawnable->_type == Spawnable::Type::PROJECTILE){
 
         _compenetrable = true;
         _hit = true;
         setVisible(false);
-        new StaticObject(QPointF(120*TILE,65*TILE), 0, 7*TILE, StaticObject::Type::ROPE);
+        //new StaticObject(QPointF(120*TILE,65*TILE), 0, 7*TILE, StaticObject::Type::ROPE);
         return true;
     }
 

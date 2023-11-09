@@ -546,10 +546,13 @@ Scrooge* Loader::load(std::string levelName)
         new Spawnable(QPointF(55.5*TILE, 19*TILE), TILE, TILE, Spawnable::Type::REMOTE);
         new Launchpad(QPointF(44.5*TILE, 16*TILE), 23, 40);
         new Gizmoduck(QPointF(107* TILE, 65.5*TILE), 32, 39);
-        new StaticObject(QPointF(117*TILE, 60*TILE), TILE, 9*TILE, StaticObject::Type::ACTIVATOR);
+        //new StaticObject(QPointF(117*TILE, 60*TILE), TILE, 9*TILE, StaticObject::Type::ACTIVATOR);
+        new StaticObject(QPointF(117*TILE, 60*TILE), TILE, 9*TILE, StaticObject::Activator::GIZMO);
+        new StaticObject(QPointF(79*TILE, 82*TILE), TILE/2, 2*TILE, StaticObject::Activator::BOSS);
 
         new Rat(QPointF(70 * TILE, 80* TILE));
-        return new Scrooge(QPointF(72* TILE, 80*TILE));
+
+        return new Scrooge(QPointF(3* TILE, 67*TILE));
         /*
          Spawning Point 3 67
          Gizmoduck    105 67
