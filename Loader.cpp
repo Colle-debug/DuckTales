@@ -35,7 +35,7 @@ Scrooge* Loader::load(std::string levelName)
     }
     else if(levelName=="theMoon")
     {
-        Game::instance()->world()->addPixmap(QPixmap(":/background/theMoonfinal.png"));
+        Game::instance()->world()->addPixmap(QPixmap(":/background/theMoon.png"));
         //primo livello
 
         new StaticObject(QPointF(0, 69*TILE), 54*TILE, 2.5*TILE); //primo rappresenta la posizione dall'alto verso il basso, il secondo rappresenta la lunghezza, il terzo invece lo spessore
