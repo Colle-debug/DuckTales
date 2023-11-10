@@ -39,7 +39,7 @@ Scrooge::Scrooge(QPointF pos): Entity(pos, 26, 27) {
     _prev_x_dir = Direction::RIGHT;
     _mirror_x_dir = Direction::LEFT;
 
-    _hp = 1;
+    _hp = 150;
     _recentlyHit = 0;
     _key = true;
     _remote = true;
@@ -322,7 +322,7 @@ void Scrooge::startBossFightAnimation() {
             0
         };
         new StaticObject(QPointF(79 * TILE, 82 * TILE), TILE, 2 * TILE);
-        //Game::instance()->setSceneRect(64*TILE, 73.5*TILE, 16*TILE, 11*TILE); Cercare di capire.
+        Game::instance()->setSceneRect(64*TILE, 73.5*TILE, 16*TILE, 11*TILE); //Cercare di capire.
     });
 }
 

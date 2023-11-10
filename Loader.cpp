@@ -550,13 +550,14 @@ Scrooge* Loader::load(std::string levelName)
         new StaticObject(QPointF(117*TILE, 60*TILE), TILE, 9*TILE, StaticObject::Activator::GIZMO);
         new StaticObject(QPointF(79*TILE, 82*TILE), TILE/2, 2*TILE, StaticObject::Activator::BOSS);
 
-        new Rat(QPointF(70 * TILE, 80* TILE));
+        new Rat(QPointF(70 * TILE, 82* TILE));
 
-        return new Scrooge(QPointF(3* TILE, 67*TILE));
+        return new Scrooge(QPointF(74* TILE, 80*TILE));
         /*
          Spawning Point 3 67
          Gizmoduck    105 67
          Launchpad     40 17 // Al momento implementato tramite collisione e non tramite scelta in HUD
+         Rat     80 80
          */
     }
     else{

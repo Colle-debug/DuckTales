@@ -12,10 +12,15 @@ class Rat;
 class DT::Rat : public Enemy
 {
 private:
-
+    bool _reset;
+    bool _jumping;
+    bool _floored;
 public:
 
     Rat(QPointF pos);
+
+    void jump(bool on, Direction dir);
+
 
     // implemented abstract methods
     virtual std::string name() override { return "Rat[" + std::to_string(_id) + "]"; }
@@ -25,6 +30,7 @@ public:
     virtual void advance() override;
     virtual bool animate() override;
 
+    int dir2speed(Direction dir);
 };
 
 
