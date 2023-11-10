@@ -3,6 +3,7 @@
 #include "Gizmoduck.h"
 #include "Spawnable.h"
 #include "Scrooge.h"
+#include "Beakley.h"
 #include <QPainter>
 #include <QBrush>
 #include <QPen>
@@ -54,6 +55,7 @@ bool StaticObject::hit(Object* what, Direction fromDir)
 {
     Scrooge* scrooge = dynamic_cast<Scrooge*>(what);
     Spawnable* spawnable = dynamic_cast<Spawnable*>(what);
+    Beakley *beakley = dynamic_cast<Beakley*>(what);
     if(scrooge && scrooge->hasTheKey() && this->_type == Type::GATE){
         _compenetrable = true;
         _hit = true;
@@ -69,7 +71,9 @@ bool StaticObject::hit(Object* what, Direction fromDir)
             Game::instance()->bossFight();
             setVisible(false);
         }
-    }
+      }
+
+    
 
 
     /*if(scrooge && scrooge->hasTheRemote() && _type == Type::ACTIVATOR){
@@ -82,6 +86,8 @@ bool StaticObject::hit(Object* what, Direction fromDir)
         }
 
     }*/
+    
+    // non dovrebbe servire questo
     if(spawnable && spawnable->_type == Spawnable::Type::PROJECTILE){
 
         _compenetrable = true;
