@@ -15,6 +15,7 @@
 #include "Spawnable.h"
 #include "Menu.h"
 #include "Rat.h"
+#include "Beakley.h"
 
 
 using namespace DT;
@@ -34,7 +35,7 @@ Scrooge* Loader::load(std::string levelName)
     }
     else if(levelName=="theMoon")
     {
-        Game::instance()->world()->addPixmap(QPixmap(":/background/theMoon.png"));
+        Game::instance()->world()->addPixmap(QPixmap(":/background/theMoonfinal.png"));
         //primo livello
 
         new StaticObject(QPointF(0, 69*TILE), 54*TILE, 2.5*TILE); //primo rappresenta la posizione dall'alto verso il basso, il secondo rappresenta la lunghezza, il terzo invece lo spessore
@@ -68,8 +69,8 @@ Scrooge* Loader::load(std::string levelName)
         new Block(QPointF(67*TILE, 67*TILE), TILE, TILE,Block::Type::BRICK);
         new Block(QPointF(67*TILE, 66*TILE), TILE, TILE,Block::Type::BRICK);
         new Block(QPointF(67*TILE, 65*TILE), TILE, TILE,Block::Type::BRICK);
-        new Block(QPointF(69*TILE, 67*TILE), TILE, 2*TILE,Block::Type::BRICK);
-        new Block(QPointF(69*TILE, 66*TILE), TILE, 2*TILE,Block::Type::BRICK);
+        new Block(QPointF(69*TILE, 67*TILE), TILE, TILE,Block::Type::BRICK);
+        new Block(QPointF(69*TILE, 66*TILE), TILE, TILE,Block::Type::BRICK);
         new StaticObject(QPointF(93*TILE,65*TILE),3*TILE,6.5*TILE); //sistema questo
         new StaticObject(QPointF(98*TILE,69*TILE),8*TILE,2.5*TILE);
         new StaticObject(QPointF(100*TILE,68*TILE),2*TILE,TILE); // ultimo tronco in fondo
@@ -424,6 +425,7 @@ Scrooge* Loader::load(std::string levelName)
         new StaticObject(QPointF(24*TILE, 49*TILE), 0, 8*TILE, StaticObject::Type::ROPE);
         new StaticObject(QPointF(88*TILE, 35*TILE), 0, 13*TILE, StaticObject::Type::ROPE);
         new StaticObject(QPointF(88*TILE, 4*TILE), 0, 28*TILE, StaticObject::Type::ROPE);
+        new StaticObject(QPointF(56*TILE, 5.7*TILE), 0, 10.3*TILE, StaticObject::Type::ROPE);
 
 
 
@@ -549,15 +551,28 @@ Scrooge* Loader::load(std::string levelName)
         //new StaticObject(QPointF(117*TILE, 60*TILE), TILE, 9*TILE, StaticObject::Type::ACTIVATOR);
         new StaticObject(QPointF(117*TILE, 60*TILE), TILE, 9*TILE, StaticObject::Activator::GIZMO);
         new StaticObject(QPointF(79*TILE, 82*TILE), TILE/2, 2*TILE, StaticObject::Activator::BOSS);
+        new StaticObject(QPointF(57*TILE,10.1*TILE),6*TILE,4.9*TILE);
+        new StaticObject(QPointF(48*TILE,10.1*TILE),7*TILE,4.9*TILE);
+        new StaticObject(QPointF(48*TILE,0*TILE),4*TILE,10.1*TILE);
+        new StaticObject(QPointF(60*TILE,0*TILE),4*TILE,10.1*TILE);
+        new StaticObject(QPointF(54*TILE,4.7*TILE),4*TILE,TILE);
+
+        //new StaticObject(QPointF(55*TILE, 60*TILE), 2*TILE, TILE, StaticObject::Activator::CAMERA);
+        new Beakley(QPointF(55.3*TILE,2.7*TILE),24,31);
+        new StaticObject(QPointF(55*TILE, 11*TILE), 2*TILE, 0.2*TILE, StaticObject::Activator::BEAKLEY);
+        new StaticObject(QPointF(55*TILE, 10.8*TILE), 2*TILE, 0.2*TILE, StaticObject::Activator::BEAKLEY);
+        new StaticObject(QPointF(55*TILE, 10.6*TILE), 2*TILE, 0.2*TILE, StaticObject::Activator::BEAKLEY);
+       
+
+
 
         new Rat(QPointF(70 * TILE, 82* TILE));
 
-        return new Scrooge(QPointF(74* TILE, 80*TILE));
+        return new Scrooge(QPointF(52* TILE, 6*TILE));
         /*
          Spawning Point 3 67
          Gizmoduck    105 67
          Launchpad     40 17 // Al momento implementato tramite collisione e non tramite scelta in HUD
-         Rat     80 80
          */
     }
     else{

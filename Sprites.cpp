@@ -63,6 +63,8 @@ static QRect _nephews(25, 226, 17, 22);
 static QRect _levelArrow(260, 3, 8, 8);
 static QRect _winkingScrooge(260, 2, 34, 48);
 static QRect _rat(141, 45, 39, 27);
+static QRect _beakley(147,14,24,31);
+
 
 
 
@@ -97,6 +99,8 @@ Sprites::Sprites()
     difficultyArrow = loadTexture(":/sprites/titlescreen.png", QColor(0,210,249));
     level = loadTexture(":/sprites/levelSelection.png", QColor(0,210,249));
     rat = loadTexture(":/sprites/bosses.png", QColor(164,224,160));
+    beakley = loadTexture(":/sprites/npcs.png", QColor(164, 224, 160));
+
 }
 
 QPixmap* Sprites::getSprite(const std::string& id)
@@ -137,6 +141,9 @@ QPixmap* Sprites::getSprite(const std::string& id)
         return &level;
     else if (id=="rat")
         return &rat;
+    else if (id=="beakley")
+        return &beakley;
+
     else
         return 0;
 }
@@ -374,6 +381,18 @@ void Sprites::get(const std::string & id, QRect animOutput[])
     else if(id=="rat-default")
     {
         animOutput[0] = moveBy(_rat, 0, 0);
+    }
+    else if(id=="beakley-0")
+    {
+        animOutput[0] = moveBy(_beakley, 0, 0);
+    }
+    else if(id=="beakley-1")
+    {
+        animOutput[0] = moveBy(_beakley, 1, 0, 23, 0);
+    }
+    else if(id=="beakley-2")
+    {
+        animOutput[0] = moveBy(_beakley, 24,0 , 2,0);
     }
     else
     {

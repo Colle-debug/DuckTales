@@ -28,6 +28,7 @@ private:
     QPixmap difficultyArrow;
     QPixmap level;
     QPixmap rat;
+    QPixmap beakley;
 
 
 
