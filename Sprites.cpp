@@ -63,6 +63,8 @@ static QRect _nephews(25, 226, 17, 22);
 static QRect _levelArrow(260, 3, 8, 8);
 static QRect _winkingScrooge(260, 2, 34, 48);
 static QRect _rat(141, 45, 39, 27);
+static QRect _jumpingRat(139, 10, 44, 27);
+static QRect _angryRat(94, 5, 38, 34);
 static QRect _beakley(147,14,24,31);
 
 
@@ -378,9 +380,21 @@ void Sprites::get(const std::string & id, QRect animOutput[])
     {
         animOutput[0] = moveBy(_levelArrow, 0, 1, 0, 50);
     }
-    else if(id=="rat-default")
+    else if(id=="rat-run-0")
+    {
+        animOutput[0] = moveBy(_rat, -1, 0, 49);
+    }
+    else if(id=="rat-run-1")
     {
         animOutput[0] = moveBy(_rat, 0, 0);
+    }
+    else if(id=="rat-jump-0")
+    {
+        animOutput[0] = moveBy(_jumpingRat, 0, 0);
+    }
+    else if(id=="rat-angry-0")
+    {
+        animOutput[0] = moveBy(_angryRat, 0, 0);
     }
     else if(id=="beakley-0")
     {

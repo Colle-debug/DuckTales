@@ -15,6 +15,11 @@ private:
     bool _reset;
     bool _jumping;
     bool _floored;
+    bool _running;
+    bool _starting;
+    bool _angry;
+    QRect _texture_angry[1];
+
 public:
 
     Rat(QPointF pos);

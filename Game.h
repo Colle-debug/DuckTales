@@ -84,6 +84,7 @@ public:
     void setBossFightAnim(bool on){_bossFightAnimation = on;};
     bool GBFA(){return _bossFightAnimation;};
     void setBossFight(bool on){ _bossFight = on;};
+    bool bossFightStatus(){return _bossFight;};
 public slots:
     void reset();
     void start();

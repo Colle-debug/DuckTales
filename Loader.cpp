@@ -566,9 +566,11 @@ Scrooge* Loader::load(std::string levelName)
 
 
 
-        new Rat(QPointF(70 * TILE, 82* TILE));
+        new Rat(QPointF(72 * TILE - 39/2, 80* TILE));
+        //new StaticObject(QPointF(79 * TILE, 82 * TILE), TILE, 2 * TILE); // testing per ora
+        return new Scrooge(QPointF(80* TILE, 79*TILE));
 
-        return new Scrooge(QPointF(52* TILE, 6*TILE));
+
         /*
          Spawning Point 3 67
          Gizmoduck    105 67

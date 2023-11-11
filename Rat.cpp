@@ -1,18 +1,26 @@
 #include "Rat.h"
 #include "Sprites.h"
 #include "GameConfig.h"
+#include "StaticObject.h"
+#include "Game.h"
 using namespace DT;
 
 
 Rat::Rat(QPointF pos) : Enemy(pos, 39, 27)
 {
     _sprite = Sprites::instance()->getSprite("rat");
-    Sprites::instance()->get("rat-default", &_texture_walk[0]);
+    Sprites::instance()->get("rat-run-0", &_texture_walk[0]);
+    Sprites::instance()->get("rat-run-1", &_texture_walk[1]);
+    Sprites::instance()->get("rat-jump-0", &_texture_walk[2]);
+    Sprites::instance()->get("rat-angry-0", &_texture_angry[0]);
+
     _jumping = false;
     _floored = true;
+    _running = false;
     _reset = true;
+    _starting = false;
+    _angry = false;
     _y_vel_max = 3;
-
 }
 
 void Rat::jump(bool on, Direction dir)
@@ -22,9 +30,10 @@ void Rat::jump(bool on, Direction dir)
             if(!_floored){
                 _y_vel_max = 3;
                 _y_gravity = 0.05;
+
                 std::cout<<"Salto 1\n";
                 std::cout.flush();
-                velAdd(Vec2Df(dir2speed(dir)*0.7, -2.5));}
+                velAdd(Vec2Df(dir2speed(dir)*0.5, -2.5));}
             else{
                 _y_vel_max = 5;
                 _y_gravity = 0.15;
@@ -34,10 +43,10 @@ void Rat::jump(bool on, Direction dir)
             _x_dir = dir;
             _jumping = true;
             if(!_floored){
-                schedule("stop", 60, [this](){_x_dir = Direction::NONE; _jumping = false; _floored = true;});
+                schedule("stop1", 60, [this](){_x_dir = Direction::NONE; _jumping = false; _floored = true;});
                 schedule("down", 80, [this, dir](){jump(true, inverse(dir));});
             }else{
-                schedule("stop", 61, [this](){_x_dir = Direction::NONE; _jumping = false; _reset = true;});
+                schedule("stop1", 61, [this](){_x_dir = Direction::NONE; _jumping = false; _reset = true;});
             }
         }
 }
@@ -45,48 +54,92 @@ void Rat::jump(bool on, Direction dir)
 }
 void Rat::advance()
 {
-    /*if(x() == 70*TILE){
-    std::cout<<x()<<"\n"; // Debugging serve per capire se resetta bene la posizione --> Bisogna controllare i parametri del primo salto
-        std::cout.flush();}*/
-    if(_reset && !midair()){
+    if(x() != 70*TILE){
+    std::cout<<_angry<<"\n"; // Debugging serve per capire se resetta bene la posizione --> Bisogna controllare i parametri del primo salto
+        std::cout.flush();}
+
+    if(Game::instance()->bossFightStatus()){
+    if(_reset && !_running && !midair() && !_angry){
+        _angry = false;
+    if(chanceCalculator(0.5)){
         _reset = false;
         _floored = false;
         std::cout<<"Inizio salto\n";
         std::cout.flush();
          if(chanceCalculator(0.5)){
-            schedule("wait", 10, [this](){jump(true, Direction::RIGHT);});
+            schedule("wait1", 50, [this](){jump(true, Direction::RIGHT);});
          }
          else{
-
-            schedule("wait", 10, [this](){jump(true, Direction::LEFT);});
-
-        }
-
+            schedule("wait2", 50, [this](){jump(true, Direction::LEFT);});
+            }
     }
-    //Scrooge* player = Game::instance()->player();
-    /*srand(time(0) + _id);
+    else{
+    if(_reset && !_running){
+        _reset = false;
+        schedule("wait3", 50, [this](){
+        schedule("wait4", 5, [this](){
+                _running = true;});
+        if(x() < Game::instance()->player()->x()){
+            move(Direction::RIGHT);
+        }else{
+            move(Direction::LEFT);
+        }
+        velAdd(Vec2Df(dir2speed(_x_dir)*1, 0));});
+        }
+      }
 
-    if (grounded() || _x_dir == Direction::NONE)
-    {
-        if(std::abs(player->x() - x()) < 10)	// align with player before jump
-            move(Direction::NONE);
-        else if (player->x() < x())				// chase player with 80% probability
-            move(rand()%10 > 2 ? Direction::LEFT : Direction::RIGHT);
-        else if (player->x() > x())				// chase player with 80% probability
-            move(rand() % 10 > 2 ? Direction::RIGHT : Direction::LEFT);
-    }*/
+    if(chanceCalculator(0.5)){ // Non mi pare la faccia sempre
+        _angry = true;
+        schedule("wait6", 30, [this](){ _angry = false;});
+    }
+    }
+
+    if(_running && (floor(x()) == 1133 || ceil(x()) == 1133)){ // Stop zone compresa fra 1132 e 1134
+      std::cout<<"Inizio decelerazione\n";
+      std::cout.flush();
+
+      if(chanceCalculator(0.9)){ // Non sempre si ferma al centro, ma è raro che non lo faccia
+        _x_dir = Direction::NONE;
+        _running = false;
+        schedule("wait5", 5, [this](){ _reset = true;});}
+    }
+
+
 
     Enemy::advance();
+    }
 }
 
 bool Rat::animate()
 {
-    _animRect = &_texture_walk[0];
+
+    if(midair() && !_reset){
+       _animRect = & _texture_walk[2];
+    }else{
+
+    if(_running){
+        _animRect = & _texture_walk[(FRAME_COUNT / 9) % 2];
+    }else if(_angry){
+        _animRect = & _texture_angry[0];
+    }
+    else{
+        _animRect = & _texture_walk[1];
+    }}
+
+
     return true;
 }
 
 bool Rat::hit(Object* what, Direction fromDir)
 {
+    if (what->to<StaticObject*>() && (fromDir == Direction::RIGHT || fromDir == Direction::LEFT))
+    {
+        //_x_dir = inverse(_x_dir);
+        move(inverse(_x_dir));
+        velAdd(Vec2Df(-_vel.x, 0));
+        //_y_gravity *= -1;
+        return true;
+    }
 
     if (Enemy::hit(what, fromDir))
         return true;
