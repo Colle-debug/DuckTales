@@ -16,4 +16,7 @@
     <qresource prefix="/background">
         <file>theMoon.png</file>
     </qresource>
+    <qresource prefix="/icons">
+        <file>ducktalesicon.ico</file>
+    </qresource>
 </RCC>
