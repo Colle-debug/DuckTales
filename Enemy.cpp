@@ -5,6 +5,8 @@
 #include "Block.h"
 #include "Game.h"
 #include "Rat.h"
+#include "PinkAlien.h"
+#include "Octopus.h"
 #include "BBoy.h"
 #include "Sounds.h"
 
@@ -17,15 +19,15 @@ Enemy::Enemy(QPointF pos, double width, double height) : Entity(pos, width, heig
     _dying = false;
     _dead = false;
     _respawningPos = pos;
+    _mirror_x_dir = Direction::LEFT;
+
 }
 
 bool Enemy::hit(Object* what, Direction fromDir)
 {
     Scrooge* scrooge = what->to<Scrooge*>();
-    if (scrooge && fromDir != Direction::UP) // Da aggiungere condizione su invincibilità, vedi stessa funzione in Enemy su BubbleBobble
+    if (scrooge && !(fromDir == Direction::UP && scrooge->pogoing())) // Da aggiungere condizione su invincibilità, vedi stessa funzione in Enemy su BubbleBobble
     {
-       
-       
         if(!scrooge->invincibile()){
             scrooge->lifeDown();
            
@@ -76,10 +78,16 @@ void Enemy::respawning()
             _collidable=true;
             _dead = false;
             defaultPhysics();
-            _y_gravity = 0;
+
             setVisible(true);
-            move(Direction::RIGHT);
+            if(dynamic_cast<PinkAlien*>(this) || (dynamic_cast<Octopus*>(this) && dynamic_cast<Octopus*>(this)->type() == Direction::RIGHT)){
+            _y_gravity = 0;
+            move(Direction::RIGHT);}
+            else{
+            _y_acc_up = 0.1;
+            _y_vel_max = 1;
             move(Direction::UP);
+        }
         }
         else{
             _respawning = false;

@@ -564,10 +564,8 @@ Scrooge* Loader::load(std::string levelName)
         new StaticObject(QPointF(55*TILE, 10.6*TILE), 2*TILE, 0.2*TILE, StaticObject::Activator::BEAKLEY);
        
 
-
-
         new Rat(QPointF(72 * TILE - 39/2, 80* TILE));
-        return new Scrooge(QPointF(110* TILE, 80*TILE));
+        return new Scrooge(QPointF(80* TILE, 80*TILE));
 
 
         /*

@@ -21,6 +21,8 @@ Rat::Rat(QPointF pos) : Enemy(pos, 39, 27)
     _starting = false;
     _angry = false;
     _y_vel_max = 3;
+
+    _hp = 10;
 }
 
 void Rat::jump(bool on, Direction dir)
@@ -132,6 +134,7 @@ bool Rat::animate()
 
 bool Rat::hit(Object* what, Direction fromDir)
 {
+    Scrooge* scrooge  = what->to<Scrooge*>();
     if (what->to<StaticObject*>() && (fromDir == Direction::RIGHT || fromDir == Direction::LEFT))
     {
         //_x_dir = inverse(_x_dir);
@@ -140,6 +143,12 @@ bool Rat::hit(Object* what, Direction fromDir)
         //_y_gravity *= -1;
         return true;
     }
+
+    if (scrooge && scrooge->pogoing() && fromDir == Direction::UP){
+        _hp--; // Da implementare ancora la vita, per ora Rat segue la logica di Enemy che basta 1 hit per morire
+    }
+
+
 
     if (Enemy::hit(what, fromDir))
         return true;

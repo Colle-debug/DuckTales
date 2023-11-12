@@ -20,6 +20,8 @@ private:
     bool _angry;
     QRect _texture_angry[1];
 
+    int _hp;
+
 public:
 
     Rat(QPointF pos);

@@ -16,7 +16,7 @@ class DT::Octopus : public Enemy
     public:
 
         Octopus(QPointF pos, Direction _type);
-
+        Direction type(){return _type;}
         // implemented abstract methods
         virtual std::string name() override { return "Octopus [" + std::to_string(_id) + "]"; }
 

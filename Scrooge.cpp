@@ -214,23 +214,20 @@ bool Scrooge::hit(Object * what, Direction fromDir) {
             Sounds::instance()->play("hit");
 
     }*/
-    if(block || sobj && (fromDir==Direction::LEFT || fromDir==Direction::RIGHT ))
-    {
-        move(Direction::NONE);
-    }
 
     if (enemy && ((fromDir == Direction::DOWN && _pogoing) || _invincible)) {
         if (!_invincible) {
             velAdd(Vec2Df(0, -15.5));
             _y_gravity = 0.065;
         }
+
         enemy -> die();
 
         if (chanceCalculator(1)) { // 100% probabilità per testing
             new Spawnable(enemy -> pos(), TILE, TILE, Spawnable::Type::ICE_CREAM);
         }
     }
-   
+
     if (block && fromDir == Direction::DOWN && _pogoing) {
         velAdd(Vec2Df(0, -15.5));
         _y_gravity = 0.065;
@@ -389,3 +386,4 @@ void Scrooge::swing(bool on) {
         }
     } else _swinging = false;
 }
+
