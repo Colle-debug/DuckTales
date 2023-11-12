@@ -13,7 +13,8 @@ BBoy::BBoy(QPointF pos)
     _jumping = false;
     _sprite = Sprites::instance()->getSprite("beagleBoy");
     _x_dir = Direction::RIGHT;
-
+    _y_vel_max = 3;
+    _y_gravity = 0.09;
     Sprites::instance()->get("beagleBoy-0", &_texture_walk[0]);
     Sprites::instance()->get("beagleBoy-1", &_texture_walk[1]);
     Sprites::instance()->get("beagleBoy-1", &_texture_walk[2]);
@@ -21,14 +22,21 @@ BBoy::BBoy(QPointF pos)
 
 void BBoy::advance()
 {
-    _prev_x_val = x();
+
     Scrooge* player = Game::instance()->player();
-    if(abs(player->x() - x()) > 8*TILE && player->y() >= 73 *TILE){
+    if(abs(player->x() - x()) >= (Game::instance()->width())/2 && player->y() >= 75 *TILE){
         setVisible(false);
         Game::instance()->setBeagleStatus(false);
     }
 
-    Enemy::advance();
+    if(x() == _prev_x_val && !midair()){ // è bloccato! Deve saltare
+        jump();
+    }
+
+    if((FRAME_COUNT % 9 == 0)){ // ogni 9 FRAME mi prendo la posizione
+        _prev_x_val = x();}
+
+    Entity::advance();
 }
 
 bool BBoy::animate()
@@ -47,7 +55,7 @@ bool BBoy::hit(Object* what, Direction fromDir)
     {
         fromDirBackup = fromDir;
         jump();
-        schedule("check", 4, [this]() {checkPos();});
+
         return true;
     }
 
@@ -59,35 +67,15 @@ void BBoy::jump(bool on)
 
     if (on)
     {
-        if (!midair())
-        {
-            if (std::abs(_vel.x) <= 2)
-            {
-                velAdd(Vec2Df(0, -3));
-                _y_gravity = 0.078;
-            }
-            else
-            {
-                velAdd(Vec2Df(0, -5));
-                _y_gravity = 0.1;
-            }
-
-            _jumping = true;
-            //Sounds::instance()->play(std::string("jump-") + (_big ? "big" : "small"));
-        }
+     velAdd(Vec2Df(0, -2.5));
+    _jumping = true;
     }
-    else
-        _y_gravity = 0.8;
+;
 }
 
 void BBoy::die()
 {
-    Game::instance()->setBeagleStatus(false);
     Enemy::die();
+    Game::instance()->setBeagleStatus(false);
 }
 
-void BBoy::checkPos(){
-    if(x() == _prev_x_val){
-        _x_dir = fromDirBackup;
-    }
-}

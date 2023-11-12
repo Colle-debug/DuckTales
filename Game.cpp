@@ -149,6 +149,7 @@ void Game::start()
 
 void Game::nextFrame() {
     FRAME_COUNT++;
+
     if (_state == GameState::TITLE_SCREEN || _state == GameState::LEVEL_SELECTION){ // era if (_state != GameState::RUNNING && _state != GameState::TITLE_SCREEN), non ne capisco il senso, da vedere
 
             /*std::cout<<_arrowPos<<"\n";
@@ -168,8 +169,6 @@ void Game::nextFrame() {
         return;
 
         }
-
-
 
 
 
@@ -242,8 +241,9 @@ void Game::nextFrame() {
         _player -> jump(false);
         _jump_released = false;
       }
-}
       if (!beagleActive && !_bossFight && _player->x() > 90*TILE && _player->y() > 70 * TILE) {
+        std::cout<<"Respawning\n";
+        std::cout.flush();
         // Meglio schedulare il respawn dopo un paio di FRAME
         beagleActive = true;
         _player -> schedule("restore", 100, [this]() {
@@ -258,7 +258,7 @@ void Game::nextFrame() {
       for (auto item: _world -> items()) {
         Object * obj = dynamic_cast < Object * > (item);
 
-        if (obj && (obj -> isVisible())) {
+        if (obj && (obj -> isVisible() || (dynamic_cast < Enemy * > (item) && !dynamic_cast < BBoy * >(item)))) { // Enemy: ho bisogno che updati anche se invisibili per il respawning, MA NON PER BBOY
             obj -> advance(); // physics, collision detection and resolution, game logic
             obj -> animate(); // animation
             obj -> updateSchedulers(); // game logic
@@ -279,6 +279,7 @@ void Game::nextFrame() {
 
       if (_state == GameState::GAME_OVER || _state == GameState::GAME_CLEAR || _state == GameState::LIFT_TO_DUCKBURG) {
         gameEnd();
+      }
       }
 }
 
@@ -438,7 +439,7 @@ void Game::resizeEvent(QResizeEvent* evt)
 
 void Game::spawningPoint()
 {
-    BBoy *test = new BBoy(QPointF(_player->x() - 6* TILE, _player->y() - 2*TILE));
+    BBoy *test = new BBoy(QPointF(_player->x() - width()/4, _player->y()));
 }
 
 void Game::gameEnd()

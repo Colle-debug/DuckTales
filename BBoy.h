@@ -18,7 +18,6 @@ class DT::BBoy : public Enemy
     public:
 
         BBoy(QPointF pos);
-        void checkPos();
         // implemented abstract methods
         virtual std::string name() override { return "Beagle Boy[" + std::to_string(_id) + "]"; }
 
