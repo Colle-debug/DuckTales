@@ -46,11 +46,26 @@ void HUD::paintEvent(QPaintEvent* event)
 	QPainter painter(this);
 
 	painter.setBackgroundMode(Qt::TransparentMode);
-	painter.setWindow(0,0,TILE * 20.2, TILE * 9.1);
+	painter.setWindow(0,0,TILE * 19, TILE * 9.1);
 	painter.drawPixmap(0,  0, _background); 
 
 
-	painter.drawPixmap(105, 15, Sprites::instance()->getNumber(1989));
+	painter.drawPixmap(131,25, Sprites::instance()->getNumber(2)); //p.
+	painter.drawPixmap(72,13, Sprites::instance()->getNumber(0)); //money sx
+	painter.drawPixmap(150,19, Sprites::instance()->getNumber(0)); //money dx
+	painter.drawPixmap(202,19, Sprites::instance()->getNumber(400)); //time
+	painter.drawPixmap(115,  25,  Sprites::instance()->getString("P"));
+	painter.drawPixmap(123,  25,  Sprites::instance()->getHUD("."));
+	painter.drawPixmap(25,  25,  Sprites::instance()->getString("HP"));
+	painter.drawPixmap(105,  12,  Sprites::instance()->getString("TOTAL"));
+	painter.drawPixmap(165,  19,  Sprites::instance()->getString("TIME"));
+	painter.drawPixmap(25,  13,  Sprites::instance()->getHUD("$"));
+	painter.drawPixmap(92,  19,  Sprites::instance()->getHUD("$"));
+	painter.drawPixmap(50,  25,  Sprites::instance()->getHUD("health-1"));
+	painter.drawPixmap(58,  25,  Sprites::instance()->getHUD("health-0"));
+	painter.drawPixmap(66,  25,  Sprites::instance()->getHUD("health-0"));
+
+
 
 
 }

@@ -53,8 +53,11 @@ static QRect _launchpad_flying(3, 6, 53, 71);
 static QRect _gizmoduck(122,49,32,39);
 static QRect _projectile(202,66,8,8);
 static QRect _hud(0, 0, 243, 39);
-static QRect hud_letter(1, 130, 7, 7);
-static QRect hud_number(1, 121, 8, 8);
+static QRect hud_letter(2, 130, 7, 7);
+static QRect hud_number(2, 122, 7, 7);
+static QRect hud_health(2, 138, 7, 7);
+static QRect hud_dollar(226, 130, 7, 7);
+static QRect hud_dot(210, 130, 7, 7);
 static QRect _greenGate(172, 360, 32, 80);
 static QRect _titleScreen(0, 0, 256, 224);
 static QRect _titleArrow(258, 111, 5, 8);
@@ -420,7 +423,15 @@ QPixmap Sprites::getHUD(const std::string & id){
 		return hud.copy(moveBy(hud_number, id[7] - '0', 0, 8, 8));
 
 	else if (id.rfind("char-", 0) == 0)
-		return hud.copy(moveBy(hud_letter, id[5] - 'A', 0, 7, 7));
+		return hud.copy(moveBy(hud_letter, id[5] - 'A', 0, 8, 8));
+    else if (id=="$")
+        return hud.copy(moveBy(hud_dollar,0,0));
+    else if (id==".")
+        return hud.copy(moveBy(hud_dot,0,0));
+    else if (id=="health-0")
+        return hud.copy(moveBy(hud_health,0,1,0,7));
+    else if (id=="health-1")
+        return hud.copy(moveBy(hud_health,0,0));
     else return hud.copy(_hud);
 }
 
