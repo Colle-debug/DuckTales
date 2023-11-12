@@ -19,6 +19,8 @@ Octopus::Octopus(QPointF pos, Direction _type)
     }
     else{
         move(Direction::RIGHT);
+        _mirror_x_dir = Direction::LEFT;
+
         _y_gravity = 0;
         _x_vel_max = 1;
     }

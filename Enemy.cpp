@@ -3,6 +3,9 @@
 #include "Scrooge.h"
 #include "StaticObject.h"
 #include "Block.h"
+#include "Game.h"
+#include "Rat.h"
+#include "BBoy.h"
 #include "Sounds.h"
 
 using namespace DT;
@@ -10,9 +13,10 @@ using namespace DT;
 Enemy::Enemy(QPointF pos, double width, double height) : Entity(pos, width, height)
 {
     _collider.adjust(3, 3, -3, -1);
-    _angry = false;
+    _respawning = false;
     _dying = false;
-    _mirror_x_dir = Direction::LEFT;
+    _dead = false;
+    _respawningPos = pos;
 }
 
 bool Enemy::hit(Object* what, Direction fromDir)
@@ -56,30 +60,56 @@ bool Enemy::animate()
     return 1;
 }
 
+void Enemy::advance()
+{
+    Entity::advance();
+    if(!dynamic_cast<Rat*>(this) && !dynamic_cast<BBoy*>(this) && _dead && !_respawning){ // Rat non deve respawnare, BBoy hanno un'altra logica di respawning
+        _respawning = false;
+        respawning();
+    }
+}
+
+void Enemy::respawning()
+{
+        if((abs(Game::instance()->player()->x() - x()) > Game::instance()->width()/2)
+            || (abs(Game::instance()->player()->y() - y()) > Game::instance()->height()/2)){
+            _collidable=true;
+            _dead = false;
+            defaultPhysics();
+            _y_gravity = 0;
+            setVisible(true);
+            move(Direction::RIGHT);
+            move(Direction::UP);
+        }
+        else{
+            _respawning = false;
+        }
+}
+
 void Enemy::die()
 {
-    if (_dying)
-        return;
-  Sounds::instance()->play("enemydie");
-         _dying = true;
-
+        Sounds::instance()->play("enemydie");
+        _respawningPos = pos();
+         _dying = true; // Blocco l'animazione per i pochi frame che nemico sale verso l'alto durante la morte
         _collidable=false;
-        schedule("die", 45, [this]() {setVisible(false); });
-        _x_dir = Direction::DOWN;
-           _y_gravity = 0.15;
-
-        //_vel.y = -2.0;
-
-       _vel.x=0.3;
-
-
+         schedule("die", 45, [this]() {
+            setVisible(false);
+            if(!dynamic_cast<Rat*>(this) && !dynamic_cast<BBoy*>(this)){
+            setPos(_respawningPos);}
+            _y_gravity = 0;
+            _vel = {0, 0};
+            _y_dir = Direction::NONE;
+            _x_dir = Direction::NONE;
+            _dying = false;
+            _dead = true;
+        });
+        _y_dir = Direction::DOWN;
+        _y_gravity = 0.15;
+        _vel.x=0.3;
 
         setY(y()-17);
         _y_acc_up = 2;
-
         _y_vel_max = 3;
-        //_y_vel_min = 0.01;
-
         _x_vel_max = 3;
         _x_vel_min = 0.01;
 }

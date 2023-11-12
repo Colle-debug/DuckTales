@@ -12,6 +12,7 @@ PinkAlien::PinkAlien(QPointF pos)
 {
     _sprite = Sprites::instance()->getSprite("pinkAlien");
     _x_dir = Direction::RIGHT;
+    _mirror_x_dir = Direction::LEFT;
 
     Sprites::instance()->get("pink-alien-0", &_texture_walk[0]);
     Sprites::instance()->get("pink-alien-1", &_texture_walk[1]);

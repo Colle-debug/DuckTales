@@ -99,6 +99,7 @@ public:
     void setSitting(bool on){_sitting = on;}
     void respawn();;
     virtual void lifeDown();
+    int lives(){return _lives;}
     //virtual void lifeUp();
 
     // implemented abstract methods

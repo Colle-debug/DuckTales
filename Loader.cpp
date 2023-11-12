@@ -513,7 +513,7 @@ Scrooge* Loader::load(std::string levelName)
 
         // BEAGLE BOY
 
-        new BBoy(QPointF(111 * TILE, 80* TILE));
+        new BBoy(QPointF(102 * TILE, 80* TILE));
 
         // CHESTS
 
@@ -567,8 +567,7 @@ Scrooge* Loader::load(std::string levelName)
 
 
         new Rat(QPointF(72 * TILE - 39/2, 80* TILE));
-        //new StaticObject(QPointF(79 * TILE, 82 * TILE), TILE, 2 * TILE); // testing per ora
-        return new Scrooge(QPointF(80* TILE, 79*TILE));
+        return new Scrooge(QPointF(110* TILE, 80*TILE));
 
 
         /*

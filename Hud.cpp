@@ -47,11 +47,11 @@ void HUD::paintEvent(QPaintEvent* event)
 
 	painter.setBackgroundMode(Qt::TransparentMode);
 	painter.setWindow(0,0,TILE * 19, TILE * 9.1);
-	painter.drawPixmap(0,  0, _background); 
+    painter.drawPixmap(0,  0, _background);
 
 
-	painter.drawPixmap(131,25, Sprites::instance()->getNumber(2)); //p.
-	painter.drawPixmap(72,13, Sprites::instance()->getNumber(0)); //money sx
+    painter.drawPixmap(131,25, Sprites::instance()->getNumber(Game::instance()->player()->lives())); //p.
+    painter.drawPixmap(72,13, Sprites::instance()->getNumber(0)); //money sx
 	painter.drawPixmap(150,19, Sprites::instance()->getNumber(0)); //money dx
 	painter.drawPixmap(202,19, Sprites::instance()->getNumber(400)); //time
 	painter.drawPixmap(115,  25,  Sprites::instance()->getString("P"));

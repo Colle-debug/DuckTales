@@ -113,6 +113,7 @@ bool Spawnable::hit(Object* what, Direction fromDir)
     if (scrooge && !taken && !(_type == Spawnable::Type::PROJECTILE))
     {
         scrooge->scoreAdd(this->_value);
+        Game::instance()->hud()->addScore(this->_value);
         if(_type == Type::ICE_CREAM || _type == Type::CAKE){
             scrooge->hpAdd(1);
         }

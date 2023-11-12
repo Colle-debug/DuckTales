@@ -12,10 +12,11 @@ class DT::Enemy : public Entity
 {
     protected:
 
-        // state flags
-        bool _angry;
-        bool _dying;
 
+        bool _dying;
+        bool _dead;
+        bool _respawning;
+        QPointF _respawningPos;
         QRect _texture_walk[3];
 
     public:
@@ -29,12 +30,12 @@ class DT::Enemy : public Entity
         // implemented abstract methods
         virtual bool hit(Object* what, Direction fromDir) override;
         virtual bool animate() override;
+        virtual void advance() override;
 
         // nonimplemented abstract methods
         virtual std::string name() override = 0;
-
+        void respawning();
         // actions
         virtual void die();
-        //virtual void toAngry() { _angry = true; _x_vel_max = 2; }
 };
 #endif // ENEMY_H
