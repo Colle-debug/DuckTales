@@ -214,6 +214,10 @@ bool Scrooge::hit(Object * what, Direction fromDir) {
             Sounds::instance()->play("hit");
 
     }*/
+    if(block || sobj && (fromDir==Direction::LEFT || fromDir==Direction::RIGHT ))
+    {
+        move(Direction::NONE);
+    }
 
     if (enemy && ((fromDir == Direction::DOWN && _pogoing) || _invincible)) {
         if (!_invincible) {
@@ -226,7 +230,7 @@ bool Scrooge::hit(Object * what, Direction fromDir) {
             new Spawnable(enemy -> pos(), TILE, TILE, Spawnable::Type::ICE_CREAM);
         }
     }
-
+   
     if (block && fromDir == Direction::DOWN && _pogoing) {
         velAdd(Vec2Df(0, -15.5));
         _y_gravity = 0.065;
@@ -356,7 +360,7 @@ void Scrooge::setGizmoCinematicStatus(bool on) {
 void Scrooge::pogo(bool on) {
 
     if (on) {
-        if (!midair() && !_jumping) {
+        if (!midair() && _prev_vel.y!=0) {
             if (std::abs(_vel.x) <= 2) {
                 velAdd(Vec2Df(0, -3.5));
                 _y_gravity = 0.065;
@@ -379,7 +383,7 @@ void Scrooge::pogo(bool on) {
 
 void Scrooge::swing(bool on) {
     if (on) {
-        if (!_jumping && !_pogoing && _vel.x == 0) {
+        if ( _vel.x == 0 && _vel.y==0) {
             _swinging = true;
 
         }
