@@ -38,9 +38,9 @@ Scrooge::Scrooge(QPointF pos): Entity(pos, 26, 27) {
     _climbingStill = false;
     _prev_x_dir = Direction::RIGHT;
     _mirror_x_dir = Direction::LEFT;
-    
 
-    _hp = 150;
+
+    _hp = 1;
     _recentlyHit = 0;
     _key = true;
     _remote = true;
@@ -101,7 +101,7 @@ void Scrooge::advance() {
     if(_dying)
     {
         move(Direction::NONE);
-    }    
+    }
     if (falling() && !_climbing) {
         _y_gravity = 0.18;
     }
@@ -142,10 +142,10 @@ void Scrooge::jump(bool on) {
 }
 
 bool Scrooge::animate() {
-    
-bool showSprite = (_invincible && (FRAME_COUNT / 3) % 2 == 0);
 
-if (!_invincible) {
+bool showSprite = (_invincible && (FRAME_COUNT / 3) % 2 == 0);
+ if (!_gizmoCinematic && !Game::instance() -> GBFA()) {
+    if (!_invincible) {
     if (midair() && !_pogoing)
         _animRect = & _texture_jump[0];
     if (_pogoing)
@@ -156,10 +156,10 @@ if (!_invincible) {
     if (_vel.y == 0 && !_pogoing)
         _animRect = & _texture_stand[0];
     if ((_vel.x > 0 || _vel.x < 0) && !midair() && !_pogoing){
-    
+
         _animRect = & _texture_walk[(FRAME_COUNT / 9) % 4];
 
-    }    
+    }
     if (_vel.x == 0 && _crouch && !_pogoing && !midair())
         //_animRect = &_texture_crouch[0];
         _animRect = & _texture_crouch[1];
@@ -188,7 +188,7 @@ if (!_invincible) {
             _animRect = & _texture_sitting[0];
         }
 
-   
+
 } else {
     if (midair() && !_pogoing)
         _animRect = showSprite ? & _texture_jump[0] : nullptr;
@@ -216,8 +216,8 @@ if (!_invincible) {
     }
     if (_swinging && !_jumping && !_pogoing && _vel.x == 0) {
         _animRect = showSprite ? & _texture_putt[(FRAME_COUNT / 9) % 5] : nullptr;
-       
     }
+}
 
 }
 return 1;
@@ -251,7 +251,7 @@ bool Scrooge::hit(Object * what, Direction fromDir) {
         die();
         Sounds::instance() -> play("hit");
     }
-  
+
     /*if(enemy  && !_pogoing){
            velAdd(Vec2Df(0, -15.5));
            _y_gravity = 0.065;
@@ -369,16 +369,18 @@ void Scrooge::startBossFightAnimation() {
             0,
             0
         };
-        new StaticObject(QPointF(79 * TILE, 82 * TILE), TILE, 2 * TILE);
-        Game::instance()->setSceneRect(64*TILE, 73.5*TILE, 16*TILE, 11*TILE); //Cercare di capire.
+        new StaticObject(QPointF(79 * TILE, 82 * TILE), TILE, 2 * TILE, StaticObject::Type::RAT_WALL);
+        //Game::instance()->setSceneRect(64*TILE, 73.5*TILE, 16*TILE, 11*TILE); //Cercare di capire.
     });
 }
 
 void Scrooge::respawn() {
+    _invincible = false;
     _respawning = false;
+    _recentlyHit = false;
+    defaultPhysics();
     setPos(_spawningPoint);
-    _hp = 6;
-    Game::instance() -> setBossFight(false);
+    _hp = 1; // da mettere a 6, per ora è testing
 }
 
 void Scrooge::setGizmoCinematicStatus(bool on) {

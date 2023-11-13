@@ -60,7 +60,7 @@ void Rat::advance()
     std::cout<<_angry<<"\n"; // Debugging serve per capire se resetta bene la posizione --> Bisogna controllare i parametri del primo salto
         std::cout.flush();}
 */
-    if(Game::instance()->bossFightStatus()){
+    if(Game::instance()->bossFightStatus() && !Game::instance()->GBFA()){
     if(_reset && !_running && !midair() && !_angry){
         _angry = false;
     if(chanceCalculator(0.5)){

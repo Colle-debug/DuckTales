@@ -72,6 +72,10 @@ bool StaticObject::hit(Object* what, Direction fromDir)
             setVisible(false);
         }
       }
+    else if(scrooge && _type == Type::RAT_WALL && fromDir == Direction::RIGHT){
+        //flashingScreen(); Schermata nera mentre lo teletrasporta
+        scrooge->setPos(75*TILE, y());
+    }
 
     
 

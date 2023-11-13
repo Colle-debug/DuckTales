@@ -49,7 +49,7 @@ protected:
     bool _recentlyHit;
     int _hp;
     int _lives = 3; // 3 vite per partita
-    QPointF _spawningPoint = QPointF(3* TILE, 67*TILE);
+    QPointF _spawningPoint = QPointF(80* TILE, 80*TILE);
     double _score = 0;
     friend class Launchpad;
 
