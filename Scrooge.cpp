@@ -38,6 +38,7 @@ Scrooge::Scrooge(QPointF pos): Entity(pos, 26, 27) {
     _climbingStill = false;
     _prev_x_dir = Direction::RIGHT;
     _mirror_x_dir = Direction::LEFT;
+    
 
     _hp = 150;
     _recentlyHit = 0;
@@ -96,6 +97,11 @@ void Scrooge::setClimbing(bool on) {
 void Scrooge::advance() {
     if (grounded())
         _y_vel_max = 3;
+
+    if(_dying)
+    {
+        move(Direction::NONE);
+    }    
     if (falling() && !_climbing) {
         _y_gravity = 0.18;
     }
@@ -136,47 +142,85 @@ void Scrooge::jump(bool on) {
 }
 
 bool Scrooge::animate() {
-    if (!_gizmoCinematic && !Game::instance() -> GBFA()) { // Feature del gioco originale, non appena viene attivata l'animazione di Gizmo che rompe il cancello o si inizia la Boss Fight, Scrooge rimane "freezzato" nell'animazione del frame in cui ha iniziato la cinematic.
-        if (midair() && !_pogoing)
-            _animRect = & _texture_jump[0];
-        if (_pogoing)
-            _animRect = & _texture_bounce[0];
-        if (!midair() && _pogoing && _vel.y == 0)
-            _animRect = & _texture_bounce[1];
+    
+bool showSprite = (_invincible && (FRAME_COUNT / 3) % 2 == 0);
 
-        if (_vel.y == 0 && !_pogoing)
-            _animRect = & _texture_stand[0];
-        if ((_vel.x > 0 || _vel.x < 0) && !midair() && !_pogoing)
-            _animRect = & _texture_walk[(FRAME_COUNT / 9) % 4];
-        if (_vel.x == 0 && _crouch && !_pogoing && !midair())
-            //_animRect = &_texture_crouch[0];
-            _animRect = & _texture_crouch[1];
-        if (_dead || _dying || _respawning) {
-            _animRect = & _texture_dying[0];
+if (!_invincible) {
+    if (midair() && !_pogoing)
+        _animRect = & _texture_jump[0];
+    if (_pogoing)
+        _animRect = & _texture_bounce[0];
+    if (!midair() && _pogoing && _vel.y == 0)
+        _animRect = & _texture_bounce[1];
+
+    if (_vel.y == 0 && !_pogoing)
+        _animRect = & _texture_stand[0];
+    if ((_vel.x > 0 || _vel.x < 0) && !midair() && !_pogoing){
+    
+        _animRect = & _texture_walk[(FRAME_COUNT / 9) % 4];
+
+    }    
+    if (_vel.x == 0 && _crouch && !_pogoing && !midair())
+        //_animRect = &_texture_crouch[0];
+        _animRect = & _texture_crouch[1];
+    if (_dead || _dying || _respawning) {
+        _animRect = & _texture_dying[0];
+    }
+    if (_climbing) {
+        if (!_climbingStill) {
+            _animRect = & _texture_climb[(FRAME_COUNT / 9) % 2];
+        } else {
+            _animRect = & _texture_climb[0];
         }
-        if (_climbing) {
-            if (!_climbingStill) {
-                _animRect = & _texture_climb[(FRAME_COUNT / 9) % 2];
-            } else {
-                _animRect = & _texture_climb[0];
-            }
-        }
-        if (_swinging && !_jumping && !_pogoing && _vel.x == 0) {
-            _animRect = & _texture_putt[(FRAME_COUNT / 9) % 5];
-            // _animRect = &_texture_putt[2];
-            /* _animRect = &_texture_putt[0];
+    }
+    if (_swinging && !_jumping && !_pogoing && _vel.x == 0) {
+        _animRect = & _texture_putt[(FRAME_COUNT / 9) % 5];
+        // _animRect = &_texture_putt[2];
+        /* _animRect = &_texture_putt[0];
         _animRect = &_texture_putt[1];
-    */
-        }
-        if (_launchpadAttached) {
+        */
+    }
+     if (_launchpadAttached) {
             _animRect = & _texture_climb[0];
         }
 
         if (_sitting) {
             _animRect = & _texture_sitting[0];
         }
+
+   
+} else {
+    if (midair() && !_pogoing)
+        _animRect = showSprite ? & _texture_jump[0] : nullptr;
+    if (_pogoing)
+        _animRect = showSprite ? & _texture_bounce[0] : nullptr;
+    if (!midair() && _pogoing && _vel.y == 0)
+        _animRect = showSprite ? & _texture_bounce[1] : nullptr;
+
+    if (_vel.y == 0 && !_pogoing)
+        _animRect = showSprite ? & _texture_stand[0] : nullptr;
+    if ((_vel.x > 0 || _vel.x < 0) && !midair() && !_pogoing)
+        _animRect = showSprite ? & _texture_walk[(FRAME_COUNT / 9) % 4] : nullptr;
+    if (_vel.x == 0 && _crouch && !_pogoing && !midair())
+        //_animRect = &_texture_crouch[0];
+        _animRect = showSprite ? & _texture_crouch[1] : nullptr;
+    if (_dead || _dying || _respawning) {
+        _animRect = showSprite ? & _texture_dying[0] : nullptr;
     }
-    return 1;
+    if (_climbing) {
+        if (!_climbingStill) {
+            _animRect = showSprite ? & _texture_climb[(FRAME_COUNT / 9) % 2] : nullptr;
+        } else {
+            _animRect = showSprite ? & _texture_climb[0] : nullptr;
+        }
+    }
+    if (_swinging && !_jumping && !_pogoing && _vel.x == 0) {
+        _animRect = showSprite ? & _texture_putt[(FRAME_COUNT / 9) % 5] : nullptr;
+       
+    }
+
+}
+return 1;
 }
 /*else if (_vel.x == 0 && !_crouch)
             _animRect = &_texture_stand[0];
@@ -207,7 +251,7 @@ bool Scrooge::hit(Object * what, Direction fromDir) {
         die();
         Sounds::instance() -> play("hit");
     }
-
+  
     /*if(enemy  && !_pogoing){
            velAdd(Vec2Df(0, -15.5));
            _y_gravity = 0.065;
@@ -267,6 +311,9 @@ void Scrooge::dieAnimation() {
     _x_dir = Direction::NONE;
     _vel.y = -3;
     _collidable = false;
+     schedule("stop", 50, [this]() {
+       move(Direction::NONE);
+    });
 }
 
 void Scrooge::lifeDown() {
