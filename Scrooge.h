@@ -45,11 +45,14 @@ protected:
     bool _duckburg; // Has Scrooge arrived in Duckburg after getting a lift from Launchpad McQuack?
     bool _gizmoCinematic;
     bool _sitting;
+    bool _respawningGameFlag;
 
     bool _recentlyHit;
     int _hp;
     int _lives = 3; // 3 vite per partita
-    QPointF _spawningPoint = QPointF(80* TILE, 80*TILE);
+    QPointF _spawningPoint = QPointF(3* TILE, 67*TILE);
+    QPointF _ratCheckpoint = QPointF(83* TILE, 80*TILE);
+    QPointF _launchpadCheckpoint = QPointF(3* TILE, 67*TILE);
     double _score = 0;
     friend class Launchpad;
 
@@ -98,6 +101,7 @@ public:
     bool duckburg(){return _duckburg;}
     void setSitting(bool on){_sitting = on;}
     void respawn();;
+    bool respawningGF(){return _respawningGameFlag;}
     virtual void lifeDown();
     int lives(){return _lives;}
     //virtual void lifeUp();

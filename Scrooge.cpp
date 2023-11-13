@@ -54,6 +54,7 @@ Scrooge::Scrooge(QPointF pos): Entity(pos, 26, 27) {
     _gizmoCinematic = false;
     _sitting = true;
     _respawning = false;
+    _respawningGameFlag = false; // questa si usa in Game per bloccare il gioco per un secondo dopo il respawn
 
     _sprite = Sprites::instance() -> getSprite("scrooge");
     Sprites::instance() -> get("scrooge-stand", & _texture_stand[0]);
@@ -328,6 +329,7 @@ void Scrooge::lifeDown() {
         recentlyHit(true);
         dieAnimation();
         _respawning = true;
+        _respawningGameFlag = true;
         schedule("respawn", 100, [this]() {
             _collidable = true;
             respawn();
@@ -362,13 +364,13 @@ void Scrooge::startBossFightAnimation() {
         0
     };
     _x_acc = 0;
-    schedule("stop", 80, [this]() {
+    schedule("stop", 83, [this]() {
         Game::instance() -> setBossFightAnim(false);
-        defaultPhysics();
         _vel = {
             0,
             0
         };
+        defaultPhysics();
         new StaticObject(QPointF(79 * TILE, 82 * TILE), TILE, 2 * TILE, StaticObject::Type::RAT_WALL);
         //Game::instance()->setSceneRect(64*TILE, 73.5*TILE, 16*TILE, 11*TILE); //Cercare di capire.
     });
@@ -376,10 +378,20 @@ void Scrooge::startBossFightAnimation() {
 
 void Scrooge::respawn() {
     _invincible = false;
-    _respawning = false;
     _recentlyHit = false;
+    _respawning = false;
+    _pogoing = false;
+    _swinging = false;
+    _grab = false;
+    schedule("hold", 100, [this]() {_respawningGameFlag = false;});
     defaultPhysics();
-    setPos(_spawningPoint);
+
+    if(Game::instance()->bossFightStatus()){
+        setPos(_ratCheckpoint);
+    }
+    else{
+        setPos(_spawningPoint);
+    }
     _hp = 1; // da mettere a 6, per ora è testing
 }
 
