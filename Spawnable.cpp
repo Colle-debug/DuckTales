@@ -123,7 +123,8 @@ bool Spawnable::hit(Object* what, Direction fromDir)
         scrooge->scoreAdd(this->_value);
         Game::instance()->hud()->addScore(this->_value);
         if(_type == Type::ICE_CREAM || _type == Type::CAKE){
-            scrooge->hpAdd(1);
+        if(scrooge->hp()<6){
+            scrooge->hpAdd(1);}
         }
         else if(_type == Type::STAR){
             scrooge->setInvincible(true);

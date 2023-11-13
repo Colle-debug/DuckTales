@@ -104,6 +104,7 @@ public:
     bool respawningGF(){return _respawningGameFlag;}
     virtual void lifeDown();
     int lives(){return _lives;}
+    int hp(){return _hp;}
     //virtual void lifeUp();
 
     // implemented abstract methods

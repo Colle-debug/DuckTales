@@ -145,7 +145,6 @@ void Game::start()
         _player->setSitting(false);
         //QMediaPlayer * music= new QMediaPlayer();
         playMusic("themoontheme");
-
     }
 }
 
