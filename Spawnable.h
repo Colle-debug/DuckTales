@@ -22,7 +22,8 @@ public:
 
     double value(){return _value;}
     Spawnable(QPointF pos, double width, double height, Spawnable::Type _type, bool canFall = 0);
-
+    void thrownPhysics();
+    void setDir(Direction dir){_x_dir = dir;}
     // implemented abstract methods
     virtual bool animate() override;
     virtual bool hit(Object* what, Direction fromDir) override;

@@ -559,11 +559,8 @@ Scrooge* Loader::load(std::string levelName)
 
         //new StaticObject(QPointF(55*TILE, 60*TILE), 2*TILE, TILE, StaticObject::Activator::CAMERA);
         new Beakley(QPointF(55.3*TILE,2.7*TILE),24,31);
-        new StaticObject(QPointF(55*TILE, 11*TILE), 2*TILE, 0.2*TILE, StaticObject::Activator::BEAKLEY);
-        new StaticObject(QPointF(55*TILE, 10.8*TILE), 2*TILE, 0.2*TILE, StaticObject::Activator::BEAKLEY);
-        new StaticObject(QPointF(55*TILE, 10.6*TILE), 2*TILE, 0.2*TILE, StaticObject::Activator::BEAKLEY);
+        new StaticObject(QPointF(55*TILE, 8*TILE), 2*TILE, 1*TILE, StaticObject::Activator::BEAKLEY);
        
-
         new Rat(QPointF(72 * TILE - 39/2, 80* TILE));
         return new Scrooge(QPointF(80* TILE, 80*TILE));
 

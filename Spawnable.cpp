@@ -72,6 +72,14 @@ Spawnable::Spawnable(QPointF pos, double width, double height, Spawnable::Type t
     }
 }
 
+void Spawnable::thrownPhysics()
+{
+    Entity::defaultPhysics();
+    _y_vel_max = 2;
+    _x_vel_max = 0.9;
+    _y_gravity = 0.05;
+}
+
 bool Spawnable::animate() // Da aggiungere animazione di spawning e metodo migliore per le texture di quelli con un solo frame
 {
   if (_canFall == 0 || (_canFall == 1 && _canFallHit == 1)) {
@@ -142,6 +150,7 @@ bool Spawnable::hit(Object* what, Direction fromDir)
         Sprites::instance() -> get("block-broken-1", &_texture_spawnable[3]);
         schedule("disappear", 40, [this]() {setVisible(false); });
     }
+
 
     return false;
 }

@@ -5,6 +5,8 @@
 #include "Scheduler.h"
 #include "Object.h"
 #include "Scrooge.h"
+#include "Spawnable.h"
+#include "Beakley.h"
 #include "Hud.h"
 #include "BBoy.h"
 #include <QKeyEvent>
@@ -440,6 +442,27 @@ void Game::resizeEvent(QResizeEvent* evt)
 void Game::spawningPoint()
 {
     BBoy *test = new BBoy(QPointF(_player->x() - 6* TILE, _player->y() - 2*TILE));
+}
+
+void Game::beakleyDrop()
+{
+    for (auto item: _world -> items()) {
+        Beakley * beakley = dynamic_cast < Beakley * > (item);
+        if(beakley){
+            int change = 1;
+            for(int i = 0; i<2; i++){
+            Spawnable* drop = new Spawnable(beakley -> pos(), TILE, TILE, Spawnable::Type::ICE_CREAM);
+            drop->thrownPhysics();
+            change = change * -1;
+            if(change == -1){
+                drop->setDir(Direction::LEFT);}
+            else{
+                drop->setDir(Direction::RIGHT);
+            }
+            drop->velAdd(Vec2Df(change*0.3, -1));
+            }
+        }
+    }
 }
 
 void Game::gameEnd()

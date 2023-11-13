@@ -85,6 +85,8 @@ public:
     bool GBFA(){return _bossFightAnimation;};
     void setBossFight(bool on){ _bossFight = on;};
     bool bossFightStatus(){return _bossFight;};
+    void extracted(QGraphicsItem *&item);
+    void beakleyDrop();
 public slots:
     void reset();
     void start();

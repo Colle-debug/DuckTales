@@ -13,6 +13,7 @@ using namespace DT;
 StaticObject::StaticObject(QPointF pos, double width, double height, StaticObject::Type type) : Object(pos, width, height){
     _type = type;
     _hit = false;
+    _activated = false;
     if(_type == Type::ROPE){
         _compenetrable = true;
     }
@@ -70,6 +71,10 @@ bool StaticObject::hit(Object* what, Direction fromDir)
         else if(activator_type == Activator::BOSS){
             Game::instance()->bossFight();
             setVisible(false);
+        }
+        else if(activator_type == Activator::BEAKLEY && !_activated){
+            _activated = true;
+            schedule("wait", 30, [this](){Game::instance()->beakleyDrop(); setVisible(false);});
         }
       }
     else if(scrooge && _type == Type::RAT_WALL && fromDir == Direction::RIGHT){

@@ -19,6 +19,7 @@ class DT::StaticObject : public Object
     protected:
         QRect _texture_green_gate[1];
         bool _hit;
+        bool _activated;
         StaticObject::Activator activator_type;
     public:
 
