@@ -61,9 +61,23 @@ void HUD::paintEvent(QPaintEvent* event)
 	painter.drawPixmap(165,  19,  Sprites::instance()->getString("TIME"));
 	painter.drawPixmap(25,  13,  Sprites::instance()->getHUD("$"));
 	painter.drawPixmap(92,  19,  Sprites::instance()->getHUD("$"));
-	painter.drawPixmap(50,  25,  Sprites::instance()->getHUD("health-1"));
-	painter.drawPixmap(58,  25,  Sprites::instance()->getHUD("health-0"));
-	painter.drawPixmap(66,  25,  Sprites::instance()->getHUD("health-0"));
+	if(Game::instance()->player()->hp()==150){
+		painter.drawPixmap(50,  25,  Sprites::instance()->getHUD("health-0"));
+		painter.drawPixmap(58,  25,  Sprites::instance()->getHUD("health-0"));
+		painter.drawPixmap(66,  25,  Sprites::instance()->getHUD("health-0"));
+	}
+	else if(Game::instance()->player()->hp()<150 && Game::instance()->player()->hp()>=100){
+		painter.drawPixmap(50,  25,  Sprites::instance()->getHUD("health-0"));
+		painter.drawPixmap(58,  25,  Sprites::instance()->getHUD("health-0"));
+		painter.drawPixmap(66,  25,  Sprites::instance()->getHUD("health-1"));
+	}
+	else if(Game::instance()->player()->hp()<100){
+		painter.drawPixmap(50,  25,  Sprites::instance()->getHUD("health-0"));
+		painter.drawPixmap(58,  25,  Sprites::instance()->getHUD("health-1"));
+		painter.drawPixmap(66,  25,  Sprites::instance()->getHUD("health-1"));
+	}
+
+
 
 
 
