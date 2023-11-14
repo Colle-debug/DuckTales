@@ -53,8 +53,8 @@ static QRect _launchpad_flying(3, 6, 53, 71);
 static QRect _gizmoduck(122,49,32,39);
 static QRect _projectile(202,66,8,8);
 static QRect _hud(0, 0, 243, 39);
-static QRect hud_letter(2, 130, 7, 7);
-static QRect hud_number(2, 122, 7, 7);
+static QRect hud_letter(1, 130, 7, 7);
+static QRect hud_number(1, 122, 7, 7);
 static QRect hud_health(2, 138, 7, 7);
 static QRect hud_dollar(226, 130, 7, 7);
 static QRect hud_dot(210, 130, 7, 7);
@@ -420,10 +420,10 @@ void Sprites::get(const std::string & id, QRect animOutput[])
 
 QPixmap Sprites::getHUD(const std::string & id){
      if (id.rfind("number-", 0) == 0)
-		return hud.copy(moveBy(hud_number, id[7] - '0', 0, 8, 8));
+		return hud.copy(moveBy(hud_number, id[7] - '0', 0, 8));
 
 	else if (id.rfind("char-", 0) == 0)
-		return hud.copy(moveBy(hud_letter, id[5] - 'A', 0, 8, 8));
+		return hud.copy(moveBy(hud_letter, id[5] - 'A', 0, 8));
     else if (id=="$")
         return hud.copy(moveBy(hud_dollar,0,0));
     else if (id==".")
@@ -445,7 +445,7 @@ QPixmap Sprites::getNumber(int n, int fill)
             text = '0' + text;
 
     // create collage texture
-    QPixmap collage(8 * int(text.size()), 8);
+    QPixmap collage(8 * int(text.size()), 7);
     QPainter painter(&collage);
 
     // add numbers
@@ -469,7 +469,7 @@ QPixmap Sprites::getString(std::string text, int fill)
             text = ' ' + text;
 
     // create collage texture
-    QPixmap collage(8 * int(text.size()), 8);
+    QPixmap collage(8 * int(text.size()), 7);
     QPainter painter(&collage);
 
     // add letters
@@ -481,7 +481,7 @@ QPixmap Sprites::getString(std::string text, int fill)
     painter.end();
 
     // make background transparent
-    collage.setMask(collage.createMaskFromColor(QColor(147, 187, 236)));
+    collage.setMask(collage.createMaskFromColor(QColor(0, 89, 255)));
 
     return collage;
 }
