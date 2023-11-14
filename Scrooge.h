@@ -94,6 +94,8 @@ public:
     bool dying() { return _dying; }
     bool dead() { return _dead; }
     bool pogoing() { return _pogoing; }
+    int lives(() { return _lives; }
+    int hp(() { return _hp; }
     void recentlyHit(bool on);
     void climbingPhysics();
     void startBossFightAnimation();
