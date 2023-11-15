@@ -527,11 +527,6 @@ Scrooge* Loader::load(std::string levelName)
         new Block(QPointF(125*TILE, 6*TILE), 2*TILE, 2*TILE,Block::Type::CHEST_BIG);
 
 
-        // Queste 3 sono per testing
-        new Spawnable(QPointF(73* TILE, 22*TILE), TILE, TILE, Spawnable::Type::TREASURE); // Vedi se width e height effettivamente servono qui, penso di no
-        new Spawnable(QPointF(74* TILE, 22*TILE), TILE, TILE, Spawnable::Type::DIAMOND_YELLOW_BIG);
-        new Spawnable(QPointF(75* TILE, 22*TILE), TILE, TILE, Spawnable::Type::KEY);
-
         // BATTERY
 
         new Block(QPointF(27*TILE, 38*TILE), TILE, TILE,Block::Type::BATTERY);

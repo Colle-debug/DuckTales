@@ -72,7 +72,7 @@ public:
     bool climbing() { return _climbing; }
 
     // Utilities per "_invincible"
-    void setInvincible(bool on) { _invincible = on; }
+    void setInvincible(bool on);
     bool invincibile() { return _invincible; }
 
     // Utilities per "_key"

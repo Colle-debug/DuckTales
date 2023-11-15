@@ -47,7 +47,7 @@ Spawnable::Spawnable(QPointF pos, double width, double height, Spawnable::Type t
         _animRect = &_texture_spawnable[0];
     }
     else if(_type == Type::STAR){
-        _value = 140; // x debugging
+        _value = 0;
         Sprites::instance()->get("star-0", &_texture_spawnable[0]);
         Sprites::instance()->get("star-1", &_texture_spawnable[1]);
     }
@@ -128,7 +128,6 @@ bool Spawnable::hit(Object* what, Direction fromDir)
         }
         else if(_type == Type::STAR){
             scrooge->setInvincible(true);
-            schedule("invincible", 800, [scrooge]() {scrooge->setInvincible(false); });
         }
         else if(_type == Type::KEY){
             scrooge->setKeyStatus(true);

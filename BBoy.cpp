@@ -14,6 +14,7 @@ BBoy::BBoy(QPointF pos)
     _sprite = Sprites::instance()->getSprite("beagleBoy");
     _x_dir = Direction::RIGHT;
     _y_vel_max = 3;
+    _x_vel_max = 0.7;
     _y_gravity = 0.09;
     Sprites::instance()->get("beagleBoy-0", &_texture_walk[0]);
     Sprites::instance()->get("beagleBoy-1", &_texture_walk[1]);

@@ -96,6 +96,13 @@ void Scrooge::setClimbing(bool on) {
     }
 }
 
+void Scrooge::setInvincible(bool on) {
+    _invincible = on;
+    if(on){
+        schedule("invincible", 240, [this]() {_invincible = false;}); // 4 secondi di invincibilità
+    }
+}
+
 void Scrooge::advance() {
     if (grounded())
         _y_vel_max = 3;
