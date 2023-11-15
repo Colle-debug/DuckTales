@@ -272,6 +272,9 @@ void Game::nextFrame() {
     centerOn(_player);
     update();
 
+    if (FRAME_COUNT % 10 == 60)
+        _hud->subTime();
+    
     if (_player -> dead()) {
         gameOver();
     }else if(_player->duckburg()){
