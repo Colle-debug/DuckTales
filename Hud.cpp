@@ -19,7 +19,7 @@ HUD::HUD(int w, int h, QWidget* parent) : QWidget(parent)
 
 void HUD::start()
 {
-	_time = 400;
+	_time = 600;
 }
 
 void HUD::reset()
@@ -53,16 +53,17 @@ void HUD::paintEvent(QPaintEvent* event)
 	if(Game::instance()->player()->score()!=0)
 		dx=std::log10(Game::instance()->player()->score());
 	
+	std::cout << dx << std::endl;
 
     painter.drawPixmap(131,25, Sprites::instance()->getNumber(Game::instance()->player()->lives())); //p.
     painter.drawPixmap(72-(7*dx),13, Sprites::instance()->getNumber(Game::instance()->player()->score())); //money sx
 	painter.drawPixmap(150,19, Sprites::instance()->getNumber(0)); //money dx
-	painter.drawPixmap(202,19, Sprites::instance()->getNumber(_time)); //time
+	painter.drawPixmap(201,19, Sprites::instance()->getNumber(_time)); //time
 	painter.drawPixmap(115,  25,  Sprites::instance()->getString("P"));
 	painter.drawPixmap(123,  25,  Sprites::instance()->getHUD("."));
 	painter.drawPixmap(25,  25,  Sprites::instance()->getString("HP"));
 	painter.drawPixmap(105,  12,  Sprites::instance()->getString("TOTAL"));
-	painter.drawPixmap(165,  19,  Sprites::instance()->getString("TIME"));
+	painter.drawPixmap(164,  19,  Sprites::instance()->getString("TIME"));
 	painter.drawPixmap(25,  13,  Sprites::instance()->getHUD("$"));
 	painter.drawPixmap(92,  19,  Sprites::instance()->getHUD("$"));
 	if(Game::instance()->player()->hp()==150){
@@ -101,15 +102,7 @@ void HUD::subTime()
 	_time -= 1; update();
 	_last_digit = _time % 10;
 
-	if (_time == 100)
-	{
-		//Game::instance()->stopMusic(true);
-		//Sounds::instance()->play("lowtime");
-		//Sounds::instance()->speedUp();
-	}
-	else if (_time == 96)
-		std::cout << "miao";
-	else if (_time == 0)
+	if (_time == 0)
 		emit timeExpired();
 }
 
