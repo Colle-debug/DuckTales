@@ -44,6 +44,7 @@ private:
     bool _swing_pressed;
     bool _swing_released;
     qreal _counter_cam;
+    bool _transitioning;
 
     bool _bossFight;
     bool _bossFightAnimation;
@@ -90,6 +91,9 @@ public:
     void cameraChangeY(Direction fromDir);
     void beakleyDrop();
     void centerView();
+    void moveUp(bool on){_up_pressed = on;}
+    void moveDown(bool on){_down_pressed = on;}
+
 public slots:
     void reset();
     void start();

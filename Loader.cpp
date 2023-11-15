@@ -559,16 +559,16 @@ Scrooge* Loader::load(std::string levelName)
 
         //new StaticObject(QPointF(55*TILE, 60*TILE), 2*TILE, TILE, StaticObject::Activator::CAMERA);
         new Beakley(QPointF(55.3*TILE,2.7*TILE),24,31);
-        new StaticObject(QPointF(55*TILE, 10*TILE), 2*TILE, 1*TILE, StaticObject::Activator::BEAKLEY);
-        new StaticObject(QPointF(55*TILE, 55*TILE), 2*TILE, 0.5*TILE, StaticObject::Activator::CAMERA);
+        new StaticObject(QPointF(55*TILE, 11*TILE), 2*TILE, 1*TILE, StaticObject::Activator::BEAKLEY);
+        new StaticObject(QPointF(55*TILE, 57*TILE), 2*TILE, 0.5*TILE, StaticObject::Activator::CAMERA);
         new StaticObject(QPointF(23*TILE, 55*TILE), 2*TILE, 0.5*TILE, StaticObject::Activator::CAMERA);
-        new StaticObject(QPointF(55*TILE, 43*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
-        new StaticObject(QPointF(23*TILE, 26*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
-        new StaticObject(QPointF(87*TILE, 26*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
+        new StaticObject(QPointF(55*TILE, 42*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
+        new StaticObject(QPointF(23*TILE, 27*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
+        new StaticObject(QPointF(87*TILE, 28*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
         new StaticObject(QPointF(87*TILE, 42*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
-        new StaticObject(QPointF(87*TILE, 10*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
+        new StaticObject(QPointF(87*TILE, 14*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
         new StaticObject(QPointF(119*TILE, 70*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
-         new StaticObject(QPointF(55*TILE, 13*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
+        new StaticObject(QPointF(55*TILE, 12*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
         new Rat(QPointF(72 * TILE - 39/2, 80* TILE));
         return new Scrooge(QPointF(3* TILE, 67*TILE));
 

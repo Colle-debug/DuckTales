@@ -33,14 +33,14 @@ Scrooge::Scrooge(QPointF pos): Entity(pos, 26, 27) {
     _pogoing = false;
     _crouch = false;
     _climbing = false;
-    _invincible = true;
+    _invincible = false;
     _grab = false;
     _climbingStill = false;
     _prev_x_dir = Direction::RIGHT;
     _mirror_x_dir = Direction::LEFT;
 
 
-    _hp = 1;
+    _hp = 150;
     _recentlyHit = 0;
     _key = true;
     _remote = true;
@@ -89,6 +89,7 @@ void Scrooge::setClimbing(bool on) {
     if (on) {
         std::cout << "Climbing\n";
         std::cout.flush();
+        _pogoing = false;
         climbingPhysics();
     } else {
         defaultPhysics();
@@ -277,6 +278,17 @@ bool Scrooge::hit(Object * what, Direction fromDir) {
         velAdd(Vec2Df(0, -15.5));
         _y_gravity = 0.065;
         Sounds::instance() -> play("hit");
+    }
+
+    if(sobj && sobj->_type == StaticObject::Type::ACTIVATOR && sobj->activator_type == StaticObject::Activator::CAMERA){
+        if(fromDir == Direction::UP){
+            Game::instance()->moveUp(true);
+            schedule("stop", 22, [this](){Game::instance()->moveUp(false);});
+        }
+        else if(fromDir == Direction::DOWN){
+            Game::instance()->moveDown(true);
+            schedule("stop", 25, [this](){Game::instance()->moveDown(false);});
+        }
     }
 
     return false;
