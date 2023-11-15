@@ -184,8 +184,6 @@ void Game::nextFrame() {
     // process inputs	 (PLAYER CONTROLS)
 
     if(!_player->gizmoduckCinematic() && !_player->launchpadAttachment() && !_bossFightAnimation && !_player->respawningGF() && !_transitioning){ // Commandi di movimento accessibili solo se nessuna delle due è True
-        std::cout<<_player->x()<<"\n";
-        std::cout.flush();
         if (!_player -> climbing()) {
             if (_left_pressed && _right_pressed)
                 _player -> move(Direction::NONE);
