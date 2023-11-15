@@ -53,7 +53,6 @@ void HUD::paintEvent(QPaintEvent* event)
 	if(Game::instance()->player()->score()!=0)
 		dx=std::log10(Game::instance()->player()->score());
 	
-	std::cout << dx << std::endl;
 
     painter.drawPixmap(131,25, Sprites::instance()->getNumber(Game::instance()->player()->lives())); //p.
     painter.drawPixmap(72-(7*dx),13, Sprites::instance()->getNumber(Game::instance()->player()->score())); //money sx
