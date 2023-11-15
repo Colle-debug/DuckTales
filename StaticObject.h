@@ -21,13 +21,13 @@ class DT::StaticObject : public Object
         bool _hit;
         bool _activated;
         bool _camera;
-        StaticObject::Activator activator_type;
     public:
 
         StaticObject(QPointF pos, double width, double height, StaticObject::Type type = StaticObject::Type::TERRAIN);
         StaticObject(QPointF pos, double width, double height, StaticObject::Activator type); //ACTIVATOR CLASS
 
         // implemented abstract methods
+        StaticObject::Activator activator_type;
         StaticObject::Type _type;
         virtual void advance() override {}
         virtual bool animate() override;

@@ -77,7 +77,7 @@ bool StaticObject::hit(Object* what, Direction fromDir)
             schedule("wait", 30, [this](){Game::instance()->beakleyDrop(); setVisible(false);});
         }
 
-       else  if( activator_type == Activator::CAMERA)
+        else  if( activator_type == Activator::CAMERA && !scrooge->pogoing())
     {
         if (fromDir==Direction::DOWN){
         Game::instance()->cameraChangeY(Direction::DOWN); // Chiamata alla funzione nella classe Game
