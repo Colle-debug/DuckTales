@@ -76,7 +76,27 @@ bool StaticObject::hit(Object* what, Direction fromDir)
             _activated = true;
             schedule("wait", 30, [this](){Game::instance()->beakleyDrop(); setVisible(false);});
         }
+
+       else  if( activator_type == Activator::CAMERA)
+    {
+        if (fromDir==Direction::DOWN){
+        Game::instance()->cameraChangeY(Direction::DOWN); // Chiamata alla funzione nella classe Game
+    }
+    if (fromDir==Direction::UP)
+        Game::instance()->cameraChangeY(Direction::UP);
       }
+        
+    }
+        // if( activator_type == Activator::CAMERA)
+        // {
+        //     if (fromDir==Direction::DOWN){
+        //         Game::instance()->cameraChangeY(Direction::DOWN); // Chiamata alla funzione nella classe Game
+        //     }
+        //     if (fromDir==Direction::UP){
+        //         Game::instance()->cameraChangeY(Direction::UP);
+        //     }
+        // }
+      
     else if(scrooge && _type == Type::RAT_WALL && fromDir == Direction::RIGHT){
         //flashingScreen(); Schermata nera mentre lo teletrasporta
         scrooge->setPos(75*TILE, y());
@@ -109,7 +129,7 @@ bool StaticObject::hit(Object* what, Direction fromDir)
 
 
     return false;
+
+
 }
-
-
 

@@ -18,6 +18,7 @@
 #include <QMediaPlayer>
 #include "Sounds.h"
 #include "Menu.h"
+#include <QThread>
 using namespace DT;
 
 Game* Game::_uniqueInstance = 0;
@@ -45,6 +46,7 @@ Game::Game(QGraphicsView *parent) : QGraphicsView(parent)
 
     _builder = new Loader();
     _player = 0;
+    _counter_cam=0;
     beagleActive = 1;
 
     /*
@@ -68,6 +70,7 @@ void Game::reset()
     _player = 0;
     beagleActive = 1;
     _arrowPos = 0;
+    _counter_cam=0;
     _bossFight = 0;
     _bossFightAnimation = 0;
     _left_pressed = false;
@@ -112,13 +115,16 @@ void Game::levelSelection()
 
 void Game::gizmo()
 {
+      
     for (auto item: _world -> items()) {
         Gizmoduck * gizmo = dynamic_cast < Gizmoduck * > (item);
         if(gizmo){
             gizmo->activate();
             _player->setGizmoCinematicStatus(true);
+            
         }
     }
+  
 }
 
 void Game::bossFight()
@@ -269,12 +275,8 @@ void Game::nextFrame() {
     }
 
     // @TODO update game state (game over, level cleared, etc.)
-    centerOn(_player);
-    update();
+   
 
-    if (FRAME_COUNT % 10 == 60)
-        _hud->subTime();
-    
     if (_player -> dead()) {
         gameOver();
     }else if(_player->duckburg()){
@@ -285,6 +287,9 @@ void Game::nextFrame() {
     if (_state == GameState::GAME_OVER || _state == GameState::GAME_CLEAR || _state == GameState::LIFT_TO_DUCKBURG) {
         gameEnd();
     }
+
+    centerView();
+       update();
 }
 
 void Game::keyPressEvent(QKeyEvent * e) {
@@ -500,6 +505,43 @@ void Game::gameEnd()
 
     //setSceneRect(QRectF());
     //centerOn(0, 0);
+}
+void Game::centerView() {
+   
+ 
+    qreal fixedY = 1024; //1300 per rat
+    qreal playerX = _player->x();
+    qreal newY = fixedY + _counter_cam; //in questo punto viene aggiornato anche il valore della nuova 
+
+  
+   centerOn(playerX,newY);
+}
+
+void Game::cameraChangeY(Direction fromDir) {
+    const int transition_speed = 20;  // Aumentato ulteriormente per una transizione più lenta
+    const int incr = 240;  //dovrebbe essere più o meno il valore corretto per la finestra di gioco
+ 
+    int incremento = 0;
+    if (fromDir == Direction::UP) {
+        incremento = incr / transition_speed;
+    } else if (fromDir == Direction::DOWN) {
+        incremento = -incr /transition_speed;
+    }
+
+    // Applica la transizione graduale
+    for (int i = 0; i < transition_speed; i++) {
+        _counter_cam += incremento;
+
+       
+        centerView();
+
+        
+        update();
+      QCoreApplication::processEvents();  // Aggiorna gli eventi della GUI
+        QThread::msleep(30);  // Attendere 30 millisecondi (puoi regolare questo valore)
+    }
+
+  
 }
 
 void Game::playMusic(const std::string& name)

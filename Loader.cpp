@@ -175,8 +175,8 @@ Scrooge* Loader::load(std::string levelName)
         new Block(QPointF(85*TILE,50*TILE),TILE,TILE,Block::Type::BRICK);
         new Block(QPointF(86*TILE,50*TILE),TILE,TILE,Block::Type::BRICK);
         //rocce sui funghi
-        new Block(QPointF(71*TILE,48*TILE),TILE,TILE,Block::Type::BRICK);
-        new Block(QPointF(74*TILE,48*TILE),TILE,TILE,Block::Type::BRICK);
+        new Block(QPointF(71*TILE,48*TILE),TILE,TILE,Block::Type::SPHERE);
+        new Block(QPointF(74*TILE,48*TILE),TILE,TILE,Block::Type::SPHERE);
 
 
 
@@ -555,14 +555,22 @@ Scrooge* Loader::load(std::string levelName)
         new StaticObject(QPointF(48*TILE,10.1*TILE),7*TILE,4.9*TILE);
         new StaticObject(QPointF(48*TILE,0*TILE),4*TILE,10.1*TILE);
         new StaticObject(QPointF(60*TILE,0*TILE),4*TILE,10.1*TILE);
-        new StaticObject(QPointF(54*TILE,4.7*TILE),4*TILE,TILE);
+        new StaticObject(QPointF(54*TILE,5.7*TILE),4*TILE,TILE);
 
         //new StaticObject(QPointF(55*TILE, 60*TILE), 2*TILE, TILE, StaticObject::Activator::CAMERA);
         new Beakley(QPointF(55.3*TILE,2.7*TILE),24,31);
-        new StaticObject(QPointF(55*TILE, 8*TILE), 2*TILE, 1*TILE, StaticObject::Activator::BEAKLEY);
-       
+        new StaticObject(QPointF(55*TILE, 10*TILE), 2*TILE, 1*TILE, StaticObject::Activator::BEAKLEY);
+        new StaticObject(QPointF(55*TILE, 55*TILE), 2*TILE, 0.5*TILE, StaticObject::Activator::CAMERA);
+        new StaticObject(QPointF(23*TILE, 55*TILE), 2*TILE, 0.5*TILE, StaticObject::Activator::CAMERA);
+        new StaticObject(QPointF(55*TILE, 43*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
+        new StaticObject(QPointF(23*TILE, 26*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
+        new StaticObject(QPointF(87*TILE, 26*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
+        new StaticObject(QPointF(87*TILE, 42*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
+        new StaticObject(QPointF(87*TILE, 10*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
+        new StaticObject(QPointF(119*TILE, 70*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
+         new StaticObject(QPointF(55*TILE, 13*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
         new Rat(QPointF(72 * TILE - 39/2, 80* TILE));
-        return new Scrooge(QPointF(80* TILE, 80*TILE));
+        return new Scrooge(QPointF(3* TILE, 67*TILE));
 
 
         /*

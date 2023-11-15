@@ -33,7 +33,7 @@ Scrooge::Scrooge(QPointF pos): Entity(pos, 26, 27) {
     _pogoing = false;
     _crouch = false;
     _climbing = false;
-    _invincible = false;
+    _invincible = true;
     _grab = false;
     _climbingStill = false;
     _prev_x_dir = Direction::RIGHT;
@@ -421,7 +421,7 @@ void Scrooge::pogo(bool on) {
         if (!midair() && _prev_vel.y!=0) {
             if (std::abs(_vel.x) <= 2) {
                 velAdd(Vec2Df(0, -3.5));
-                _y_gravity = 0.065;
+                _y_gravity = 0.054;
             } else {
                 velAdd(Vec2Df(0, -5));
                 _y_gravity = 0.1;

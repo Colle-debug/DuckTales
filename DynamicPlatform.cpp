@@ -17,7 +17,7 @@ DynamicPlatform::DynamicPlatform(QPointF pos) : Entity(pos, 33, 17)
 
 
     _y_vel_max=0;
-    _x_vel_max=1.7;
+    _x_vel_max=1;
     move(Direction::LEFT);;
 
     }

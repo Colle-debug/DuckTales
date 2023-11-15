@@ -43,6 +43,7 @@ private:
     bool beagleActive;
     bool _swing_pressed;
     bool _swing_released;
+    qreal _counter_cam;
 
     bool _bossFight;
     bool _bossFightAnimation;
@@ -86,7 +87,9 @@ public:
     void setBossFight(bool on){ _bossFight = on;};
     bool bossFightStatus(){return _bossFight;};
     void extracted(QGraphicsItem *&item);
+    void cameraChangeY(Direction fromDir);
     void beakleyDrop();
+    void centerView();
 public slots:
     void reset();
     void start();
