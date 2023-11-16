@@ -245,7 +245,7 @@ void Game::nextFrame() {
             _jump_released = false;
         }
     }
-    if (!beagleActive && !_bossFight && _player->x() > 90*TILE && _player->y() > 70 * TILE) {
+    if (!beagleActive && !_bossFight && _player->x() > 95*TILE && _player->y() > 70 * TILE) {
         std::cout<<"Respawning\n";
         std::cout.flush();
         // Meglio schedulare il respawn dopo un paio di FRAME
@@ -269,10 +269,12 @@ void Game::nextFrame() {
         }
     }
 
-    // @TODO update game state (game over, level cleared, etc.)
-
-    centerOn(_player->pos());
-    //centerView();
+    //centerOn(_player->pos()); for Debugging
+    if(!_player->inRatPit()){
+        centerView();}
+    else{
+        centerOn(72*TILE, 79*TILE); // Durante la boss fight, camera fissa nel pit
+    }
     update();
 
     if(FRAME_COUNT % 60 == 0){
@@ -447,7 +449,7 @@ void Game::resizeEvent(QResizeEvent* evt)
 
 void Game::spawningPoint()
 {
-    BBoy *test = new BBoy(QPointF(_player->x() - 6* TILE, _player->y() - 2*TILE));
+    BBoy *test = new BBoy(QPointF(_player->x() - 6* TILE, _player->y() - TILE));
 }
 
 void Game::beakleyDrop()
@@ -514,7 +516,7 @@ void Game::cameraChangeY(Direction fromDir) {
        
         centerView();
 
-        
+
         update();
         QCoreApplication::processEvents();  // Aggiorna gli eventi della GUI
         QThread::msleep(30);  // Attendere 30 millisecondi (puoi regolare questo valore)

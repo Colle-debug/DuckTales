@@ -30,7 +30,7 @@ Scrooge::Scrooge(QPointF pos) : Entity(pos, 26, 27) {
     _prev_x_dir = Direction::RIGHT;
     _mirror_x_dir = Direction::LEFT;
 
-    _hp = 150;
+    _hp = 3;
     _recentlyHit = 0;
     _key = true;
     _remote = true;
@@ -45,6 +45,7 @@ Scrooge::Scrooge(QPointF pos) : Entity(pos, 26, 27) {
     _sitting = true;
     _respawning = false;
     _respawningGameFlag = false;  // questa si usa in Game per bloccare il gioco per un secondo dopo il respawn
+    _inRatPit = false; // Serve per quando Scrooge muore durante la boss fight: con questo flag la camera capisce quando Scrooge rientra nel pit
 
     _sprite = Sprites::instance()->getSprite("scrooge");
     Sprites::instance()->get("scrooge-stand", &_texture_stand[0]);
@@ -345,7 +346,8 @@ void Scrooge::startBossFightAnimation() {
         _vel = {0, 0};
         defaultPhysics();
         new StaticObject(QPointF(79 * TILE, 82 * TILE), TILE, 2 * TILE, StaticObject::Type::RAT_WALL);
-        Game::instance()->setSceneRect(64*TILE, 73.5*TILE, 16*TILE, 11*TILE); //Cercare di capire.
+        _inRatPit = true;
+        //Game::instance()->setSceneRect(64*TILE, 73.5*TILE, 16*TILE, 11*TILE); //Cercare di capire.
     });
 }
 
@@ -360,6 +362,7 @@ void Scrooge::respawn() {
     defaultPhysics();
 
     if (Game::instance()->bossFightStatus()) {
+        _inRatPit = false;
         setPos(_ratCheckpoint);
     } else {
         setPos(_spawningPoint);

@@ -46,10 +46,11 @@ protected:
     bool _gizmoCinematic;
     bool _sitting;
     bool _respawningGameFlag;
+    bool _inRatPit;
 
     bool _recentlyHit;
     int _hp;
-    int _lives = 1; // 3 vite per partita
+    int _lives = 2; // 3 vite per partita
     QPointF _spawningPoint = QPointF(3* TILE, 67*TILE);
     QPointF _ratCheckpoint = QPointF(83* TILE, 80*TILE);
     QPointF _launchpadCheckpoint = QPointF(3* TILE, 67*TILE);
@@ -88,8 +89,13 @@ public:
     bool gizmoduckCinematic() { return _gizmoCinematic;}
     void setGizmoCinematicStatus(bool on);
 
+    // Utilities per "_inRatPit"
+    bool inRatPit(){return _inRatPit;}
+    void setRatPit(bool on){_inRatPit = on;}
+
 
     // Altri metodi
+
     bool swinging() { return _swinging; }
     bool dying() { return _dying; }
     bool dead() { return _dead; }

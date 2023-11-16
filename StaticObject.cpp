@@ -99,6 +99,7 @@ bool StaticObject::hit(Object* what, Direction fromDir)
       
     else if(scrooge && _type == Type::RAT_WALL && fromDir == Direction::RIGHT){
         //flashingScreen(); Schermata nera mentre lo teletrasporta
+      scrooge->setRatPit(true);
         scrooge->setPos(75*TILE, y());
     }
 
