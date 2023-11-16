@@ -70,6 +70,10 @@ Spawnable::Spawnable(QPointF pos, double width, double height, Spawnable::Type t
         Sprites::instance()->get("projectile-1", &_texture_spawnable[1]);
         _animRect = &_texture_spawnable[0];
     }
+    if(_type == Type::CHEESE){
+        Sprites::instance()->get("cheese", &_texture_spawnable[0]);
+        _animRect = &_texture_spawnable[0];
+    }
 }
 
 void Spawnable::thrownPhysics()

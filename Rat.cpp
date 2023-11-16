@@ -1,4 +1,5 @@
 #include "Rat.h"
+#include "Block.h"
 #include "Sprites.h"
 #include "GameConfig.h"
 #include "StaticObject.h"
@@ -23,7 +24,7 @@ Rat::Rat(QPointF pos) : Enemy(pos, 39, 27)
     _recentlyHit = false;
     _y_vel_max = 3;
 
-    _hp = 10;
+    _hp = 1;
 }
 
 void Rat::jump(bool on, Direction dir)
@@ -200,6 +201,7 @@ void Rat::lifeDown()
         });
     }else {
         die();
+        new Block(QPointF(72*TILE - 8, 83*TILE), TILE, TILE,Block::Type::CHEST_SMALL, false, Spawnable::Type::CHEESE);
     }
 }
 
