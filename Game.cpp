@@ -271,8 +271,8 @@ void Game::nextFrame() {
 
     // @TODO update game state (game over, level cleared, etc.)
 
-    //centerOn(_player->pos());
-    centerView();
+    centerOn(_player->pos());
+    //centerView();
     update();
 
     if(FRAME_COUNT % 60 == 0){

@@ -412,6 +412,7 @@ Scrooge* Loader::load(std::string levelName)
         new StaticObject(QPointF(25*TILE,26*TILE),TILE,3*TILE);
         new StaticObject(QPointF(44*TILE,19*TILE),2*TILE,TILE);
         new StaticObject(QPointF(54*TILE,21*TILE),6*TILE,TILE);
+        new StaticObject(QPointF(65*TILE,74*TILE),14*TILE, TILE); // Rat Pit ceiling
 
 
 
@@ -564,8 +565,12 @@ Scrooge* Loader::load(std::string levelName)
         new StaticObject(QPointF(87*TILE, 14*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
         new StaticObject(QPointF(119*TILE, 70*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
         new StaticObject(QPointF(55*TILE, 12*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
+
+
+
+
         new Rat(QPointF(72 * TILE - 39/2, 80* TILE));
-        return new Scrooge(QPointF(3* TILE, 67*TILE));
+        return new Scrooge(QPointF(80* TILE, 80*TILE));
 
 
         /*

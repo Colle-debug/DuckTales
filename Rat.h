@@ -21,6 +21,7 @@ private:
     QRect _texture_angry[1];
 
     int _hp;
+    bool _recentlyHit;
 
 public:
 
@@ -37,7 +38,12 @@ public:
     virtual void advance() override;
     virtual bool animate() override;
 
+    bool recentlyHit(){return _recentlyHit;}
     int dir2speed(Direction dir);
+    void recentlyHit(bool on);
+    virtual void lifeDown();
+
+
 };
 
 

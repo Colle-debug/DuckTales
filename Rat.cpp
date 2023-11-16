@@ -20,6 +20,7 @@ Rat::Rat(QPointF pos) : Enemy(pos, 39, 27)
     _reset = true;
     _starting = false;
     _angry = false;
+    _recentlyHit = false;
     _y_vel_max = 3;
 
     _hp = 10;
@@ -60,6 +61,8 @@ void Rat::advance()
     std::cout<<_angry<<"\n"; // Debugging serve per capire se resetta bene la posizione --> Bisogna controllare i parametri del primo salto
         std::cout.flush();}
 */
+std::cout<<_hp<<"\n";
+std::cout.flush();
     if(Game::instance()->bossFightStatus() && !Game::instance()->GBFA()){
     if(_reset && !_running && !midair() && !_angry){
         _angry = false;
@@ -114,7 +117,8 @@ void Rat::advance()
 
 bool Rat::animate()
 {
-
+    bool showSprite = (_recentlyHit && (FRAME_COUNT / 3) % 2 == 0);
+    if(!_recentlyHit){
     if(midair() && !_reset){
        _animRect = & _texture_walk[2];
     }else{
@@ -126,7 +130,25 @@ bool Rat::animate()
     }
     else{
         _animRect = & _texture_walk[1];
+    }}}
+    else{
+    if(midair() && !_reset){
+    _animRect = showSprite ? & _texture_walk[2] : nullptr;
+    }else{
+
+    if(_running){
+        _animRect = showSprite ? & _texture_walk[(FRAME_COUNT / 9) % 2] : nullptr;
+
+    }else if(_angry){
+        _animRect = showSprite ? & _texture_angry[0] : nullptr;
+
+    }
+    else{
+        _animRect = showSprite ? & _texture_walk[1] : nullptr;
+
     }}
+
+    }
 
 
     return true;
@@ -145,7 +167,7 @@ bool Rat::hit(Object* what, Direction fromDir)
     }
 
     if (scrooge && scrooge->pogoing() && fromDir == Direction::UP){
-        _hp--; // Da implementare ancora la vita, per ora Rat segue la logica di Enemy che basta 1 hit per morire
+        lifeDown(); // Da implementare ancora la vita, per ora Rat segue la logica di Enemy che basta 1 hit per morire
     }
 
 
@@ -165,3 +187,30 @@ int Rat::dir2speed(Direction dir) { // Funziona per fare il fighetto e togliere 
         return 0;
     }
 }
+
+void Rat::lifeDown()
+{
+    if (_recentlyHit)
+        return;
+
+    if (_hp > 1) {
+        _hp--;
+        schedule("rh", 2, [this]() {
+            recentlyHit(true);
+        });
+    }else {
+        die();
+    }
+}
+
+void Rat::recentlyHit(bool on)
+{
+    _recentlyHit = on;
+
+    if (on)
+        schedule("flash", 100, [this]() {
+            _recentlyHit = false;
+        });
+}
+
+

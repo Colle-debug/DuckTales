@@ -1,30 +1,21 @@
-#include "Scrooge.h"
-
-#include "Game.h"
-
-#include "Block.h"
-
-#include "Enemy.h"
-
-#include "Launchpad.h"
-
 #include <QDebug>
-
-#include "GameConfig.h"
-
 #include <QPainter>
-
 #include <QPixmap>
 
+#include "Block.h"
+#include "Enemy.h"
+#include "Game.h"
+#include "GameConfig.h"
+#include "Launchpad.h"
+#include "Rat.h"
+#include "Scrooge.h"
+#include "Sounds.h"
 #include "Sprites.h"
-
 #include "StaticObject.h"
 
-#include "Sounds.h"
-
 using namespace DT;
-Scrooge::Scrooge(QPointF pos): Entity(pos, 26, 27) {
-    //setZValue(1);
+Scrooge::Scrooge(QPointF pos) : Entity(pos, 26, 27) {
+    // setZValue(1);
 
     //_collider.adjust(3, 3, -3, -1);
     _swinging = false;
@@ -39,8 +30,7 @@ Scrooge::Scrooge(QPointF pos): Entity(pos, 26, 27) {
     _prev_x_dir = Direction::RIGHT;
     _mirror_x_dir = Direction::LEFT;
 
-
-    _hp = 1;
+    _hp = 150;
     _recentlyHit = 0;
     _key = true;
     _remote = true;
@@ -54,34 +44,33 @@ Scrooge::Scrooge(QPointF pos): Entity(pos, 26, 27) {
     _gizmoCinematic = false;
     _sitting = true;
     _respawning = false;
-    _respawningGameFlag = false; // questa si usa in Game per bloccare il gioco per un secondo dopo il respawn
+    _respawningGameFlag = false;  // questa si usa in Game per bloccare il gioco per un secondo dopo il respawn
 
-    _sprite = Sprites::instance() -> getSprite("scrooge");
-    Sprites::instance() -> get("scrooge-stand", & _texture_stand[0]);
-    Sprites::instance() -> get("scrooge-walk-0", & _texture_walk[0]);
-    Sprites::instance() -> get("scrooge-walk-1", & _texture_walk[1]);
-    Sprites::instance() -> get("scrooge-walk-2", & _texture_walk[2]);
-    Sprites::instance() -> get("scrooge-jump-fall", & _texture_jump[0]);
-    Sprites::instance() -> get("scrooge-bounce-0", & _texture_bounce[0]);
-    Sprites::instance() -> get("scrooge-bounce-1", & _texture_bounce[1]);
-    Sprites::instance() -> get("scrooge-crouch-0", & _texture_crouch[0]);
-    Sprites::instance() -> get("scrooge-crouch-1", & _texture_crouch[1]);
-    Sprites::instance() -> get("scrooge-stuck", & _texture_stuck[0]);
-    Sprites::instance() -> get("scrooge-climb-0", & _texture_climb[0]);
-    Sprites::instance() -> get("scrooge-climb-1", & _texture_climb[1]);
-    Sprites::instance() -> get("scrooge-putt-0", & _texture_putt[0]);
-    Sprites::instance() -> get("scrooge-putt-1", & _texture_putt[1]);
-    Sprites::instance() -> get("scrooge-putt-2", & _texture_putt[2]);
-    Sprites::instance() -> get("scrooge-putt-3", & _texture_putt[3]);
-    Sprites::instance() -> get("scrooge-putt-4", & _texture_putt[4]);
-    Sprites::instance() -> get("scrooge-putt-5", & _texture_putt[5]);
-    Sprites::instance() -> get("scrooge-putt-fail-0", & _texture_puttfail[0]);
-    Sprites::instance() -> get("scrooge-putt-fail-1", & _texture_puttfail[1]);
-    Sprites::instance() -> get("scrooge-dying", & _texture_dying[0]);
-    Sprites::instance() -> get("scrooge-sit", & _texture_sitting[0]);
+    _sprite = Sprites::instance()->getSprite("scrooge");
+    Sprites::instance()->get("scrooge-stand", &_texture_stand[0]);
+    Sprites::instance()->get("scrooge-walk-0", &_texture_walk[0]);
+    Sprites::instance()->get("scrooge-walk-1", &_texture_walk[1]);
+    Sprites::instance()->get("scrooge-walk-2", &_texture_walk[2]);
+    Sprites::instance()->get("scrooge-jump-fall", &_texture_jump[0]);
+    Sprites::instance()->get("scrooge-bounce-0", &_texture_bounce[0]);
+    Sprites::instance()->get("scrooge-bounce-1", &_texture_bounce[1]);
+    Sprites::instance()->get("scrooge-crouch-0", &_texture_crouch[0]);
+    Sprites::instance()->get("scrooge-crouch-1", &_texture_crouch[1]);
+    Sprites::instance()->get("scrooge-stuck", &_texture_stuck[0]);
+    Sprites::instance()->get("scrooge-climb-0", &_texture_climb[0]);
+    Sprites::instance()->get("scrooge-climb-1", &_texture_climb[1]);
+    Sprites::instance()->get("scrooge-putt-0", &_texture_putt[0]);
+    Sprites::instance()->get("scrooge-putt-1", &_texture_putt[1]);
+    Sprites::instance()->get("scrooge-putt-2", &_texture_putt[2]);
+    Sprites::instance()->get("scrooge-putt-3", &_texture_putt[3]);
+    Sprites::instance()->get("scrooge-putt-4", &_texture_putt[4]);
+    Sprites::instance()->get("scrooge-putt-5", &_texture_putt[5]);
+    Sprites::instance()->get("scrooge-putt-fail-0", &_texture_puttfail[0]);
+    Sprites::instance()->get("scrooge-putt-fail-1", &_texture_puttfail[1]);
+    Sprites::instance()->get("scrooge-dying", &_texture_dying[0]);
+    Sprites::instance()->get("scrooge-sit", &_texture_sitting[0]);
 
     // this->setPixmap(_texture_stand[0]);
-
 }
 
 void Scrooge::setClimbing(bool on) {
@@ -98,24 +87,22 @@ void Scrooge::setClimbing(bool on) {
 
 void Scrooge::setInvincible(bool on) {
     _invincible = on;
-    if(on){
-        schedule("invincible", 240, [this]() {_invincible = false;}); // 4 secondi di invincibilità
+    if (on) {
+        schedule("invincible", 240, [this]() { _invincible = false; });  // 4 secondi di invincibilità
     }
 }
 
 void Scrooge::advance() {
-    if (grounded())
-        _y_vel_max = 3;
+    if (grounded()) _y_vel_max = 3;
 
-    if(_dying)
-    {
+    if (_dying) {
         move(Direction::NONE);
     }
     if (falling() && !_climbing) {
         _y_gravity = 0.18;
     }
     if (!falling()) {
-        _jumping = false; //when not falling, jumping is over
+        _jumping = false;  // when not falling, jumping is over
     }
     if (_sitting) {
         _boundingRect = QRectF(0, 0, 20, 20);
@@ -125,12 +112,9 @@ void Scrooge::advance() {
     Entity::advance();
 }
 
-bool Scrooge::midair() const {
-    return (Entity::midair() && !_climbing);
-}
+bool Scrooge::midair() const { return (Entity::midair() && !_climbing); }
 void Scrooge::jump(bool on) {
-    if (_scripted)
-        return;
+    if (_scripted) return;
 
     if (on) {
         if (!midair() && !_pogoing && !_swinging) {
@@ -144,92 +128,78 @@ void Scrooge::jump(bool on) {
 
             _jumping = true;
             // Sounds::instance()->play("ScroogeHit");
-            //Sounds::instance()->play(std::string("jump-") + (_big ? "big" : "small"));
+            // Sounds::instance()->play(std::string("jump-") + (_big ? "big" : "small"));
         }
     } else
         _y_gravity = 0.8;
 }
 
 bool Scrooge::animate() {
+    bool showSprite = (_invincible && (FRAME_COUNT / 3) % 2 == 0);
+    if (!_gizmoCinematic && !Game::instance()->GBFA()) {
+        if (!_invincible) {
+            if (midair() && !_pogoing) _animRect = &_texture_jump[0];
+            if (_pogoing) _animRect = &_texture_bounce[0];
+            if (!midair() && _pogoing && _vel.y == 0) _animRect = &_texture_bounce[1];
 
-bool showSprite = (_invincible && (FRAME_COUNT / 3) % 2 == 0);
- if (!_gizmoCinematic && !Game::instance() -> GBFA()) {
-    if (!_invincible) {
-    if (midair() && !_pogoing)
-        _animRect = & _texture_jump[0];
-    if (_pogoing)
-        _animRect = & _texture_bounce[0];
-    if (!midair() && _pogoing && _vel.y == 0)
-        _animRect = & _texture_bounce[1];
+            if (_vel.y == 0 && !_pogoing) _animRect = &_texture_stand[0];
+            if ((_vel.x > 0 || _vel.x < 0) && !midair() && !_pogoing) {
+                _animRect = &_texture_walk[(FRAME_COUNT / 9) % 4];
+            }
+            if (_vel.x == 0 && _crouch && !_pogoing && !midair())
+                //_animRect = &_texture_crouch[0];
+                _animRect = &_texture_crouch[1];
+            if (_dead || _dying || _respawning) {
+                _animRect = &_texture_dying[0];
+            }
+            if (_climbing) {
+                if (!_climbingStill) {
+                    _animRect = &_texture_climb[(FRAME_COUNT / 9) % 2];
+                } else {
+                    _animRect = &_texture_climb[0];
+                }
+            }
+            if (_swinging && !_jumping && !_pogoing && _vel.x == 0) {
+                _animRect = &_texture_putt[(FRAME_COUNT / 9) % 5];
+                // _animRect = &_texture_putt[2];
+                /* _animRect = &_texture_putt[0];
+                _animRect = &_texture_putt[1];
+                */
+            }
+            if (_launchpadAttached) {
+                _animRect = &_texture_climb[0];
+            }
 
-    if (_vel.y == 0 && !_pogoing)
-        _animRect = & _texture_stand[0];
-    if ((_vel.x > 0 || _vel.x < 0) && !midair() && !_pogoing){
+            if (_sitting) {
+                _animRect = &_texture_sitting[0];
+            }
 
-        _animRect = & _texture_walk[(FRAME_COUNT / 9) % 4];
-
-    }
-    if (_vel.x == 0 && _crouch && !_pogoing && !midair())
-        //_animRect = &_texture_crouch[0];
-        _animRect = & _texture_crouch[1];
-    if (_dead || _dying || _respawning) {
-        _animRect = & _texture_dying[0];
-    }
-    if (_climbing) {
-        if (!_climbingStill) {
-            _animRect = & _texture_climb[(FRAME_COUNT / 9) % 2];
         } else {
-            _animRect = & _texture_climb[0];
+            if (midair() && !_pogoing) _animRect = showSprite ? &_texture_jump[0] : nullptr;
+            if (_pogoing) _animRect = showSprite ? &_texture_bounce[0] : nullptr;
+            if (!midair() && _pogoing && _vel.y == 0) _animRect = showSprite ? &_texture_bounce[1] : nullptr;
+
+            if (_vel.y == 0 && !_pogoing) _animRect = showSprite ? &_texture_stand[0] : nullptr;
+            if ((_vel.x > 0 || _vel.x < 0) && !midair() && !_pogoing) _animRect = showSprite ? &_texture_walk[(FRAME_COUNT / 9) % 4] : nullptr;
+            if (_vel.x == 0 && _crouch && !_pogoing && !midair())
+                //_animRect = &_texture_crouch[0];
+                _animRect = showSprite ? &_texture_crouch[1] : nullptr;
+            if (_dead || _dying || _respawning) {
+                _animRect = showSprite ? &_texture_dying[0] : nullptr;
+            }
+            if (_climbing) {
+                if (!_climbingStill) {
+                    _animRect = showSprite ? &_texture_climb[(FRAME_COUNT / 9) % 2] : nullptr;
+                } else {
+                    _animRect = showSprite ? &_texture_climb[0] : nullptr;
+                }
+            }
+            if (_swinging && !_jumping && !_pogoing && _vel.x == 0) {
+                _animRect = showSprite ? &_texture_putt[(FRAME_COUNT / 9) % 5] : nullptr;
+            }
         }
     }
-    if (_swinging && !_jumping && !_pogoing && _vel.x == 0) {
-        _animRect = & _texture_putt[(FRAME_COUNT / 9) % 5];
-        // _animRect = &_texture_putt[2];
-        /* _animRect = &_texture_putt[0];
-        _animRect = &_texture_putt[1];
-        */
-    }
-     if (_launchpadAttached) {
-            _animRect = & _texture_climb[0];
-        }
-
-        if (_sitting) {
-            _animRect = & _texture_sitting[0];
-        }
-
-
-} else {
-    if (midair() && !_pogoing)
-        _animRect = showSprite ? & _texture_jump[0] : nullptr;
-    if (_pogoing)
-        _animRect = showSprite ? & _texture_bounce[0] : nullptr;
-    if (!midair() && _pogoing && _vel.y == 0)
-        _animRect = showSprite ? & _texture_bounce[1] : nullptr;
-
-    if (_vel.y == 0 && !_pogoing)
-        _animRect = showSprite ? & _texture_stand[0] : nullptr;
-    if ((_vel.x > 0 || _vel.x < 0) && !midair() && !_pogoing)
-        _animRect = showSprite ? & _texture_walk[(FRAME_COUNT / 9) % 4] : nullptr;
-    if (_vel.x == 0 && _crouch && !_pogoing && !midair())
-        //_animRect = &_texture_crouch[0];
-        _animRect = showSprite ? & _texture_crouch[1] : nullptr;
-    if (_dead || _dying || _respawning) {
-        _animRect = showSprite ? & _texture_dying[0] : nullptr;
-    }
-    if (_climbing) {
-        if (!_climbingStill) {
-            _animRect = showSprite ? & _texture_climb[(FRAME_COUNT / 9) % 2] : nullptr;
-        } else {
-            _animRect = showSprite ? & _texture_climb[0] : nullptr;
-        }
-    }
-    if (_swinging && !_jumping && !_pogoing && _vel.x == 0) {
-        _animRect = showSprite ? & _texture_putt[(FRAME_COUNT / 9) % 5] : nullptr;
-    }
-}
-
-}
-return 1;
+    return 1;
 }
 /*else if (_vel.x == 0 && !_crouch)
             _animRect = &_texture_stand[0];
@@ -239,26 +209,26 @@ return 1;
 
     */
 
-bool Scrooge::hit(Object * what, Direction fromDir) {
-    StaticObject * sobj = what -> to < StaticObject * > ();
-    Enemy * enemy = what -> to < Enemy * > ();
-    Block * block = what -> to < Block * > ();
-    Spawnable * spawnable = what -> to < Spawnable * > ();
+bool Scrooge::hit(Object* what, Direction fromDir) {
+    StaticObject* sobj = what->to<StaticObject*>();
+    Enemy* enemy = what->to<Enemy*>();
+    Block* block = what->to<Block*>();
+    Spawnable* spawnable = what->to<Spawnable*>();
 
     if (_grab) {
-        if (sobj && sobj -> _type == StaticObject::Type::ROPE) {
+        if (sobj && sobj->_type == StaticObject::Type::ROPE) {
             setClimbing(true);
-            setX(sobj -> pos().x() - 0.66 * TILE);
+            setX(sobj->pos().x() - 0.66 * TILE);
         }
     }
-    if (sobj && sobj -> _type == StaticObject::Type::SPIKE && !_pogoing) {
+    if (sobj && sobj->_type == StaticObject::Type::SPIKE && !_pogoing) {
         lifeDown();
-        Sounds::instance() -> play("hit");
+        Sounds::instance()->play("hit");
     }
 
-    if (sobj && sobj -> _type == StaticObject::Type::DEATHLINE) {
+    if (sobj && sobj->_type == StaticObject::Type::DEATHLINE) {
         die();
-        Sounds::instance() -> play("hit");
+        Sounds::instance()->play("hit");
     }
 
     /*if(enemy  && !_pogoing){
@@ -269,32 +239,33 @@ bool Scrooge::hit(Object * what, Direction fromDir) {
     }*/
 
     if (enemy && ((fromDir == Direction::DOWN && _pogoing) || _invincible)) {
-        if (!_invincible) {
+        if (!_invincible &&
+            !(dynamic_cast<Rat*>(enemy) && dynamic_cast<Rat*>(enemy)->recentlyHit())) {  // Se Rat è recenltyHit, col pogoing ci devi passare attraverso e non
+            // rimbalzare perché non stai facendo danno
             velAdd(Vec2Df(0, -15.5));
             _y_gravity = 0.065;
         }
-
-        enemy -> die();
-
-        if (chanceCalculator(1)) { // 100% probabilità per testing
-            new Spawnable(enemy -> pos(), TILE, TILE, Spawnable::Type::ICE_CREAM);
+        if (!dynamic_cast<Rat*>(enemy)) {
+            enemy->die();
+            if (chanceCalculator(0.5)) {  // 100% probabilità per testing
+                new Spawnable(enemy->pos(), TILE, TILE, Spawnable::Type::ICE_CREAM);
+            }
         }
     }
 
     if (block && fromDir == Direction::DOWN && _pogoing) {
         velAdd(Vec2Df(0, -15.5));
         _y_gravity = 0.065;
-        Sounds::instance() -> play("hit");
+        Sounds::instance()->play("hit");
     }
 
-    if(sobj && sobj->_type == StaticObject::Type::ACTIVATOR && sobj->activator_type == StaticObject::Activator::CAMERA){
-        if(fromDir == Direction::UP){
+    if (sobj && sobj->_type == StaticObject::Type::ACTIVATOR && sobj->activator_type == StaticObject::Activator::CAMERA) {
+        if (fromDir == Direction::UP) {
             Game::instance()->moveUp(true);
-            schedule("stop", 22, [this](){Game::instance()->moveUp(false);});
-        }
-        else if(fromDir == Direction::DOWN){
+            schedule("stop", 22, [this]() { Game::instance()->moveUp(false); });
+        } else if (fromDir == Direction::DOWN) {
             Game::instance()->moveDown(true);
-            schedule("stop", 25, [this](){Game::instance()->moveDown(false);});
+            schedule("stop", 25, [this]() { Game::instance()->moveDown(false); });
         }
     }
 
@@ -302,29 +273,23 @@ bool Scrooge::hit(Object * what, Direction fromDir) {
 }
 
 void Scrooge::crouch(bool on) {
-    if (!_jumping && !_scripted)
-        _crouch = on;
-
+    if (!_jumping && !_scripted) _crouch = on;
 }
 
 void Scrooge::grab(bool on) {
-    //Vedi quale if ci andrebbe
+    // Vedi quale if ci andrebbe
     _grab = on;
-    schedule("grab", 100, [this]() {
-        _grab = false;
-    });
+    schedule("grab", 100, [this]() { _grab = false; });
 }
 
 void Scrooge::die() {
-    if (_dying)
-        return;
+    if (_dying) return;
     _dying = true;
     dieAnimation();
     schedule("die", 50, [this]() {
         _dying = false;
         _dead = true;
     });
-
 }
 
 void Scrooge::dieAnimation() {
@@ -332,14 +297,11 @@ void Scrooge::dieAnimation() {
     _x_dir = Direction::NONE;
     _vel.y = -3;
     _collidable = false;
-     schedule("stop", 50, [this]() {
-       move(Direction::NONE);
-    });
+    schedule("stop", 50, [this]() { move(Direction::NONE); });
 }
 
 void Scrooge::lifeDown() {
-    if (_recentlyHit)
-        return;
+    if (_recentlyHit) return;
 
     if (_hp > 1) {
         _hp--;
@@ -362,10 +324,7 @@ void Scrooge::lifeDown() {
 void Scrooge::recentlyHit(bool on) {
     _recentlyHit = on;
 
-    if (on)
-        schedule("flash", 10, [this]() {
-            _recentlyHit = false;
-        });
+    if (on) schedule("flash", 60, [this]() { _recentlyHit = false; });
 }
 
 void Scrooge::climbingPhysics() {
@@ -379,20 +338,14 @@ void Scrooge::climbingPhysics() {
 void Scrooge::startBossFightAnimation() {
     _y_gravity = 0;
     _x_dir = Direction::LEFT;
-    _vel = {
-        -1,
-        0
-    };
+    _vel = {-1, 0};
     _x_acc = 0;
     schedule("stop", 83, [this]() {
-        Game::instance() -> setBossFightAnim(false);
-        _vel = {
-            0,
-            0
-        };
+        Game::instance()->setBossFightAnim(false);
+        _vel = {0, 0};
         defaultPhysics();
         new StaticObject(QPointF(79 * TILE, 82 * TILE), TILE, 2 * TILE, StaticObject::Type::RAT_WALL);
-        //Game::instance()->setSceneRect(64*TILE, 73.5*TILE, 16*TILE, 11*TILE); //Cercare di capire.
+        Game::instance()->setSceneRect(64*TILE, 73.5*TILE, 16*TILE, 11*TILE); //Cercare di capire.
     });
 }
 
@@ -403,16 +356,15 @@ void Scrooge::respawn() {
     _pogoing = false;
     _swinging = false;
     _grab = false;
-    schedule("hold", 100, [this]() {_respawningGameFlag = false;});
+    schedule("hold", 100, [this]() { _respawningGameFlag = false; });
     defaultPhysics();
 
-    if(Game::instance()->bossFightStatus()){
+    if (Game::instance()->bossFightStatus()) {
         setPos(_ratCheckpoint);
-    }
-    else{
+    } else {
         setPos(_spawningPoint);
     }
-    _hp = 1; // da mettere a 6, per ora è testing
+    _hp = 1;  // da mettere a 6, per ora è testing
 }
 
 void Scrooge::setGizmoCinematicStatus(bool on) {
@@ -420,25 +372,20 @@ void Scrooge::setGizmoCinematicStatus(bool on) {
 
     if (on) {
         _x_dir = Direction::NONE;
-        _vel = {
-            0,
-            0
-        };
+        _vel = {0, 0};
         _y_gravity = 0;
 
         schedule("playable", 200, [this]() {
             _gizmoCinematic = false;
             defaultPhysics();
             new StaticObject(QPointF(120 * TILE, 65 * TILE), 0, 7 * TILE, StaticObject::Type::ROPE);
-
         });
     }
 }
 
 void Scrooge::pogo(bool on) {
-
     if (on) {
-        if (!midair() && _prev_vel.y!=0) {
+        if (!midair() && _prev_vel.y != 0) {
             if (std::abs(_vel.x) <= 2) {
                 velAdd(Vec2Df(0, -3.5));
                 _y_gravity = 0.054;
@@ -448,23 +395,21 @@ void Scrooge::pogo(bool on) {
             }
 
             _pogoing = true;
-            Sounds::instance() -> play("pogoing");
+            Sounds::instance()->play("pogoing");
         } else if (midair())
             _pogoing = true;
 
     } else {
         _y_gravity = 0.8;
         _pogoing = false;
-
     }
 }
 
 void Scrooge::swing(bool on) {
     if (on) {
-        if ( _vel.x == 0 && _vel.y==0) {
+        if (_vel.x == 0 && _vel.y == 0) {
             _swinging = true;
-
         }
-    } else _swinging = false;
+    } else
+        _swinging = false;
 }
-
