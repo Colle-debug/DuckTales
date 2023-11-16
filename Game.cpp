@@ -19,6 +19,7 @@
 #include "Sounds.h"
 #include "Menu.h"
 #include <QThread>
+#include <QPalette>
 using namespace DT;
 
 Game* Game::_uniqueInstance = 0;
@@ -61,6 +62,7 @@ Game::Game(QGraphicsView *parent) : QGraphicsView(parent)
 
 void Game::reset()
 {
+
     _state = GameState::READY;
     _engine.stop();
     _world->clear();
@@ -68,6 +70,7 @@ void Game::reset()
     _hud->setVisible(false);
     _hud->reset();
     _player = 0;
+    _builder = 0;
     beagleActive = 1;
     _arrowPos = 0;
     _counter_cam=0;
@@ -94,6 +97,7 @@ void Game::reset()
 
 void Game::welcome()
 {
+
     if (_state == GameState::READY)
     {
         _state = GameState::TITLE_SCREEN;
@@ -116,7 +120,6 @@ void Game::levelSelection()
 
 void Game::gizmo()
 {
-      
     for (auto item: _world -> items()) {
         Gizmoduck * gizmo = dynamic_cast < Gizmoduck * > (item);
         if(gizmo){
@@ -125,7 +128,6 @@ void Game::gizmo()
             
         }
     }
-  
 }
 
 void Game::bossFight()
@@ -172,19 +174,11 @@ void Game::nextFrame() {
                 //obj->paint();			 // graphics, automatically called by Qt
             }
         }
-
         return;
-
     }
-
-
-
-
-
     // process inputs	 (PLAYER CONTROLS)
-
-    if(!_player->gizmoduckCinematic() && !_player->launchpadAttachment() && !_bossFightAnimation && !_player->respawningGF() && !_transitioning){ // Commandi di movimento accessibili solo se nessuna delle due è True
-        if (!_player -> climbing()) {
+    if(!_player->gizmoduckCinematic() && !_player->launchpadAttachment() && !_bossFightAnimation && !_player->respawningGF() && !_transitioning){ // Commandi di movimento accessibili solo se nessuna è True
+        if (!_player -> climbing()) { // durante climbing non tutti i movimenti sono consentiti
             if (_left_pressed && _right_pressed)
                 _player -> move(Direction::NONE);
             else if (_left_pressed || _player -> launchpadAttachment())
@@ -276,7 +270,14 @@ void Game::nextFrame() {
     }
 
     // @TODO update game state (game over, level cleared, etc.)
-   
+
+    //centerOn(_player->pos());
+    centerView();
+    update();
+
+    if(FRAME_COUNT % 60 == 0){
+        _hud->subTime();
+    }
 
     if (_player -> dead()) {
         gameOver();
@@ -288,9 +289,7 @@ void Game::nextFrame() {
     if (_state == GameState::GAME_OVER || _state == GameState::GAME_CLEAR || _state == GameState::LIFT_TO_DUCKBURG) {
         gameEnd();
     }
-    //centerOn(_player->pos());
-    centerView();
-       update();
+
 }
 
 void Game::keyPressEvent(QKeyEvent * e) {
@@ -431,7 +430,6 @@ void Game::keyReleaseEvent(QKeyEvent* e)
     }
 }
 
-
 void Game::wheelEvent(QWheelEvent* e)
 {
 
@@ -475,38 +473,18 @@ void Game::beakleyDrop()
 
 void Game::gameEnd()
 {
-    //std::cout<<_player->dead();
-    if (_state == GameState::GAME_OVER){
-    }
-    if (_state != GameState::GAME_CLEAR && _state != GameState::GAME_OVER && _state != GameState::LIFT_TO_DUCKBURG)
+    if (_state != GameState::GAME_CLEAR && _state != GameState::GAME_OVER)
         return;
 
-    _engine.stop();
-    _hud->togglePause();
-    //stopMusic();
-    //Sounds::instance()->reset();
     if (_state == GameState::GAME_CLEAR)
-        std::cout<<"Game Cleared";
-    //playMusic("princessmusic");
+        std::cout << "The Moon Level Cleared";
     else if (_state == GameState::GAME_OVER)
-        //Sounds::instance()->play("gameover");
-        std::cout<<"Game Over";
-
-    if (_state == GameState::GAME_CLEAR)
-    {/*
-        _player->setX(7 * TILE);
-        _player->resetAfterScript();*/
+    {
+        std::cout << "Game Over";
+        reset();
     }
-    else{
-        _world->clear();
-    }
-
-    // vedi cosa fa in Supermario-2021
-    //screen->setY(-TILE * 12.0);
-
-    //setSceneRect(QRectF());
-    //centerOn(0, 0);
 }
+
 void Game::centerView() {
    
  
@@ -571,6 +549,11 @@ void Game::restoreLevelMusic()
 {
     if (!_current_music_loop.empty())
         playMusic(_level_music_loop);
+}
+
+void Game::timeExpired()
+{
+    _player->die();
 }
 
 

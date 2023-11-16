@@ -100,9 +100,11 @@ public slots:
     void nextFrame();
     void gameEnd();
     void playMusic(const std::string& name);
-		void stopMusic(bool resumable = false);
-		void resumeMusic();
-		void restoreLevelMusic();
+    void stopMusic(bool resumable = false);
+    void resumeMusic();
+    void restoreLevelMusic();
+    void timeExpired();
+
    
 };
 #endif

@@ -40,7 +40,7 @@ Scrooge::Scrooge(QPointF pos): Entity(pos, 26, 27) {
     _mirror_x_dir = Direction::LEFT;
 
 
-    _hp = 150;
+    _hp = 1;
     _recentlyHit = 0;
     _key = true;
     _remote = true;
@@ -324,6 +324,7 @@ void Scrooge::die() {
         _dying = false;
         _dead = true;
     });
+
 }
 
 void Scrooge::dieAnimation() {
