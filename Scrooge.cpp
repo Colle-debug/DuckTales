@@ -94,6 +94,8 @@ void Scrooge::setInvincible(bool on) {
 }
 
 void Scrooge::advance() {
+
+
     if (grounded()) _y_vel_max = 3;
 
     if (_dying) {
@@ -136,9 +138,10 @@ void Scrooge::jump(bool on) {
 }
 
 bool Scrooge::animate() {
-    bool showSprite = (_invincible && (FRAME_COUNT / 3) % 2 == 0);
+    bool showSprite = ((_invincible || _recentlyHit) && (FRAME_COUNT / 3) % 2 == 0);
     if (!_gizmoCinematic && !Game::instance()->GBFA()) {
-        if (!_invincible) {
+        if (!_invincible && !_recentlyHit) {
+
             if (midair() && !_pogoing) _animRect = &_texture_jump[0];
             if (_pogoing) _animRect = &_texture_bounce[0];
             if (!midair() && _pogoing && _vel.y == 0) _animRect = &_texture_bounce[1];
