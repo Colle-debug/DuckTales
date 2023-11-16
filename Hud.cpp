@@ -19,7 +19,7 @@ HUD::HUD(int w, int h, QWidget* parent) : QWidget(parent)
 
 void HUD::start()
 {
-    _time = 5;
+    _time = 600;
 }
 
 void HUD::reset()
