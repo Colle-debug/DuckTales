@@ -62,6 +62,7 @@ static QRect _greenGate(172, 360, 32, 80);
 static QRect _titleScreen(0, 0, 256, 224);
 static QRect _titleArrow(258, 111, 5, 8);
 static QRect _level(0, 0, 256, 224);
+static QRect _cheese(32,48,16,16);
 static QRect _nephews(25, 226, 17, 22);
 static QRect _levelArrow(260, 3, 8, 8);
 static QRect _winkingScrooge(260, 2, 34, 48);
@@ -105,7 +106,7 @@ Sprites::Sprites()
     level = loadTexture(":/sprites/levelSelection.png", QColor(0,210,249));
     rat = loadTexture(":/sprites/bosses.png", QColor(164,224,160));
     beakley = loadTexture(":/sprites/npcs.png", QColor(164, 224, 160));
-
+    cheese = loadTexture(":/sprites/itemsfinal.png", QColor(255,0,255));
 }
 
 QPixmap* Sprites::getSprite(const std::string& id)
@@ -148,6 +149,8 @@ QPixmap* Sprites::getSprite(const std::string& id)
         return &rat;
     else if (id=="beakley")
         return &beakley;
+    else if (id=="cheese")
+        return &cheese;
 
     else
         return 0;
@@ -410,6 +413,10 @@ void Sprites::get(const std::string & id, QRect animOutput[])
     else if(id=="beakley-2")
     {
         animOutput[0] = moveBy(_beakley, 24,0 , 2,0);
+    }
+    else if(id=="cheese")
+    {
+        animOutput[0] = moveBy(_cheese,0,0);
     }
     else
     {

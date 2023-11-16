@@ -29,6 +29,7 @@ private:
     QPixmap level;
     QPixmap rat;
     QPixmap beakley;
+    QPixmap cheese;
 
 
 
