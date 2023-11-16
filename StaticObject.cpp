@@ -65,7 +65,7 @@ bool StaticObject::hit(Object* what, Direction fromDir)
 
     if(scrooge && _type == Type::ACTIVATOR){
         _hit = true;
-        if(activator_type == Activator::GIZMO){
+        if(activator_type == Activator::GIZMO && scrooge->hasTheRemote()){
             Game::instance()->gizmo();
         }
         else if(activator_type == Activator::BOSS){
