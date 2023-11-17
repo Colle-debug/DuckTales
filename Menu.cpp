@@ -49,8 +49,8 @@ Level::Level():Object(QPoint(0, 0), TILE * 30, TILE * 30)
     QGraphicsPixmapItem* Louie = new QGraphicsPixmapItem(fullPixmap.copy(25, 226, 17, 22));
     QGraphicsPixmapItem* Hewey = new QGraphicsPixmapItem(fullPixmap.copy(45, 226, 17, 22));
     QGraphicsPixmapItem* Dewey = new QGraphicsPixmapItem(fullPixmap.copy(65, 226, 17, 22));
-    QGraphicsPixmapItem* iconLeft = new QGraphicsPixmapItem(fullPixmap.copy(262, 154, 14, 10));
-    QGraphicsPixmapItem* iconRight = new QGraphicsPixmapItem(fullPixmap.copy(262, 154, 14, 10));
+    iconLeft = new QGraphicsPixmapItem(fullPixmap.copy(262, 154, 14, 10));
+    iconRight = new QGraphicsPixmapItem(fullPixmap.copy(262, 154, 14, 10));
 
     Louie->setPos(QPoint(9*TILE, 12.3*TILE));
     Hewey->setPos(QPoint(10*TILE + 1, 12.3*TILE));
@@ -66,14 +66,28 @@ Level::Level():Object(QPoint(0, 0), TILE * 30, TILE * 30)
     Game::instance()->world()->addItem(iconLeft);
     Game::instance()->world()->addItem(iconRight);
 
-    _arrow = new Arrow(QPoint(10*TILE, 2.5*TILE), 8, 8, Arrow::Type::VERTICAL);
+    new Arrow(QPoint(10*TILE, 2.5*TILE), 8, 8, Arrow::Type::VERTICAL);
+    _arrow = new Arrow(QPoint(4.5*TILE +1, 8.5*TILE + 1), 5, 8, Arrow::Type::HORIZONTAL);
 
 }
 
 void Level::advance()
 {
+    if(_arrow->_pos != 0){
+        iconLeft->setVisible(false);
+        iconRight->setVisible(false);
+    }else{
+        iconLeft->setVisible(true);
+        iconRight->setVisible(true);
+    }
     return;
 }
+
+bool Level::animate(){
+    return true;
+}
+
+
 //Arrow::Arrow() : Object(QPoint(32, 129), 5, 8)
 Arrow::Arrow(QPointF pos, double width, double height, Type type) : Object(pos, width, height)
 {
@@ -93,19 +107,29 @@ Arrow::Arrow(QPointF pos, double width, double height, Type type) : Object(pos, 
 }
 
 
-void Arrow::advance()
-{
-    if(Game::instance()->state() == Game::GameState::TITLE_SCREEN){
+void Arrow::advance() {
     int newPos = Game::instance()->arrowPos();
-    if(prev_pos == newPos){
-        return;
-    }else{
-    if(newPos == 2 || _pos == 2){
-            setPos((x() + (newPos - _pos) * TILE * 4), y());}
-    else{
-        setPos((x() + (newPos - _pos) * TILE * 3), y());}
-    prev_pos = _pos;
-    _pos = newPos;
+    if (_type == Type::HORIZONTAL) {
+        if (Game::instance()->state() == Game::GameState::TITLE_SCREEN) {
+            if (prev_pos == newPos) {
+                return;
+            } else {
+                if (newPos == 2 || _pos == 2) {
+                    setPos((x() + (newPos - _pos) * TILE * 4), y());
+                } else {
+                    setPos((x() + (newPos - _pos) * TILE * 3), y());
+                }
+                prev_pos = _pos;
+                _pos = newPos;
+            }
+        } else if (Game::instance()->state() == Game::GameState::LEVEL_SELECTION) {
+            if (prev_pos == newPos) {
+                return;
+            } else {
+                setPos(x(), y() - (newPos - _pos) * TILE / 2);
+                prev_pos = _pos;
+                _pos = newPos;
+            }
         }
     }
 }

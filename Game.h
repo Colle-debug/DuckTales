@@ -54,6 +54,7 @@ private:
     int _arrowPos = 0;
     int startingX = 0;
     int startingY = 64;
+    short int difficulty;
 
     // singleton
     static Game* _uniqueInstance;
@@ -93,7 +94,8 @@ public:
     void centerView();
     void moveUp(bool on){_up_pressed = on;}
     void moveDown(bool on){_down_pressed = on;}
-
+    double diff2chance();
+    short int diff(){return difficulty;}
 public slots:
     void reset();
     void start();

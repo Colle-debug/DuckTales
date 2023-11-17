@@ -72,6 +72,7 @@ void Game::reset()
     _player = 0;
     _builder = 0;
     beagleActive = 1;
+    difficulty = 0;
     _arrowPos = 0;
     _counter_cam=0;
     _bossFight = 0;
@@ -115,6 +116,7 @@ void Game::levelSelection()
     _state = GameState::LEVEL_SELECTION;
     _world->clear();
     Loader::load("Level");
+    _arrowPos = 0;
     _player = _builder->load("levelSelection");
 }
 
@@ -158,6 +160,7 @@ void Game::start()
 }
 
 void Game::nextFrame() {
+
     FRAME_COUNT++;
     if (_state == GameState::TITLE_SCREEN || _state == GameState::LEVEL_SELECTION){ // era if (_state != GameState::RUNNING && _state != GameState::TITLE_SCREEN), non ne capisco il senso, da vedere
 
@@ -300,8 +303,9 @@ void Game::keyPressEvent(QKeyEvent * e) {
     // Game controls
     if (e -> key() == Qt::Key_S){
         if(_state == GameState::TITLE_SCREEN){
+            difficulty = _arrowPos;
             levelSelection();}
-        else if(_state == GameState::LEVEL_SELECTION){
+        else if(_state == GameState::LEVEL_SELECTION && _arrowPos == 0){
             start();
         }
     }
@@ -383,6 +387,12 @@ void Game::keyPressEvent(QKeyEvent * e) {
         } else if (e -> key() == Qt::Key_Right && _arrowPos < 2) {
             _arrowPos++;
         }
+    }else if (_state == GameState::LEVEL_SELECTION) {
+        if (e -> key() == Qt::Key_Up && _arrowPos <4) {
+            _arrowPos++;
+        } else if (e -> key() == Qt::Key_Down && _arrowPos>0 ) {
+            _arrowPos--;
+        }
     }
 }
 
@@ -393,7 +403,7 @@ void Game::keyReleaseEvent(QKeyEvent* e)
         return;
 
     // player controls
-    if ((_state == GameState::RUNNING || _state == GameState::TITLE_SCREEN) && _player)
+    if ((_state == GameState::RUNNING || _state == GameState::TITLE_SCREEN || _state == GameState::LEVEL_SELECTION) && _player)
     {
         if (e->key() == Qt::Key_Left)
             _left_pressed = false;
@@ -492,10 +502,25 @@ void Game::centerView() {
  
     qreal fixedY = 1024; //1300 per rat
     qreal playerX = _player->x();
-    qreal newY = fixedY + _counter_cam; //in questo punto viene aggiornato anche il valore della nuova 
+    qreal newY = fixedY + _counter_cam; //in questo punto viene aggiornato anche il valore della nuova
 
-  
-   centerOn(playerX,newY);
+
+    centerOn(playerX,newY);
+}
+
+double Game::diff2chance()
+{
+    switch(difficulty){
+    case 0:
+        return 0.9;
+        break;
+    case 1:
+        return 0.5;
+        break;
+    case 2:
+        return 0.1;
+        break;
+    }
 }
 
 void Game::cameraChangeY(Direction fromDir) {

@@ -42,11 +42,13 @@ class DT::Level : public Object
 {
 private:
     Arrow* _arrow;
+    QGraphicsPixmapItem* iconLeft;
+    QGraphicsPixmapItem* iconRight;
 public:
     Level();
 
     virtual void advance() override;
-    virtual bool animate() override {}
+    virtual bool animate() override;
     virtual bool hit(Object* what, Direction fromDir) override { return true; }
     virtual std::string name() override { return "Level"; }
 
@@ -60,6 +62,8 @@ public:
 
 private:
     friend class Title;
+    friend class Level;
+
 
     QRect _anim[2];
     int _pos;
