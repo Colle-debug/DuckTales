@@ -30,7 +30,7 @@ Scrooge::Scrooge(QPointF pos) : Entity(pos, 26, 27) {
     _prev_x_dir = Direction::RIGHT;
     _mirror_x_dir = Direction::LEFT;
 
-    _hp = 3;
+    _hp = 6; // Sono 3 full HP, i numeri dispari rappresentano la mezza vita
     _recentlyHit = 0;
     _key = true;
     _remote = true;
@@ -251,7 +251,7 @@ bool Scrooge::hit(Object* what, Direction fromDir) {
         }
         if (!dynamic_cast<Rat*>(enemy)) {
             enemy->die();
-            if (chanceCalculator(0.5)) {  // 100% probabilità per testing
+            if (chanceCalculator(Game::instance()->diff2chance())) {  // 100% probabilità per testing
                 new Spawnable(enemy->pos(), TILE, TILE, Spawnable::Type::ICE_CREAM);
             }
         }
@@ -307,8 +307,12 @@ void Scrooge::dieAnimation() {
 void Scrooge::lifeDown() {
     if (_recentlyHit) return;
 
-    if (_hp > 1) {
-        _hp--;
+    if ((_hp > 1 && !Game::instance()->diff()) || (_hp > 2 && (Game::instance()->diff() == 1 || Game::instance()->diff() == 2))) {
+        if(!Game::instance()->diff()){ // Se difficoltà è easy: si perde mezzo hp, in medium e hard se ne perde uno intero
+            _hp--;}
+        else{
+            _hp -= 2;
+        }
         recentlyHit(true);
     } else if (_lives > 1) {
         _lives--;
@@ -370,7 +374,7 @@ void Scrooge::respawn() {
     } else {
         setPos(_spawningPoint);
     }
-    _hp = 1;  // da mettere a 6, per ora è testing
+    _hp = 6;  // da mettere a 6, per ora è testing
 }
 
 void Scrooge::setGizmoCinematicStatus(bool on) {
