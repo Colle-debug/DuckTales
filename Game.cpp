@@ -81,6 +81,8 @@ void Game::reset()
     _right_pressed = false;
     _up_pressed = false;
     _down_pressed = false;
+    _pogo_pressed = false;
+    _pogo_released = false;
     _jump_pressed = false;
     _jump_released = false;
     _crouch_pressed = false;
@@ -212,16 +214,17 @@ void Game::nextFrame() {
 
         } else {
             if (_down_pressed && _up_pressed) {
-                std::cout << "if(_down_pressed && _up_pressed)\n";
-                std::cout.flush();
+                /*std::cout << "if(_down_pressed && _up_pressed)\n";
+                std::cout.flush();*/
                 _player -> move(Direction::NONE);
             } else if (_up_pressed) {
-                std::cout << "else if(_up_pressed)\n";
-                std::cout.flush();
+                /*std::cout << "else if(_up_pressed)\n";
+                std::cout.flush();*/
                 _player -> move(Direction::UP);
             } else if (_down_pressed) {
+                /*
                 std::cout << "else if(_down_pressed)\n";
-                std::cout.flush();
+                std::cout.flush();*/
                 _player -> move(Direction::DOWN);
             } else
                 _player -> move(Direction::NONE);
@@ -273,12 +276,16 @@ void Game::nextFrame() {
     }
 
     //centerOn(_player->pos()); for Debugging
+
     if(!_player->inRatPit()){
         centerView();}
     else{
         centerOn(72*TILE, 79*TILE); // Durante la boss fight, camera fissa nel pit
     }
+
     update();
+    std::cout<<_player->inRatPit()<<"\n";
+    std::cout.flush();
 
     if(FRAME_COUNT % 60 == 0){
         _hud->subTime();

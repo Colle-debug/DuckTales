@@ -96,6 +96,7 @@ public:
     void moveDown(bool on){_down_pressed = on;}
     double diff2chance();
     short int diff(){return difficulty;}
+    void setCounterCam(qreal value){ _counter_cam = value;}
 public slots:
     void reset();
     void start();

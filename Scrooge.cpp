@@ -31,6 +31,7 @@ Scrooge::Scrooge(QPointF pos) : Entity(pos, 26, 27) {
     _mirror_x_dir = Direction::LEFT;
 
     _hp = 6; // Sono 3 full HP, i numeri dispari rappresentano la mezza vita
+    _lives = 3;
     _recentlyHit = 0;
     _key = true;
     _remote = true;
@@ -360,20 +361,26 @@ void Scrooge::startBossFightAnimation() {
 
 void Scrooge::respawn() {
     _invincible = false;
-    _recentlyHit = false;
+    _recentlyHit = true;
     _respawning = false;
     _pogoing = false;
     _swinging = false;
     _grab = false;
-    schedule("hold", 100, [this]() { _respawningGameFlag = false; });
+    schedule("hold", 100, [this]() { _respawningGameFlag = false; _recentlyHit = false;}); //_recentlyHit = true è solo per l'animazione di flashing
     defaultPhysics();
 
     if (Game::instance()->bossFightStatus()) {
         _inRatPit = false;
-        setPos(_ratCheckpoint);
-    } else {
-        setPos(_spawningPoint);
+        _respawningPoint = _ratCheckpoint;
+    }/*else if(Game::instance()->LPCheckPoint()){
+        Game::instance()->setCounterCam(-720); // Camera deve tornare giù
+        _respawningPoint = _launchpadCheckpoint;
+    }*/ else {
+        Game::instance()->setCounterCam(0); // Camera deve tornare giù
+        _respawningPoint = _spawningPoint;
     }
+    setPos(_respawningPoint);
+
     _hp = 6;  // da mettere a 6, per ora è testing
 }
 

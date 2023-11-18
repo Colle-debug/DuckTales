@@ -50,10 +50,12 @@ protected:
 
     bool _recentlyHit;
     int _hp;
-    int _lives = 2; // 3 vite per partita
+    int _lives; // 3 vite per partita
     QPointF _spawningPoint = QPointF(3* TILE, 67*TILE);
     QPointF _ratCheckpoint = QPointF(83* TILE, 80*TILE);
     QPointF _launchpadCheckpoint = QPointF(3* TILE, 67*TILE);
+
+    QPointF _respawningPoint = _spawningPoint;
     double _score = 0;
     friend class Launchpad;
 
@@ -92,7 +94,8 @@ public:
     // Utilities per "_inRatPit"
     bool inRatPit(){return _inRatPit;}
     void setRatPit(bool on){_inRatPit = on;}
-
+    
+    QPointF respawningPoint(){return _respawningPoint;}
 
     // Altri metodi
 
