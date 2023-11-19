@@ -42,11 +42,11 @@ protected:
     bool _remote;
     bool _respawning;
     bool _launchpadAttached;
-    bool _duckburg; // Has Scrooge arrived in Duckburg after getting a lift from Launchpad McQuack?
     bool _gizmoCinematic;
     bool _sitting;
     bool _respawningGameFlag;
     bool _inRatPit;
+    bool _bye;
 
     bool _recentlyHit;
     int _hp;
@@ -107,7 +107,6 @@ public:
     void climbingPhysics();
     void startBossFightAnimation();
     bool launchpadAttachment(){return _launchpadAttached;}
-    bool duckburg(){return _duckburg;}
     void setSitting(bool on){_sitting = on;}
     void respawn();;
     bool respawningGF(){return _respawningGameFlag;}

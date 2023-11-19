@@ -14,7 +14,7 @@ class DT::StaticObject : public Object
 {
     public:
     enum class Type{TERRAIN, ROPE, SPIKE, GATE, BUMPER, DEATHLINE, GREEN_GATE, ACTIVATOR, RAT_WALL};
-    enum class Activator{FLOOR, BOSS, GIZMO, CAMERA, BEAKLEY};
+    enum class Activator{FLOOR, BOSS, GIZMO, CAMERA, BEAKLEY, EVY};
 
     protected:
         QRect _texture_green_gate[1];

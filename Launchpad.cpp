@@ -30,7 +30,7 @@ bool Launchpad::hit(Object *what, Direction fromDir)
 {
     Scrooge* scrooge = dynamic_cast<Scrooge*>(what);
     if(scrooge && !_flying){
-        flyingAnimation(scrooge);
+        Game::instance()->setMessage(Game::Message::LAUNCHPAD);
     }
     return 0;
 }
@@ -53,10 +53,6 @@ void Launchpad::flyingAnimation(Scrooge* scrooge)
     scrooge->_x_vel_max = 1,
     scrooge->_vel = {-_x_vel_max, 0};
     velAdd(Vec2Df(-_x_vel_max, 0));
-
-    schedule("duckburg", 220, [ scrooge](){scrooge->_duckburg = true;});
-
-
 
 }
 

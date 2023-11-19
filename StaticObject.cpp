@@ -76,15 +76,16 @@ bool StaticObject::hit(Object* what, Direction fromDir)
             _activated = true;
             schedule("wait", 30, [this](){Game::instance()->beakleyDrop(); setVisible(false);});
         }
-
-        else  if( activator_type == Activator::CAMERA && !scrooge->pogoing())
-    {
+        else  if( activator_type == Activator::CAMERA && !scrooge->pogoing()){
         if (fromDir==Direction::DOWN){
         Game::instance()->cameraChangeY(Direction::DOWN); // Chiamata alla funzione nella classe Game
-    }
-    if (fromDir==Direction::UP)
+        }
+        if (fromDir==Direction::UP)
         Game::instance()->cameraChangeY(Direction::UP);
-      }
+        }
+        else if(activator_type == Activator::EVY){
+        Game::instance()->setMessage(Game::Message::EVY);
+        }
         
     }
         // if( activator_type == Activator::CAMERA)

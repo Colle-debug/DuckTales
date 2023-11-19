@@ -137,7 +137,11 @@ bool Spawnable::hit(Object* what, Direction fromDir)
             scrooge->setKeyStatus(true);
         }
         else if(_type == Type::REMOTE){
+            Game::instance()->setMessage(Game::Message::REMOTE);
             scrooge->setRemoteStatus(true);
+        }
+        else if(_type == Type::CHEESE){
+            Game::instance()->gameClear();
         }
         std::cout <<"Score: " <<scrooge->score() << "\n";
         taken = true;

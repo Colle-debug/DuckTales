@@ -18,6 +18,7 @@ Scrooge::Scrooge(QPointF pos) : Entity(pos, 26, 27) {
     // setZValue(1);
 
     //_collider.adjust(3, 3, -3, -1);
+
     _swinging = false;
     _dying = false;
     _dead = false;
@@ -41,12 +42,12 @@ Scrooge::Scrooge(QPointF pos) : Entity(pos, 26, 27) {
     _gliding = false;
     _scr00ge = true;
     _launchpadAttached = false;
-    _duckburg = false;
     _gizmoCinematic = false;
     _sitting = true;
     _respawning = false;
     _respawningGameFlag = false;  // questa si usa in Game per bloccare il gioco per un secondo dopo il respawn
     _inRatPit = false; // Serve per quando Scrooge muore durante la boss fight: con questo flag la camera capisce quando Scrooge rientra nel pit
+    _bye = false;
 
     _sprite = Sprites::instance()->getSprite("scrooge");
     Sprites::instance()->get("scrooge-stand", &_texture_stand[0]);
@@ -95,9 +96,15 @@ void Scrooge::setInvincible(bool on) {
 }
 
 void Scrooge::advance() {
+    if(Game::instance()->state() == Game::GameState::LIFT_TO_DUCKBURG && !_bye){
+        _bye = true;
+        schedule("bye", 300, [this](){_launchpadAttached = false; _climbing = false;});
+        schedule("bye", 302, [this](){Game::instance()->gameClear();});
+    }
 
 
-    if (grounded()) _y_vel_max = 3;
+    if (grounded())
+        _y_vel_max = 3;
 
     if (_dying) {
         move(Direction::NONE);
@@ -171,13 +178,14 @@ bool Scrooge::animate() {
                 _animRect = &_texture_putt[1];
                 */
             }
-            if (_launchpadAttached) {
-                _animRect = &_texture_climb[0];
-            }
 
             if (_sitting) {
                 _animRect = &_texture_sitting[0];
             }
+            if (_launchpadAttached) {
+                _animRect = &_texture_climb[0];
+            }
+
 
         } else {
             if (midair() && !_pogoing) _animRect = showSprite ? &_texture_jump[0] : nullptr;
