@@ -377,7 +377,7 @@ void Sprites::get(const std::string & id, QRect animOutput[])
     }
     else if(id=="level-arrow-1")
     {
-        animOutput[0] = moveBy(_levelArrow, 1, 0, 8);
+        animOutput[0] = moveBy(_levelArrow, 1, 0, 9);
     }
     else if(id=="scrooge-title-0")
     {

@@ -66,7 +66,7 @@ Level::Level():Object(QPoint(0, 0), TILE * 30, TILE * 30)
     Game::instance()->world()->addItem(iconLeft);
     Game::instance()->world()->addItem(iconRight);
 
-    new Arrow(QPoint(10*TILE, 2.5*TILE), 8, 8, Arrow::Type::VERTICAL);
+    _mapArrow = new Arrow(QPoint(10*TILE + 1, 2.5*TILE), 8, 8, Arrow::Type::VERTICAL);
     _arrow = new Arrow(QPoint(4.5*TILE +1, 8.5*TILE + 1), 5, 8, Arrow::Type::HORIZONTAL);
 
 }
@@ -76,9 +76,11 @@ void Level::advance()
     if(_arrow->_pos != 0){
         iconLeft->setVisible(false);
         iconRight->setVisible(false);
+        _mapArrow->setVisible(false);
     }else{
         iconLeft->setVisible(true);
         iconRight->setVisible(true);
+        _mapArrow->setVisible(true);
     }
     return;
 }

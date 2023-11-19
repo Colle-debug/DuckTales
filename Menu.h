@@ -42,6 +42,7 @@ class DT::Level : public Object
 {
 private:
     Arrow* _arrow;
+    Arrow* _mapArrow;
     QGraphicsPixmapItem* iconLeft;
     QGraphicsPixmapItem* iconRight;
 public:

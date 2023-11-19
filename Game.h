@@ -21,14 +21,17 @@ class DT::Game:public QGraphicsView
     Q_OBJECT
 public:
     enum class GameState{READY, TITLE_SCREEN, RUNNING, PAUSED, GAME_OVER, GAME_CLEAR, LIFT_TO_DUCKBURG, LEVEL_SELECTION};
+    enum class Message{LAUNCHPAD, REMOTE, EVY, NONE};
 private:
     GameState _state;
     Scrooge* _player;
     QGraphicsScene* _world;
     Loader* _builder;
     QTimer _engine;
-    HUD*			_hud;
+    HUD* _hud;
+    HUD* _points;
     Title* _title;
+    Message _text;
 
     bool _left_pressed;
     bool _right_pressed;
@@ -62,6 +65,8 @@ private:
 
 public:
     static Game* instance();
+    void setMessage(Message type){_player->move(Direction::NONE); _text = type;}
+    Message messageStatus(){return _text;}
     bool grabStatus(){return _grab_pressed;}
     void setBeagleStatus(bool on){beagleActive = on;}
     int arrowPos(){return _arrowPos;}
@@ -77,6 +82,8 @@ public:
     virtual void wheelEvent(QWheelEvent* e) override;
     virtual void resizeEvent(QResizeEvent* event) override;
     void gameOver()  { _state = GameState::GAME_OVER; }
+    void gameClear()  { _state = GameState::GAME_CLEAR; }
+
     void welcome();
     void levelSelection();
     GameState state(){return _state;}
