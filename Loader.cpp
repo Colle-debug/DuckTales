@@ -522,7 +522,7 @@ Scrooge* Loader::load(std::string levelName)
         new Block(QPointF(103*TILE, 37*TILE), TILE, TILE, Block::Type::CHEST_SMALL); //spawn diamante rosso
         new Block(QPointF(99*TILE, 32*TILE), TILE, TILE, Block::Type::CHEST_SMALL, true);
         new Block(QPointF(100*TILE, 32*TILE), TILE, TILE, Block::Type::CHEST_SMALL, true);
-        new Block(QPointF(88*TILE, 2*TILE), TILE, TILE,Block::Type::CHEST_SMALL);
+        new Block(QPointF(88*TILE, 2*TILE),  TILE, TILE,Block::Type::CHEST_SMALL);
         new Block(QPointF(23*TILE, 61*TILE), TILE, TILE,Block::Type::CHEST_SMALL);
         new Block(QPointF(9*TILE, 23*TILE), TILE, TILE,Block::Type::CHEST_SMALL, false, Spawnable::Type::CAKE);
         new Block(QPointF(125*TILE, 6*TILE), 2*TILE, 2*TILE,Block::Type::CHEST_BIG);
@@ -544,7 +544,7 @@ Scrooge* Loader::load(std::string levelName)
         new Spawnable(QPointF(55.5*TILE, 19*TILE), TILE, TILE, Spawnable::Type::REMOTE);
         new Launchpad(QPointF(44.5*TILE, 16*TILE), 23, 40);
         new Gizmoduck(QPointF(107* TILE, 65.5*TILE), 32, 39);
-        //new StaticObject(QPointF(117*TILE, 60*TILE), TILE, 9*TILE, StaticObject::Type::ACTIVATOR);
+        //new StaticObject(QPointF(117*TILE, 60*TILE), TILE, 9*TILE, StaticObject::Type::ACTIVATOR); Cosa è?
         new StaticObject(QPointF(117*TILE, 60*TILE), TILE, 9*TILE, StaticObject::Activator::GIZMO);
         new StaticObject(QPointF(79*TILE, 82*TILE), TILE/2, 2*TILE, StaticObject::Activator::BOSS);
         new StaticObject(QPointF(57*TILE,10.1*TILE),6*TILE,4.9*TILE);
@@ -570,6 +570,10 @@ Scrooge* Loader::load(std::string levelName)
 
 
         new Rat(QPointF(72 * TILE - 39/2, 80* TILE));
+
+        new StaticObject(QPointF(7*TILE, 83.3*TILE), 2*TILE, TILE); // Final Menu
+
+        new StaticObject(QPointF(66.5*TILE, 18*TILE), TILE, TILE, StaticObject::Activator::EVY);
         return new Scrooge(QPointF(3* TILE, 67*TILE));
 
 

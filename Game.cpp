@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "BBoy.h"
 #include "GameConfig.h"
+#include "Launchpad.h"
 #include "Loader.h"
 #include "Scheduler.h"
 #include "Object.h"
@@ -55,6 +56,7 @@ Game::Game(QGraphicsView *parent) : QGraphicsView(parent)
     setViewport(gl);
     */
     _hud = new HUD(width(), height(), this);
+    _points = new HUD(14*TILE-2, 9.5*TILE-8, this);
 
     connect(_hud, SIGNAL(timeExpired()), this, SLOT(timeExpired()));
     reset();
@@ -64,11 +66,14 @@ void Game::reset()
 {
 
     _state = GameState::READY;
+    _text = Message::NONE;
     _engine.stop();
     _world->clear();
     //_world->setSceneRect(0, 0, TILE * 30, TILE * 30);
     _hud->setVisible(false);
     _hud->reset();
+    _points->setVisible(false);
+    _points->reset();
     _player = 0;
     _builder = 0;
     beagleActive = 1;
@@ -164,7 +169,7 @@ void Game::start()
 void Game::nextFrame() {
 
     FRAME_COUNT++;
-    if (_state == GameState::TITLE_SCREEN || _state == GameState::LEVEL_SELECTION){ // era if (_state != GameState::RUNNING && _state != GameState::TITLE_SCREEN), non ne capisco il senso, da vedere
+    if (_state == GameState::TITLE_SCREEN || _state == GameState::LEVEL_SELECTION || _state == GameState::GAME_CLEAR){ // era if (_state != GameState::RUNNING && _state != GameState::TITLE_SCREEN), non ne capisco il senso, da vedere
 
         /*std::cout<<_arrowPos<<"\n";
             std::cout.flush();
@@ -179,10 +184,12 @@ void Game::nextFrame() {
                 //obj->paint();			 // graphics, automatically called by Qt
             }
         }
+        update();
+
         return;
     }
     // process inputs	 (PLAYER CONTROLS)
-    if(!_player->gizmoduckCinematic() && !_player->launchpadAttachment() && !_bossFightAnimation && !_player->respawningGF() && !_transitioning){ // Commandi di movimento accessibili solo se nessuna è True
+    if(!_player->gizmoduckCinematic() && !_player->launchpadAttachment() && !_bossFightAnimation && !_player->respawningGF() && !_transitioning && _text == Message::NONE){ // Commandi di movimento accessibili solo se nessuna è True
         if (!_player -> climbing()) { // durante climbing non tutti i movimenti sono consentiti
             if (_left_pressed && _right_pressed)
                 _player -> move(Direction::NONE);
@@ -277,15 +284,16 @@ void Game::nextFrame() {
 
     //centerOn(_player->pos()); for Debugging
 
-    if(!_player->inRatPit()){
-        centerView();}
+    if(_state == GameState::LIFT_TO_DUCKBURG){
+        centerOn(_player->x(), _player->y() - 2*TILE);}
+    else if(!_player->inRatPit()){
+        centerView();
+    }
     else{
         centerOn(72*TILE, 79*TILE); // Durante la boss fight, camera fissa nel pit
     }
 
     update();
-    std::cout<<_player->inRatPit()<<"\n";
-    std::cout.flush();
 
     if(FRAME_COUNT % 60 == 0){
         _hud->subTime();
@@ -293,10 +301,7 @@ void Game::nextFrame() {
 
     if (_player -> dead()) {
         gameOver();
-    }else if(_player->duckburg()){
-        liftToDuckburg();
     }
-
 
     if (_state == GameState::GAME_OVER || _state == GameState::GAME_CLEAR || _state == GameState::LIFT_TO_DUCKBURG) {
         gameEnd();
@@ -355,8 +360,13 @@ void Game::keyPressEvent(QKeyEvent * e) {
             _jump_pressed = true;
             _jump_released = false;
         } else if (e -> key() == Qt::Key_X) {
-            _swing_pressed = true;
-            _swing_released = false;
+            if(_text == Message::NONE){
+                _swing_pressed = true;
+                _swing_released = false;}
+            else{
+                _text = Message::NONE;
+            }
+
 
         } else if (e -> key() == Qt::Key_Up) {
             if (_player -> climbing()) {
@@ -365,7 +375,20 @@ void Game::keyPressEvent(QKeyEvent * e) {
                 _grab_pressed = true;
             }
         } else if (e -> key() == Qt::Key_Z) {
-            _pogo_pressed = true;
+            if(_text == Message::NONE){
+                _pogo_pressed = true;}
+            else if (_text == Message::LAUNCHPAD){
+                for (auto item: _world -> items()) {
+                    Launchpad * launchpad = dynamic_cast < Launchpad * > (item);
+                    if(launchpad){
+                        launchpad->flyingAnimation(_player);
+                        _state = GameState::LIFT_TO_DUCKBURG;
+                        _hud->setVisible(false);
+                        break;
+                    }
+                }
+                _text = Message::NONE;
+            }
         }
 
         // Cheats
@@ -485,6 +508,7 @@ void Game::beakleyDrop()
                 drop->setDir(Direction::RIGHT);
             }
             drop->velAdd(Vec2Df(change*0.3, -1));
+            break;
             }
         }
     }
@@ -495,8 +519,16 @@ void Game::gameEnd()
     if (_state != GameState::GAME_CLEAR && _state != GameState::GAME_OVER)
         return;
 
-    if (_state == GameState::GAME_CLEAR)
-        std::cout << "The Moon Level Cleared";
+    if (_state == GameState::GAME_CLEAR){
+        centerOn(0, 82*TILE);
+        _player->move(Direction::NONE);
+        _player->climbingPhysics();
+        _player->setSitting(true);
+        _player->setPos(7.35* TILE, 82 * TILE);
+        _hud->setVisible(false);
+        _points->setVisible(true);
+        _points->move(QPoint(9*TILE, 10.5*TILE));
+    }
     else if (_state == GameState::GAME_OVER)
     {
         std::cout << "Game Over";
