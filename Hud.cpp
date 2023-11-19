@@ -8,7 +8,7 @@ using namespace DT;
 
 HUD::HUD(int w, int h, QWidget* parent) : QWidget(parent)
 {
-	_background = Sprites::instance()->getHUD("hud");
+	_background = Sprites::instance()->getHUD("hud");  //per i testi sostituire hud con hud-text e togliere i commenti alla funzione paintevent
 	_flashin_coin_timer.setInterval(150);
 
 
@@ -92,6 +92,59 @@ void HUD::paintEvent(QPaintEvent* event)
     else if(Game::instance()->player()->hp()==1){
         painter.drawPixmap(50,  25,  Sprites::instance()->getHUD("health-1"));
     }
+
+	
+
+	//LAUNCHPAD  
+	/*
+	painter.drawPixmap(23,  18,  Sprites::instance()->getString("MESSAGE"));
+	
+	painter.drawPixmap(101,  11,  Sprites::instance()->getString("YOU"));
+	painter.drawPixmap(133,  11,  Sprites::instance()->getString("WANT"));
+	painter.drawPixmap(173,  11,  Sprites::instance()->getString("A"));
+	painter.drawPixmap(189,  11,  Sprites::instance()->getString("LIFT"));
+	painter.drawPixmap(101,  19,  Sprites::instance()->getString("BACK"));
+	painter.drawPixmap(141,  19,  Sprites::instance()->getString("TO"));
+	painter.drawPixmap(165,  19,  Sprites::instance()->getString("DUCKBORG"));
+	painter.drawPixmap(101,  27,  Sprites::instance()->getString("MR"));
+	painter.drawPixmap(119,  27,  Sprites::instance()->getHUD("."));
+	painter.drawPixmap(124,  27,  Sprites::instance()->getString("D"));
+	painter.drawPixmap(133,  27,  Sprites::instance()->getHUD("."));
+	painter.drawPixmap(149,  27,  Sprites::instance()->getString("YES"));
+	painter.drawPixmap(181,  27,  Sprites::instance()->getString("A"));
+	painter.drawPixmap(197,  27,  Sprites::instance()->getString("NO"));
+	painter.drawPixmap(223,  27,  Sprites::instance()->getString("B"));   */
+
+	// REMOTE
+	/*
+	painter.drawPixmap(101,  11,  Sprites::instance()->getString("BLESS"));
+	painter.drawPixmap(145,  11,  Sprites::instance()->getString("ME"));
+	painter.drawPixmap(169,  11,  Sprites::instance()->getString("BAGPIPES"));
+	painter.drawPixmap(101,  19,  Sprites::instance()->getString("NOW"));
+	painter.drawPixmap(131,  19,  Sprites::instance()->getString("GIZMODUCK"));
+	painter.drawPixmap(209,  19,  Sprites::instance()->getString("CAN"));
+	painter.drawPixmap(101,  27,  Sprites::instance()->getString("BLAST"));
+	painter.drawPixmap(149,  27,  Sprites::instance()->getString("THAT"));
+	painter.drawPixmap(189,  27,  Sprites::instance()->getString("WALL"));       */
+
+	/*
+	painter.drawPixmap(101,  11,  Sprites::instance()->getString("THERE"));
+	painter.drawPixmap(143,  11,  Sprites::instance()->getString("IS"));
+	painter.drawPixmap(168,  11,  Sprites::instance()->getString("A"));
+	painter.drawPixmap(182,  11,  Sprites::instance()->getString("KEY"));
+	painter.drawPixmap(211,  11,  Sprites::instance()->getString("IN"));
+	painter.drawPixmap(101,  19,  Sprites::instance()->getString("THE"));
+	painter.drawPixmap(133,  19,  Sprites::instance()->getString("UFO"));
+	painter.drawPixmap(165,  19,  Sprites::instance()->getString("WE"));
+	painter.drawPixmap(189,  19,  Sprites::instance()->getString("CAN"));
+	painter.drawPixmap(213,  19,  Sprites::instance()->getHUD("'"));
+	painter.drawPixmap(219,  19,  Sprites::instance()->getString("T"));
+	painter.drawPixmap(103,  27,  Sprites::instance()->getString("GO"));
+	painter.drawPixmap(125,  27,  Sprites::instance()->getString("ON"));
+	painter.drawPixmap(149,  27,  Sprites::instance()->getString("WITHOUT")); 
+	painter.drawPixmap(211,  27,  Sprites::instance()->getString("IT"));     */  
+
+
 
 }
 
