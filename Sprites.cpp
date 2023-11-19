@@ -436,8 +436,6 @@ QPixmap Sprites::getHUD(const std::string & id){
         return hud.copy(moveBy(hud_dollar,0,0));
     else if (id=="'")
         return hud.copy(moveBy(hud_apostrophe,0,0));
-    else if (id==" ")
-        return hud.copy(moveBy(hud_space,0,0));
     else if (id==".")
         return hud.copy(moveBy(hud_dot,0,0));
     else if (id=="health-0")
