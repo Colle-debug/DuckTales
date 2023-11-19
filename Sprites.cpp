@@ -57,6 +57,7 @@ static QRect hud_letter(1, 130, 8, 7);
 static QRect hud_number(1, 122, 8, 7);
 static QRect hud_health(2, 138, 7, 7);
 static QRect hud_dollar(226, 130, 7, 7);
+static QRect hud_apostrophe(233, 130, 7, 7);
 static QRect hud_dot(210, 130, 7, 7);
 static QRect _greenGate(172, 360, 32, 80);
 static QRect _titleScreen(0, 0, 256, 224);
@@ -433,12 +434,18 @@ QPixmap Sprites::getHUD(const std::string & id){
 		return hud.copy(moveBy(hud_letter, id[5] - 'A', 0, 8));
     else if (id=="$")
         return hud.copy(moveBy(hud_dollar,0,0));
+    else if (id=="'")
+        return hud.copy(moveBy(hud_apostrophe,0,0));
+    else if (id==" ")
+        return hud.copy(moveBy(hud_space,0,0));
     else if (id==".")
         return hud.copy(moveBy(hud_dot,0,0));
     else if (id=="health-0")
         return hud.copy(moveBy(hud_health,0,1,0,7));
     else if (id=="health-1")
         return hud.copy(moveBy(hud_health,0,0));
+    else if (id=="hud-text")
+        return hud.copy(moveBy(_hud,0,1,0,40));
     else return hud.copy(_hud);
 }
 
