@@ -518,14 +518,7 @@ Scrooge* Loader::load(std::string levelName)
 
         // CHESTS
 
-        new Block(QPointF(102*TILE, 37*TILE), TILE, TILE, Block::Type::CHEST_SMALL); //spawn torta
-        new Block(QPointF(103*TILE, 37*TILE), TILE, TILE, Block::Type::CHEST_SMALL); //spawn diamante rosso
-        new Block(QPointF(99*TILE, 32*TILE), TILE, TILE, Block::Type::CHEST_SMALL, true);
-        new Block(QPointF(100*TILE, 32*TILE), TILE, TILE, Block::Type::CHEST_SMALL, true);
-        new Block(QPointF(88*TILE, 2*TILE),  TILE, TILE,Block::Type::CHEST_SMALL);
-        new Block(QPointF(23*TILE, 61*TILE), TILE, TILE,Block::Type::CHEST_SMALL);
-        new Block(QPointF(9*TILE, 23*TILE), TILE, TILE,Block::Type::CHEST_SMALL, false, Spawnable::Type::CAKE);
-        new Block(QPointF(125*TILE, 6*TILE), 2*TILE, 2*TILE,Block::Type::CHEST_BIG);
+       
 
 
         // BATTERY
@@ -533,10 +526,8 @@ Scrooge* Loader::load(std::string levelName)
         new Block(QPointF(27*TILE, 38*TILE), TILE, TILE,Block::Type::BATTERY);
        
 
-        new Spawnable(QPointF(5*TILE, 67*TILE), 0.5*TILE, 0.5*TILE, Spawnable::Type::DIAMOND_YELLOW_SMALL);
-        new Spawnable(QPointF(44*TILE, 62*TILE), TILE, TILE, Spawnable::Type::STAR, 1);
-        new Spawnable(QPointF(59*TILE, 32*TILE), TILE, TILE, Spawnable::Type::DIAMOND_RED_BIG, 1);
-        new Spawnable(QPointF(56*TILE, 32*TILE), 0.5*TILE, 0.5*TILE, Spawnable::Type::DIAMOND_YELLOW_SMALL, 1);
+        
+    
 
 
         // TELECOMANDO PER ATTIVARE GIZMODUCK
@@ -559,7 +550,7 @@ Scrooge* Loader::load(std::string levelName)
         new StaticObject(QPointF(55*TILE, 57*TILE), 2*TILE, 0.5*TILE, StaticObject::Activator::CAMERA);
         new StaticObject(QPointF(23*TILE, 55*TILE), 2*TILE, 0.5*TILE, StaticObject::Activator::CAMERA);
         new StaticObject(QPointF(55*TILE, 42*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
-        new StaticObject(QPointF(23*TILE, 27*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
+        new StaticObject(QPointF(23*TILE, 25*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
         new StaticObject(QPointF(87*TILE, 28*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
         new StaticObject(QPointF(87*TILE, 42*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
         new StaticObject(QPointF(87*TILE, 14*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
@@ -567,7 +558,50 @@ Scrooge* Loader::load(std::string levelName)
         new StaticObject(QPointF(55*TILE, 12*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
 
 
+                //posizione di tutti gli spawnables
+        new Spawnable(QPointF(16*TILE, 63*TILE), TILE, TILE, Spawnable::Type::STAR, 1);
+        new Spawnable(QPointF(43*TILE, 63*TILE), TILE, TILE, Spawnable::Type::ICE_CREAM, 1);
+        new Spawnable(QPointF(45*TILE, 63*TILE), TILE, TILE, Spawnable::Type::ICE_CREAM, 1);
+        new Spawnable(QPointF(124*TILE, 78*TILE), TILE, TILE, Spawnable::Type::ICE_CREAM, 1);
+        new Spawnable(QPointF(125*TILE, 78*TILE), TILE, TILE, Spawnable::Type::ICE_CREAM, 1);
+        new Spawnable(QPointF(6*TILE, 33*TILE), TILE, TILE, Spawnable::Type::DIAMOND_YELLOW_BIG, 1);
+        new Spawnable(QPointF(61*TILE, 34*TILE), 0.5*TILE, 0.5*TILE, Spawnable::Type::DIAMOND_YELLOW_SMALL, 1);
+        new Spawnable(QPointF(71*TILE, 34*TILE), TILE, TILE, Spawnable::Type::DIAMOND_YELLOW_BIG, 1);
+        new Spawnable(QPointF(73*TILE, 34*TILE), TILE, TILE, Spawnable::Type::DIAMOND_YELLOW_BIG, 1);
+        new Spawnable(QPointF(95*TILE, 21*TILE), TILE, TILE, Spawnable::Type::DIAMOND_YELLOW_BIG, 1);
+        new Spawnable(QPointF(97*TILE, 21*TILE), TILE, TILE, Spawnable::Type::DIAMOND_YELLOW_BIG, 1);
+        new Spawnable(QPointF(99*TILE, 21*TILE), TILE, TILE, Spawnable::Type::DIAMOND_YELLOW_BIG, 1);
+        new Spawnable(QPointF(73*TILE, 18*TILE), TILE, TILE, Spawnable::Type::ICE_CREAM, 1);
+        new Spawnable(QPointF(77*TILE, 18*TILE), TILE, TILE, Spawnable::Type::ICE_CREAM, 1);
+        new Spawnable(QPointF(28*TILE, 33*TILE), TILE, TILE, Spawnable::Type::DIAMOND_YELLOW_BIG, 1);
+        new Spawnable(QPointF(60*TILE, 33*TILE), TILE, TILE, Spawnable::Type::DIAMOND_YELLOW_BIG, 1);
+        new Spawnable(QPointF(95*TILE, 45*TILE), TILE, TILE, Spawnable::Type::DIAMOND_YELLOW_BIG, 1);
+        
 
+
+
+
+
+
+
+
+
+
+        new Block(QPointF(6*TILE, 35*TILE), TILE, TILE, Block::Type::CHEST_SMALL, false, Spawnable::Type::DIAMOND_RED_BIG);
+        new Block(QPointF(9*TILE, 47*TILE), TILE, TILE, Block::Type::CHEST_SMALL, false, Spawnable::Type::DIAMOND_RED_BIG);
+        new Block(QPointF(10*TILE, 47*TILE), TILE, TILE, Block::Type::CHEST_SMALL, false, Spawnable::Type::CAKE);
+        new Block(QPointF(23.5*TILE, 46*TILE), TILE, TILE, Block::Type::CHEST_SMALL, false, Spawnable::Type::DIAMOND_YELLOW_BIG);
+        new Block(QPointF(101*TILE, 47*TILE), TILE, TILE, Block::Type::CHEST_SMALL, false, Spawnable::Type::DIAMOND_RED_BIG);
+        new Block(QPointF(102*TILE, 47*TILE), TILE, TILE, Block::Type::CHEST_SMALL, false, Spawnable::Type::DIAMOND_YELLOW_BIG);
+        new Block(QPointF(102*TILE, 37*TILE), TILE, TILE, Block::Type::CHEST_SMALL, true, Spawnable::Type::CAKE);
+        new Block(QPointF(103*TILE, 37*TILE), TILE, TILE, Block::Type::CHEST_SMALL, true, Spawnable::Type::DIAMOND_RED_BIG);
+        new Block(QPointF(99*TILE, 32*TILE), TILE, TILE, Block::Type::CHEST_SMALL, true, Spawnable::Type::DIAMOND_RED_BIG);
+        new Block(QPointF(100*TILE, 32*TILE), TILE, TILE, Block::Type::CHEST_SMALL, true, Spawnable::Type::DIAMOND_RED_BIG);
+        new Block(QPointF(9*TILE, 23*TILE), TILE, TILE, Block::Type::CHEST_SMALL, false, Spawnable::Type::KEY);
+        new Block(QPointF(2*TILE, 88*TILE), TILE, TILE, Block::Type::CHEST_SMALL, false, Spawnable::Type::DIAMOND_RED_BIG);
+        new Block(QPointF(23*TILE, 62*TILE), TILE, TILE, Block::Type::CHEST_SMALL, false, Spawnable::Type::DIAMOND_YELLOW_BIG);
+        new Block(QPointF(24*TILE, 62*TILE), TILE, TILE, Block::Type::CHEST_SMALL, false, Spawnable::Type::DIAMOND_YELLOW_BIG);
+        new Block(QPointF(125*TILE, 6*TILE), 2*TILE, 2*TILE,Block::Type::CHEST_BIG,true, Spawnable::Type::TREASURE);
 
         new Rat(QPointF(72 * TILE - 39/2, 80* TILE));
 

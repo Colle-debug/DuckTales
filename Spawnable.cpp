@@ -100,6 +100,12 @@ bool Spawnable::animate() // Da aggiungere animazione di spawning e metodo migli
     } else if (_type == Type::PROJECTILE && taken) {
         _animRect = & _texture_spawnable[(FRAME_COUNT / 9) % 2 + 2]; // +2 così alterna indce 2 e 3
       }
+     else if (_type == Type::ICE_CREAM) {
+      _animRect = & _texture_spawnable[0];
+    } else if (_type==Type::TREASURE){
+
+        _animRect=&_texture_spawnable[0];
+    } 
 
   } else {
     _animRect = & _texture_spawnable[Qt::transparent];
