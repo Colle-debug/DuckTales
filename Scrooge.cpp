@@ -40,7 +40,6 @@ Scrooge::Scrooge(QPointF pos) : Entity(pos, 26, 27) {
     _scripted = false;
     _jumping = false;
     _gliding = false;
-    _scr00ge = true;
     _launchpadAttached = false;
     _gizmoCinematic = false;
     _sitting = true;
@@ -341,7 +340,7 @@ void Scrooge::lifeDown() {
 void Scrooge::recentlyHit(bool on) {
     _recentlyHit = on;
 
-    if (on) schedule("flash", 60, [this]() { _recentlyHit = false; });
+    if (on) schedule("flash", 120, [this]() { _recentlyHit = false; });
 }
 
 void Scrooge::climbingPhysics() {
@@ -380,10 +379,10 @@ void Scrooge::respawn() {
     if (Game::instance()->bossFightStatus()) {
         _inRatPit = false;
         _respawningPoint = _ratCheckpoint;
-    }/*else if(Game::instance()->LPCheckPoint()){
+    }else if(Game::instance()->LPCheckPoint()){
         Game::instance()->setCounterCam(-720); // Camera deve tornare giù
         _respawningPoint = _launchpadCheckpoint;
-    }*/ else {
+    }else {
         Game::instance()->setCounterCam(0); // Camera deve tornare giù
         _respawningPoint = _spawningPoint;
     }

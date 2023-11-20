@@ -24,7 +24,6 @@ protected:
     bool _collidable;
     bool _compenetrable;
     bool _bumper = 0;
-    bool _scr00ge = 0;
 
     QPixmap* _sprite;
     QRect* _animRect;
@@ -33,7 +32,6 @@ protected:
 
 public:
     bool isBumper(){return _bumper;}
-    bool isScrooge(){return _scr00ge;}
     Object(QPointF pos, double width, double height);
     // getters
     int id() const { return _id; }

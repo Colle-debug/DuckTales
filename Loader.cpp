@@ -550,7 +550,7 @@ Scrooge* Loader::load(std::string levelName)
         new StaticObject(QPointF(55*TILE, 57*TILE), 2*TILE, 0.5*TILE, StaticObject::Activator::CAMERA);
         new StaticObject(QPointF(23*TILE, 55*TILE), 2*TILE, 0.5*TILE, StaticObject::Activator::CAMERA);
         new StaticObject(QPointF(55*TILE, 42*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
-        new StaticObject(QPointF(23*TILE, 25*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
+        new StaticObject(QPointF(23*TILE, 27*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
         new StaticObject(QPointF(87*TILE, 28*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
         new StaticObject(QPointF(87*TILE, 42*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
         new StaticObject(QPointF(87*TILE, 14*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
@@ -608,6 +608,7 @@ Scrooge* Loader::load(std::string levelName)
         new StaticObject(QPointF(7*TILE, 83.3*TILE), 2*TILE, TILE); // Final Menu
 
         new StaticObject(QPointF(66.5*TILE, 18*TILE), TILE, TILE, StaticObject::Activator::EVY);
+
         return new Scrooge(QPointF(3* TILE, 67*TILE));
 
 
