@@ -53,7 +53,7 @@ protected:
     int _lives; // 3 vite per partita
     QPointF _spawningPoint = QPointF(3* TILE, 67*TILE);
     QPointF _ratCheckpoint = QPointF(83* TILE, 80*TILE);
-    QPointF _launchpadCheckpoint = QPointF(3* TILE, 67*TILE);
+    QPointF _launchpadCheckpoint = QPointF(43* TILE, 22*TILE);
 
     QPointF _respawningPoint = _spawningPoint;
     double _score = 0;

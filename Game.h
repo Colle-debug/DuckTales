@@ -48,6 +48,7 @@ private:
     bool _swing_released;
     qreal _counter_cam;
     bool _transitioning;
+    bool _LPcheckpoint; // Launchpad checkpoint?
 
     bool _bossFight;
     bool _bossFightAnimation;
@@ -104,6 +105,7 @@ public:
     double diff2chance();
     short int diff(){return difficulty;}
     void setCounterCam(qreal value){ _counter_cam = value;}
+    bool LPCheckPoint(){return _LPcheckpoint;}
 public slots:
     void reset();
     void start();

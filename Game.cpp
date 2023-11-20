@@ -95,7 +95,7 @@ void Game::reset()
     _swing_pressed = false;
     _swing_released = false;
     _transitioning = false;
-
+    _LPcheckpoint = false;
 
     _current_music_loop = _level_music_loop ="";
 
@@ -143,6 +143,7 @@ void Game::bossFight()
 {
     _bossFight = true;
     _bossFightAnimation = true;
+    _LPcheckpoint = false; // Se inizia la Boss Fight cambia nuovamente il punto di respawning
     _player->startBossFightAnimation();
 }
 
@@ -364,6 +365,9 @@ void Game::keyPressEvent(QKeyEvent * e) {
                 _swing_pressed = true;
                 _swing_released = false;}
             else{
+                if(_text == Message::LAUNCHPAD){
+                    _LPcheckpoint = true;
+                } // se premi X durante l'interazione con Launchpad, ti viene cambiato il respawning point
                 _text = Message::NONE;
             }
 
