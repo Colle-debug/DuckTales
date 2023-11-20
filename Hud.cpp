@@ -63,12 +63,12 @@ void HUD::paintEvent(QPaintEvent* event) {
         painter.drawPixmap(14, 41, Sprites::instance()->getString("TOTAL"));
         painter.drawPixmap(61, 41, Sprites::instance()->getString("MONEY"));
         painter.drawPixmap(16, 48, Sprites::instance()->getHUD("$"));
-        painter.drawPixmap(92 - (7 * dx), 50, Sprites::instance()->getNumber(Game::instance()->player()->score()));
+        painter.drawPixmap(97 - (9 * dx), 50, Sprites::instance()->getNumber(Game::instance()->player()->score()));
 
         painter.drawPixmap(14, 65, Sprites::instance()->getString("LAND"));
         painter.drawPixmap(23, 72, Sprites::instance()->getHUD("$"));
         painter.drawPixmap(61, 65, Sprites::instance()->getString("MONEY"));
-        painter.drawPixmap(92 - (7 * dx), 74, Sprites::instance()->getNumber(Game::instance()->player()->score()));
+        painter.drawPixmap(97 - (9 * dx), 74, Sprites::instance()->getNumber(Game::instance()->player()->score()));
     } else {
         painter.setWindow(0, 0, TILE * 19, TILE * 9.1);
 
@@ -79,18 +79,18 @@ void HUD::paintEvent(QPaintEvent* event) {
             _background = Sprites::instance()->getHUD("hud");
             painter.drawPixmap(0, 0, _background);
 
-            painter.drawPixmap(131, 25, Sprites::instance()->getNumber(Game::instance()->player()->lives()));            // p.
+            painter.drawPixmap(131, 27, Sprites::instance()->getNumber(Game::instance()->player()->lives()));            // p.
             painter.drawPixmap(72 - (7 * dx), 13, Sprites::instance()->getNumber(Game::instance()->player()->score()));  // money sx
-            painter.drawPixmap(150, 19, Sprites::instance()->getNumber(0));                                              // money dx
+            painter.drawPixmap(152 - (9 * dx), 19,  Sprites::instance()->getNumber(Game::instance()->player()->score()));                                    // money dx
             if (_time >= 0) {
                 painter.drawPixmap(201, 19, Sprites::instance()->getNumber(_time));  // time
             }
-            painter.drawPixmap(115, 25, Sprites::instance()->getString("P"));
-            painter.drawPixmap(123, 25, Sprites::instance()->getHUD("."));
-            painter.drawPixmap(25, 25, Sprites::instance()->getString("HP"));
-            painter.drawPixmap(105, 12, Sprites::instance()->getString("TOTAL"));
+            painter.drawPixmap(115, 27, Sprites::instance()->getString("P"));
+            painter.drawPixmap(123, 27, Sprites::instance()->getHUD("."));
+            painter.drawPixmap(25, 27, Sprites::instance()->getString("HP"));
+            painter.drawPixmap(105, 11, Sprites::instance()->getString("TOTAL"));
             painter.drawPixmap(164, 19, Sprites::instance()->getString("TIME"));
-            painter.drawPixmap(25, 13, Sprites::instance()->getHUD("$"));
+            painter.drawPixmap(24, 13, Sprites::instance()->getHUD("$"));
             painter.drawPixmap(92, 19, Sprites::instance()->getHUD("$"));
 
             if (Game::instance()->player()->hp() == 6) {
