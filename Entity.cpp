@@ -188,7 +188,7 @@ void Entity::resolveCollisions()
     for (auto obj : sortedByContactTime)
         if (DynamicRectVsRect(sceneCollider(), vel(), obj.first->sceneCollider(), cp, cn, ct))
         {
-            if (!obj.first->compenetrable() || ((obj.first->isBumper()) && (!(dynamic_cast<Scrooge*>(this)) && !(dynamic_cast<Block*>(this))))) //Verifica se cambiare ZValue a Block rende inutile questa condizione
+            if (!obj.first->compenetrable() || ((obj.first->isBumper()) && (!(dynamic_cast<Scrooge*>(this)) && !(dynamic_cast<Block*>(this)) && !(dynamic_cast<Spawnable*>(this)))))
                 velAdd(cn * Vec2Df(std::abs(_vel.x), std::abs(_vel.y)) * (1 - ct));
 
 
