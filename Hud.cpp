@@ -13,7 +13,6 @@ HUD::HUD(int w, int h, QWidget* parent) : QWidget(parent)
 
 
 	resize(w, h);
-
 	reset();
 }
 
@@ -81,7 +80,7 @@ void HUD::paintEvent(QPaintEvent* event) {
 
             painter.drawPixmap(131, 27, Sprites::instance()->getNumber(Game::instance()->player()->lives()));            // p.
             painter.drawPixmap(72 - (7 * dx), 13, Sprites::instance()->getNumber(Game::instance()->player()->score()));  // money sx
-            painter.drawPixmap(152 - (9 * dx), 19,  Sprites::instance()->getNumber(Game::instance()->player()->score()));                                    // money dx
+            painter.drawPixmap(151 - (9 * dx), 19,  Sprites::instance()->getNumber(Game::instance()->player()->score()));                                    // money dx
             if (_time >= 0) {
                 painter.drawPixmap(201, 19, Sprites::instance()->getNumber(_time));  // time
             }
