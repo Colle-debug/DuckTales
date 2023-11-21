@@ -82,10 +82,10 @@ bool Block::hit(Object * what, Direction fromDir) {
         _collidable=false;
         _breakable = true; //utilizzo breakable per gestire le interazioni con pogoing ---> è broken non breakable...
         schedule("disappear", 20, [this]() {setVisible(false);});
-        if(_type == Type::BRICK && chanceCalculator(0.05)){ // 10% di possibilità di spawnare
+        if(_type == Type::BRICK && chanceCalculator(0.05)){ // 5% di possibilità di spawnare
             new Spawnable(this->pos(), TILE, TILE, _spawnable);
         }
-        else if(_type == Type::CHEST_SMALL){
+        else if(_type == Type::CHEST_SMALL || _type == Type::CHEST_BIG){
             new Spawnable(this->pos(), TILE, TILE, _spawnable);
         }
         this -> setZValue(3);

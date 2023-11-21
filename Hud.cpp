@@ -86,7 +86,7 @@ void HUD::paintEvent(QPaintEvent* event) {
             }
             painter.drawPixmap(115, 27, Sprites::instance()->getString("P"));
             painter.drawPixmap(123, 27, Sprites::instance()->getHUD("."));
-            painter.drawPixmap(25, 27, Sprites::instance()->getString("HP"));
+            painter.drawPixmap(25, 25, Sprites::instance()->getString("HP"));
             painter.drawPixmap(105, 11, Sprites::instance()->getString("TOTAL"));
             painter.drawPixmap(164, 19, Sprites::instance()->getString("TIME"));
             painter.drawPixmap(24, 13, Sprites::instance()->getHUD("$"));

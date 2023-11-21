@@ -59,6 +59,10 @@ Spawnable::Spawnable(QPointF pos, double width, double height, Spawnable::Type t
         _value = 1000000;
         Sprites::instance()->get("treasure", &_texture_spawnable[0]);
         _animRect = &_texture_spawnable[0];
+        setPos(QPointF(x() + TILE/2, y()));
+        _vel = {0, -2};
+        _y_gravity = 0.05;
+
     }
     else if(_type == Type::REMOTE){
         Sprites::instance()->get("remote", &_texture_spawnable[0]);
