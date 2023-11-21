@@ -76,7 +76,7 @@ bool StaticObject::hit(Object* what, Direction fromDir)
             _activated = true;
             schedule("wait", 30, [this](){Game::instance()->beakleyDrop(); setVisible(false);});
         }
-        else  if( activator_type == Activator::CAMERA && !scrooge->pogoing()){
+        else  if( activator_type == Activator::CAMERA && (scrooge->climbing() || (!scrooge->climbing() && fromDir == Direction::UP))){ // quando Scrooge non è in climbing, si può attivare solo se stai cadendo da sopra, i salti non devono accidentalmente attivarla
         if (fromDir==Direction::DOWN){
         Game::instance()->cameraChangeY(Direction::DOWN); // Chiamata alla funzione nella classe Game
         }
