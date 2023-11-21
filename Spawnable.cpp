@@ -171,6 +171,10 @@ bool Spawnable::hit(Object* what, Direction fromDir)
         return true;
     }
 
+    if(sobj && sobj->_type == StaticObject::Type::DEATHLINE){
+        setVisible(false);
+    }
+
     if(sobj && sobj->_type == StaticObject::Type::GREEN_GATE && _type == Type::PROJECTILE){
         taken = true; // Taken su Projectile non significa nulla, ma piuttosto che inizializzare un'altra variabile "hit", utilizzo questa per flaggare la collisione col GREEN_GATE
         _x_dir = Direction::NONE;
