@@ -196,7 +196,7 @@ Scrooge* Loader::load(std::string levelName)
 
 
 
-        new StaticObject(QPointF(0,41.5*TILE),48*TILE,3.5*TILE);
+        new StaticObject(QPointF(0,41.5*TILE),48*TILE,2.5*TILE);
         new StaticObject(QPointF(2*TILE,39*TILE),53*TILE,2.5*TILE);
         new StaticObject(QPointF(10*TILE,30*TILE),9*TILE,9*TILE);
         new StaticObject(QPointF(19*TILE,36*TILE),2*TILE,3*TILE);
@@ -206,7 +206,7 @@ Scrooge* Loader::load(std::string levelName)
         new StaticObject(QPointF(57*TILE,39*TILE),30*TILE,5*TILE);
         new StaticObject(QPointF(48*TILE,41.5*TILE),7*TILE,2.5*TILE);
         new StaticObject(QPointF(89*TILE,39*TILE),7*TILE,5*TILE);
-        new StaticObject(QPointF(96*TILE,39*TILE),10*TILE,6*TILE); //forse bisogna farlo di un tile in più
+        new StaticObject(QPointF(96*TILE,39*TILE),10*TILE,5*TILE); //forse bisogna farlo di un tile in più
 
         new StaticObject(QPointF(64*TILE,31*TILE),6*TILE,8*TILE);
         new StaticObject(QPointF(6*TILE,34*TILE),TILE,TILE);
@@ -214,7 +214,7 @@ Scrooge* Loader::load(std::string levelName)
         new StaticObject(QPointF(9*TILE,36*TILE),TILE,TILE);
         new StaticObject(QPointF(94*TILE,32*TILE),5*TILE,4*TILE);
         new StaticObject(QPointF(94*TILE,30*TILE),3*TILE,2*TILE);
-        new StaticObject(QPointF(101*TILE,35*TILE),TILE,3*TILE);
+        //new StaticObject(QPointF(101*TILE,3*TILE),TILE,3*TILE);
         new StaticObject(QPointF(102*TILE,39*TILE),2*TILE,TILE);
         new StaticObject(QPointF(104*TILE,35*TILE),2*TILE,3*TILE);
         new StaticObject(QPointF(106*TILE,30*TILE),2*TILE,5*TILE);
@@ -283,11 +283,12 @@ Scrooge* Loader::load(std::string levelName)
         //piattaforma
         new StaticObject(QPointF(86*TILE,34*TILE),4*TILE,TILE);
 
-        new StaticObject(QPointF(0,41.5*TILE),48*TILE,3.5*TILE); //grande blocco bianco primo livello a sx confine con il secondo livello
+      //  new StaticObject(QPointF(0,40*TILE),48*TILE,2*TILE); //grande blocco bianco primo livello a sx confine con il secondo livello
 
 
         //terzo livello
         new StaticObject(QPointF(4*TILE,21*TILE),2*TILE,5.5*TILE);
+        new StaticObject(QPointF(4*TILE,25.5*TILE),2*TILE,5.5*TILE);
         new StaticObject(QPointF(6*TILE,19*TILE),2*TILE,7.5*TILE);
         new StaticObject(QPointF(8*TILE,24*TILE),4*TILE,2.5*TILE);
         new StaticObject(QPointF(12*TILE,23*TILE),4*TILE,3.5*TILE);
@@ -305,6 +306,8 @@ Scrooge* Loader::load(std::string levelName)
         new StaticObject(QPointF(84*TILE,0),2*TILE,15*TILE);
         new StaticObject(QPointF(86*TILE,0),TILE,14*TILE);
         new StaticObject(QPointF(87*TILE,3*TILE),3*TILE,TILE);
+        new StaticObject(QPointF(101*TILE,38*TILE),TILE,TILE);
+        new StaticObject(QPointF(101*TILE,35*TILE),TILE,3*TILE);
 
         new StaticObject(QPointF(89*TILE,9*TILE),1*TILE,5*TILE);
         new StaticObject(QPointF(90*TILE,9*TILE),2*TILE,6*TILE);
@@ -384,6 +387,7 @@ Scrooge* Loader::load(std::string levelName)
         new StaticObject(QPointF(109*TILE,82*TILE),2*TILE,TILE);
         new StaticObject(QPointF(113*TILE,82*TILE),2*TILE,TILE);
         new StaticObject(QPointF(109*TILE,83*TILE),9*TILE,TILE);
+        new StaticObject(QPointF(86*TILE,0),20*TILE,0);
 
 
 
@@ -523,7 +527,8 @@ Scrooge* Loader::load(std::string levelName)
 
         // BATTERY
 
-        new Block(QPointF(27*TILE, 38*TILE), TILE, TILE,Block::Type::BATTERY);
+        new Block(QPointF(19*TILE, 35*TILE), TILE, TILE,Block::Type::BATTERY);
+         new Block(QPointF(19*TILE, 34*TILE), TILE, TILE,Block::Type::BATTERY);
        
 
         
@@ -540,6 +545,7 @@ Scrooge* Loader::load(std::string levelName)
         new StaticObject(QPointF(79*TILE, 82*TILE), TILE/2, 2*TILE, StaticObject::Activator::BOSS);
         new StaticObject(QPointF(57*TILE,10.1*TILE),6*TILE,4.9*TILE);
         new StaticObject(QPointF(48*TILE,10.1*TILE),7*TILE,4.9*TILE);
+        new StaticObject(QPointF(128*TILE,0*TILE),0.1*TILE,20*TILE);
         new StaticObject(QPointF(48*TILE,0*TILE),4*TILE,10.1*TILE);
         new StaticObject(QPointF(60*TILE,0*TILE),4*TILE,10.1*TILE);
         new StaticObject(QPointF(54*TILE,5.7*TILE),4*TILE,TILE);
@@ -550,8 +556,8 @@ Scrooge* Loader::load(std::string levelName)
         new StaticObject(QPointF(55*TILE, 57*TILE), 2*TILE, 0.5*TILE, StaticObject::Activator::CAMERA);
         new StaticObject(QPointF(23*TILE, 55*TILE), 2*TILE, 0.5*TILE, StaticObject::Activator::CAMERA);
         new StaticObject(QPointF(55*TILE, 42*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
-        new StaticObject(QPointF(23*TILE, 27*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
-        new StaticObject(QPointF(87*TILE, 28*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
+        new StaticObject(QPointF(23*TILE, 27*TILE), 2*TILE, 0.5*TILE, StaticObject::Activator::CAMERA);
+        new StaticObject(QPointF(87*TILE, 26*TILE), 2*TILE, 0.5*TILE, StaticObject::Activator::CAMERA);
         new StaticObject(QPointF(87*TILE, 42*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
         new StaticObject(QPointF(87*TILE, 14*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
         new StaticObject(QPointF(119*TILE, 72*TILE), 2*TILE, 1*TILE, StaticObject::Activator::CAMERA);
@@ -564,7 +570,8 @@ Scrooge* Loader::load(std::string levelName)
         new Spawnable(QPointF(45*TILE, 63*TILE), TILE, TILE, Spawnable::Type::ICE_CREAM, 1);
         new Spawnable(QPointF(124*TILE, 78*TILE), TILE, TILE, Spawnable::Type::ICE_CREAM, 1);
         new Spawnable(QPointF(125*TILE, 78*TILE), TILE, TILE, Spawnable::Type::ICE_CREAM, 1);
-        new Spawnable(QPointF(6*TILE, 33*TILE), TILE, TILE, Spawnable::Type::DIAMOND_YELLOW_BIG, 1);
+
+        new Spawnable(QPointF(6*TILE, 35*TILE), TILE, TILE, Spawnable::Type::CAKE, 1);
         new Spawnable(QPointF(61*TILE, 34*TILE), 0.5*TILE, 0.5*TILE, Spawnable::Type::DIAMOND_YELLOW_SMALL, 1);
         new Spawnable(QPointF(71*TILE, 34*TILE), TILE, TILE, Spawnable::Type::DIAMOND_YELLOW_BIG, 1);
         new Spawnable(QPointF(73*TILE, 34*TILE), TILE, TILE, Spawnable::Type::DIAMOND_YELLOW_BIG, 1);
@@ -587,7 +594,7 @@ Scrooge* Loader::load(std::string levelName)
 
 
 
-        new Block(QPointF(6*TILE, 35*TILE), TILE, TILE, Block::Type::CHEST_SMALL, false, Spawnable::Type::DIAMOND_RED_BIG);
+        new Block(QPointF(6*TILE, 33*TILE), TILE, TILE, Block::Type::CHEST_SMALL, false, Spawnable::Type::DIAMOND_RED_BIG);
         new Block(QPointF(9*TILE, 47*TILE), TILE, TILE, Block::Type::CHEST_SMALL, false, Spawnable::Type::DIAMOND_RED_BIG);
         new Block(QPointF(10*TILE, 47*TILE), TILE, TILE, Block::Type::CHEST_SMALL, false, Spawnable::Type::CAKE);
         new Block(QPointF(23.5*TILE, 46*TILE), TILE, TILE, Block::Type::CHEST_SMALL, false, Spawnable::Type::DIAMOND_YELLOW_BIG);
@@ -606,10 +613,9 @@ Scrooge* Loader::load(std::string levelName)
         new Rat(QPointF(72 * TILE - 39/2, 80* TILE));
 
         new StaticObject(QPointF(7*TILE, 83.3*TILE), 2*TILE, TILE); // Final Menu
-
+       // new Spawnable(QPointF(5*TILE, 66*TILE), TILE, TILE, Spawnable::Type::TREASURE, 1);
         new StaticObject(QPointF(66.5*TILE, 18*TILE), TILE, TILE, StaticObject::Activator::EVY);
-
-        return new Scrooge(QPointF(3* TILE, 67*TILE));
+        return new Scrooge(QPointF(27* TILE, 67*TILE));
 
 
         /*

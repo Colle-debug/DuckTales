@@ -70,6 +70,7 @@ Spawnable::Spawnable(QPointF pos, double width, double height, Spawnable::Type t
         Sprites::instance()->get("projectile-1", &_texture_spawnable[1]);
         _animRect = &_texture_spawnable[0];
     }
+
     if(_type == Type::CHEESE){
         Sprites::instance()->get("cheese", &_texture_spawnable[0]);
         _animRect = &_texture_spawnable[0];
@@ -106,6 +107,14 @@ bool Spawnable::animate() // Da aggiungere animazione di spawning e metodo migli
 
         _animRect=&_texture_spawnable[0];
     } 
+    else if (_type==Type::TREASURE)
+    {
+        _animRect=&_texture_spawnable[0];
+    }
+    else if(_type==Type::CAKE)
+    {
+        _animRect=&_texture_spawnable[0];
+    }
 
   } else {
     _animRect = & _texture_spawnable[Qt::transparent];
