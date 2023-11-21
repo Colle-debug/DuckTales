@@ -106,6 +106,7 @@ public:
     short int diff(){return difficulty;}
     void setCounterCam(qreal value){ _counter_cam = value;}
     bool LPCheckPoint(){return _LPcheckpoint;}
+    void resetClimbing(){_up_pressed = false; _down_pressed = false;}
 public slots:
     void reset();
     void start();

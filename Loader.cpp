@@ -432,6 +432,15 @@ Scrooge* Loader::load(std::string levelName)
         new StaticObject(QPointF(88*TILE, 4*TILE), 0, 28*TILE, StaticObject::Type::ROPE);
         new StaticObject(QPointF(56*TILE, 5.7*TILE), 0, 10.3*TILE, StaticObject::Type::ROPE);
 
+        new StaticObject(QPointF(24 * TILE - TILE/4, 59.5 * TILE), TILE/2,  TILE/2, StaticObject::Activator::CLIMBING);
+        new StaticObject(QPointF(56 * TILE - TILE/4, 47.5 * TILE), TILE/2, TILE/2, StaticObject::Activator::CLIMBING);
+        new StaticObject(QPointF(56 * TILE - TILE/4, 66.5 * TILE), TILE/2, TILE/2, StaticObject::Activator::CLIMBING);
+        new StaticObject(QPointF(24 * TILE - TILE/4, 35.5 * TILE), TILE/2, TILE/2, StaticObject::Activator::CLIMBING);
+        new StaticObject(QPointF(88 * TILE - TILE/4, 49.5 * TILE), TILE/2, TILE/2, StaticObject::Activator::CLIMBING);
+        new StaticObject(QPointF(88 * TILE - TILE/4, 33.5 * TILE), TILE/2, TILE/2, StaticObject::Activator::CLIMBING);
+        new StaticObject(QPointF(56 * TILE - TILE/4, 17.5 * TILE), TILE/2, TILE/2, StaticObject::Activator::CLIMBING);
+        new StaticObject(QPointF(119.5 * TILE - TILE/4, 75.5 * TILE), TILE/2, TILE/2, StaticObject::Activator::CLIMBING);
+
 
 
         //TEMPORARY StaticObjectS-->SENZA QUESTI GLI ALIENI NON HANNO IL RIFERIMENTO SU COSA SBATTERE PER CAMBIARE DIREZIONE
@@ -615,13 +624,14 @@ Scrooge* Loader::load(std::string levelName)
         new StaticObject(QPointF(7*TILE, 83.3*TILE), 2*TILE, TILE); // Final Menu
 
         new StaticObject(QPointF(66.5*TILE, 18*TILE), TILE, TILE, StaticObject::Activator::EVY);
-        return new Scrooge(QPointF(3 * TILE, 67*TILE));
+
+        return new Scrooge(QPointF(3* TILE, 67*TILE));
 
 
         /*
          Spawning Point 3 67
          Gizmoduck    105 67
-         Launchpad     40 17 // Al momento implementato tramite collisione e non tramite scelta in HUD
+         Launchpad     40 17
          */
     }
     else{

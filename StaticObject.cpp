@@ -86,6 +86,9 @@ bool StaticObject::hit(Object* what, Direction fromDir)
         else if(activator_type == Activator::EVY){
         Game::instance()->setMessage(Game::Message::EVY);
         }
+        else if(activator_type == Activator::CLIMBING && Game::instance()->player()->climbing() && fromDir == Direction::UP){
+            Game::instance()->player()->setClimbing(false);
+        }
         
     }
         // if( activator_type == Activator::CAMERA)
