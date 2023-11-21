@@ -190,8 +190,7 @@ void Game::nextFrame() {
         return;
     }
     // process inputs	 (PLAYER CONTROLS)
-    std::cout<<_player->climbing()<<"\n";
-    std::cout.flush();
+
     if(!_player->gizmoduckCinematic() && !_player->launchpadAttachment() && !_bossFightAnimation && !_player->respawningGF() && !_transitioning && _text == Message::NONE){ // Commandi di movimento accessibili solo se nessuna è True
         if (!_player -> climbing()) { // durante climbing non tutti i movimenti sono consentiti
             if (_left_pressed && _right_pressed)
