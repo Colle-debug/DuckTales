@@ -368,7 +368,7 @@ void Game::keyPressEvent(QKeyEvent * e) {
                 if(_text == Message::LAUNCHPAD){
                     _LPcheckpoint = true;
                 } // se premi X durante l'interazione con Launchpad, ti viene cambiato il respawning point
-                _text = Message::NONE;
+                _text = Message::NONE; // Altrimenti, in ogni altro caso, si rimette l'HUD normale.
             }
 
 

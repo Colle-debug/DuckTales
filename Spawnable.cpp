@@ -162,6 +162,9 @@ bool Spawnable::hit(Object* what, Direction fromDir)
         else if(_type == Type::CHEESE){
             Game::instance()->gameClear();
         }
+        else if(_type == Type::TREASURE){
+            Game::instance()->setMessage(Game::Message::TREASURE);
+        }
         std::cout <<"Score: " <<scrooge->score() << "\n";
         taken = true;
         setVisible(false);

@@ -161,6 +161,16 @@ void HUD::paintEvent(QPaintEvent* event) {
                 painter.drawPixmap(149,  27,  Sprites::instance()->getString("WITHOUT"));
                 painter.drawPixmap(211,  27,  Sprites::instance()->getString("IT"));
             }
+            else if (Game::instance()->messageStatus() == Game::Message::TREASURE) {
+                painter.drawPixmap(23, 18, Sprites::instance()->getString("MESSAGE"));
+                painter.drawPixmap(101,  11,  Sprites::instance()->getString("IT"));
+                painter.drawPixmap(120,  11,  Sprites::instance()->getHUD("'"));
+                painter.drawPixmap(130,  11,  Sprites::instance()->getString("S"));
+                painter.drawPixmap(147,  11,  Sprites::instance()->getString("A"));
+                painter.drawPixmap(163,  11,  Sprites::instance()->getString("HIDDEN"));
+                painter.drawPixmap(101,  19,  Sprites::instance()->getString("TREASURE"));
+                painter.drawPixmap(167,  19,  Sprites::instance()->getHUD("."));
+            }
         }
     }
 

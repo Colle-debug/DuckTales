@@ -21,7 +21,7 @@ class DT::Game:public QGraphicsView
     Q_OBJECT
 public:
     enum class GameState{READY, TITLE_SCREEN, RUNNING, PAUSED, GAME_OVER, GAME_CLEAR, LIFT_TO_DUCKBURG, LEVEL_SELECTION};
-    enum class Message{LAUNCHPAD, REMOTE, EVY, NONE};
+    enum class Message{LAUNCHPAD, REMOTE, EVY, TREASURE, NONE};
 private:
     GameState _state;
     Scrooge* _player;

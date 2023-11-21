@@ -614,8 +614,6 @@ Scrooge* Loader::load(std::string levelName)
 
         new StaticObject(QPointF(7*TILE, 83.3*TILE), 2*TILE, TILE); // Final Menu
 
-        new Block(QPointF(5*TILE, 67*TILE), 2*TILE, 2*TILE,Block::Type::CHEST_BIG,true, Spawnable::Type::TREASURE);
-
         new StaticObject(QPointF(66.5*TILE, 18*TILE), TILE, TILE, StaticObject::Activator::EVY);
         return new Scrooge(QPointF(3 * TILE, 67*TILE));
 
