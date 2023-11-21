@@ -31,7 +31,7 @@ Scrooge::Scrooge(QPointF pos) : Entity(pos, 26, 27) {
     _prev_x_dir = Direction::RIGHT;
     _mirror_x_dir = Direction::LEFT;
 
-    _hp = 65; // Sono 3 full HP, i numeri dispari rappresentano la mezza vita
+    _hp = 6; // Sono 3 full HP, i numeri dispari rappresentano la mezza vita
     _lives = 3;
     _recentlyHit = 0;
     _key = true;
