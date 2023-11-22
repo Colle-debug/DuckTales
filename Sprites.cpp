@@ -71,6 +71,8 @@ static QRect _rat(141, 45, 39, 27);
 static QRect _jumpingRat(139, 10, 44, 27);
 static QRect _angryRat(94, 5, 38, 34);
 static QRect _beakley(147,14,24,31);
+static QRect _scrooge_climbing(125,60,24,32);
+static QRect _scrooge_dying(125,0,24,33);
 
 
 
@@ -176,7 +178,7 @@ void Sprites::get(const std::string & id, QRect animOutput[])
         animOutput[0] = moveBy(scrooge_stand,4,0);
     }
      else if(id == "scrooge-dying"){
-        animOutput[0] = moveBy(scrooge_stand,5,0);
+        animOutput[0] = moveBy(_scrooge_dying,0,0);
     }
     else if(id == "scrooge-bounce-0"){
         animOutput[0] = moveBy(scrooge_stand,0,2);
@@ -193,10 +195,10 @@ void Sprites::get(const std::string & id, QRect animOutput[])
         animOutput[0] = moveBy(scrooge_stand,4,2);
     }
     else if(id == "scrooge-climb-0"){
-        animOutput[0] = moveBy(scrooge_stand,5,2);
+        animOutput[0] = moveBy(_scrooge_climbing,0,0);
     }
     else if(id == "scrooge-climb-1"){
-        animOutput[0] = moveBy(scrooge_stand,0,4);
+        animOutput[0] = moveBy(_scrooge_climbing,-1,1,125,62);
     }
     else if(id == "scrooge-putt-0"){
         animOutput[0] = moveBy(scrooge_stand,1,4);
