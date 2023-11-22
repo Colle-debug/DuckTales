@@ -17,7 +17,7 @@ The DuckTales Replica project is a faithful recreation of the popular NES game "
 ## How to Play 🎮🕹️
 
 1. Clone the repository to your local machine.
-2. Open the project in Qt Creator.
+2. Open the project in your preferred IDE.
 3. Build and run the game.
 4. Use the arrow keys for movement and jumping.
 5. Explore levels, defeat enemies, and collect treasures to score points. 💯🏆
@@ -25,3 +25,20 @@ The DuckTales Replica project is a faithful recreation of the popular NES game "
 ## Disclaimer ⚠️
 
 This project is purely for educational purposes and non-commercial use. The original "DuckTales" game is the intellectual property of Capcom. 🏢❌
+
+## University Information 🎓
+
+This project is part of the Tecniche di Programmazione course at the Università degli Studi di Cassino e del Lazio Meridionale, during the academic year 2022-2023.
+
+### Course Details 📚:
+
+- **University:** Università degli Studi di Cassino e del Lazio Meridionale
+- **Course:** Tecniche di Programmazione [9 CFU]
+- **Professor:** Bria Alessandro
+
+### Students 👩‍🎓👨‍🎓:
+
+- Colle Vincenzo
+- D'Aguanno Riccardo
+- Zoccola Mario
+
