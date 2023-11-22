@@ -4,6 +4,7 @@
 #include "Block.h"
 #include "Scrooge.h"
 #include "Game.h"
+#include "Sounds.h"
 
 using namespace DT;
 
@@ -148,20 +149,28 @@ bool Spawnable::hit(Object* what, Direction fromDir)
         if(_type == Type::ICE_CREAM){
             if(scrooge->hp()<6){
                 scrooge->hpAdd(1);}
+                Sounds::instance()->play("spawnable");
         }
         else if(_type == Type::CAKE){
             scrooge->hpAdd(6-scrooge->hp()); // Restora tutti gli hp
+            Sounds::instance()->play("spawnable");
         }
         else if(_type == Type::STAR){
             scrooge->setInvincible(true);
+            Sounds::instance()->play("spawnable");
         }
         else if(_type == Type::KEY){
             scrooge->setKeyStatus(true);
+            Sounds::instance()->play("spawnable");
         }
         else if(_type == Type::REMOTE){
             Game::instance()->setMessage(Game::Message::REMOTE);
             scrooge->setRemoteStatus(true);
         }
+        else if (_type==Type::DIAMOND_RED_BIG || _type==Type::DIAMOND_YELLOW_BIG || _type==Type::DIAMOND_YELLOW_SMALL)
+       {
+           Sounds::instance()->play("spawnable");
+       } 
         else if(_type == Type::CHEESE){
             Game::instance()->gameClear();
         }

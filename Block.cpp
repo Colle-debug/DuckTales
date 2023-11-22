@@ -2,7 +2,7 @@
 
 #include "Sprites.h"
 #include "Scrooge.h"
-//#include "Sounds.h"
+#include "Sounds.h"
 #include "Enemy.h"
 #include "Spawnable.h"
 #include "Game.h"
@@ -184,6 +184,7 @@ bool Block::hit(Object * what, Direction fromDir) {
         setVisible(false);});
 
         enm -> die();
+        Sounds::instance()->play("enemydie");
          _enemy_hit=true;
     }
 

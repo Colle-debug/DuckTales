@@ -88,10 +88,12 @@ void Scrooge::setClimbing(bool on) {
     }
 }
 
+
+
 void Scrooge::setInvincible(bool on) {
     _invincible = on;
     if (on) {
-        schedule("invincible", 240, [this]() { _invincible = false; });  // 4 secondi di invincibilità
+        schedule("invincible", 480, [this]() { _invincible = false; });  // 8 secondi di invincibilità
     }
 }
 
@@ -105,6 +107,8 @@ void Scrooge::advance() {
 
     if (grounded())
         _y_vel_max = 3;
+         
+       
 
     if (_dying) {
         move(Direction::NONE);
@@ -123,24 +127,30 @@ void Scrooge::advance() {
     Entity::advance();
 }
 
+
+
+
 bool Scrooge::midair() const { return (Entity::midair() && !_climbing); }
 void Scrooge::jump(bool on) {
     if (_scripted) return;
 
     if (on) {
+        
         if (!midair() && !_pogoing && !_swinging) {
             if (std::abs(_vel.x) <= 2) {
                 velAdd(Vec2Df(0, -4));
                 _y_gravity = 0.078;
+                
+           
+        Sounds::instance()->play("jump");
             } else {
+            
                 velAdd(Vec2Df(0, -5));
                 _y_gravity = 0.1;
             }
 
             _jumping = true;
-            // Sounds::instance()->play("ScroogeHit");
-            // Sounds::instance()->play(std::string("jump-") + (_big ? "big" : "small"));
-        }
+             }
     } else
         _y_gravity = 0.8;
 }
@@ -232,6 +242,7 @@ bool Scrooge::hit(Object* what, Direction fromDir) {
         if (sobj && sobj->_type == StaticObject::Type::ROPE) {
             setClimbing(true);
             setX(sobj->pos().x() - 0.66 * TILE);
+            
         }
     }
     if (sobj && sobj->_type == StaticObject::Type::SPIKE && !_pogoing) {
@@ -265,11 +276,13 @@ bool Scrooge::hit(Object* what, Direction fromDir) {
             }
         }
     }
-
+        
+    
     if (block && fromDir == Direction::DOWN && _pogoing) {
         velAdd(Vec2Df(0, -15.5));
         _y_gravity = 0.065;
         Sounds::instance()->play("hit");
+        
     }
 
     if (sobj && sobj->_type == StaticObject::Type::ACTIVATOR && sobj->activator_type == StaticObject::Activator::CAMERA) {
@@ -291,6 +304,7 @@ void Scrooge::crouch(bool on) {
 
 void Scrooge::grab(bool on) {
     // Vedi quale if ci andrebbe
+   
     _grab = on;
     schedule("grab", 100, [this]() { _grab = false; });
 }
@@ -434,6 +448,7 @@ void Scrooge::swing(bool on) {
     if (on) {
         if (_vel.x == 0 && _vel.y == 0) {
             _swinging = true;
+            Sounds::instance()->play("swinging");
         }
     } else
         _swinging = false;

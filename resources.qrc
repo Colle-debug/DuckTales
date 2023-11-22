@@ -1,7 +1,5 @@
 <RCC>
     <qresource prefix="/sprites">
-        <file>stillScrooge.png</file>
-        <file>scrooge.png</file>
         <file>scroogeNew.png</file>
         <file>enemies.png</file>
         <file>hud.png</file>
