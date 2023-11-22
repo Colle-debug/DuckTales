@@ -73,7 +73,9 @@ static QRect _angryRat(94, 5, 38, 34);
 static QRect _beakley(147,14,24,31);
 static QRect _scrooge_climbing(125,60,24,32);
 static QRect _scrooge_dying(125,0,24,33);
-
+static QRect _boxer_jumping(2,50,25,30);
+static QRect _boxer_punching(109,50,31,30);
+static QRect _boxer_standing(58,51,24,30);
 
 
 
@@ -421,6 +423,27 @@ void Sprites::get(const std::string & id, QRect animOutput[])
     {
         animOutput[0] = moveBy(_cheese,0,0);
     }
+    else if(id=="boxer-stand")
+    {
+        animOutput[0] = moveBy(_boxer_standing,0,0);
+    }
+    else if(id=="boxer-jump-0")
+    {
+        animOutput[0] = moveBy(_boxer_standing,-1,0,27);
+    }
+    else if(id=="boxer-jump-1")
+    {
+        animOutput[0] = moveBy(_boxer_jumping,0,0);
+    }
+    else if(id=="boxer-punch-0")
+    {
+        animOutput[0] = moveBy(_boxer_standing,1,26);
+    }
+    else if(id=="boxer-punch-1")
+    {
+        animOutput[0] = moveBy(_boxer_punching,0,0);
+    }
+    
     else
     {
         printf("warning: cannot get texture \"%s\"\n", id.c_str());
