@@ -114,7 +114,8 @@ void Game::welcome()
         _engine.start();
         //Sounds::instance()->stopMusic(_music);
         Loader::load("Title");
-        //Sounds::instance()->playMusic(_music, false);
+        //Sounds::instance()->playMusic(_music, false)
+        playMusic("titlescreen1");
     }
 }
 
@@ -124,7 +125,10 @@ void Game::levelSelection()
     _world->clear();
     Loader::load("Level");
     _arrowPos = 0;
+    
     _player = _builder->load("levelSelection");
+    playMusic("levelselection");
+
 }
 
 void Game::gizmo()
@@ -145,6 +149,7 @@ void Game::bossFight()
     _bossFightAnimation = true;
     _LPcheckpoint = false; // Se inizia la Boss Fight cambia nuovamente il punto di respawning
     _player->startBossFightAnimation();
+    playMusic("bossbattledrums");
 }
 
 void Game::start()
@@ -288,6 +293,7 @@ void Game::nextFrame() {
 
     if(_state == GameState::LIFT_TO_DUCKBURG){
         centerOn(_player->x(), _player->y() - 2*TILE);}
+
     else if(!_player->inRatPit()){
         centerView();
     }
