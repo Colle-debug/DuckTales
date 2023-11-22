@@ -412,6 +412,7 @@ Scrooge* Loader::load(std::string levelName)
         new Block(QPointF(123*TILE,80*TILE),TILE,TILE,Block::Type::BRICK);
 
         new StaticObject(QPointF(21*TILE,24*TILE),TILE,7*TILE);
+        new StaticObject(QPointF(102*TILE,38*TILE),2*TILE,TILE);
         new StaticObject(QPointF(22*TILE,26*TILE),TILE,3*TILE);
         new StaticObject(QPointF(25*TILE,26*TILE),TILE,3*TILE);
         new StaticObject(QPointF(44*TILE,19*TILE),2*TILE,TILE);
