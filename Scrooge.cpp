@@ -43,8 +43,8 @@ Scrooge::Scrooge(QPointF pos): Entity(pos, 26, 27) {
     _hp = 6; // Sono 3 full HP, i numeri dispari rappresentano la mezza vita
     _lives = 3;
     _recentlyHit = 0;
-    _key = true;
-    _remote = true;
+    _key = false;
+    _remote = false;
 
     _scripted = false;
     _jumping = false;
