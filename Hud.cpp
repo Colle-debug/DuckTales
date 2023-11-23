@@ -141,7 +141,7 @@ void HUD::paintEvent(QPaintEvent * event) {
             painter.drawPixmap(181, 27, Sprites::instance() -> getString("Z"));
             painter.drawPixmap(197, 27, Sprites::instance() -> getString("NO"));
             painter.drawPixmap(223, 27, Sprites::instance() -> getString("X"));
-         } else if (Game::instance() -> messageStatus() == Game::Message::EVY) {
+         } else if (Game::instance() -> messageStatus() == Game::Message::WEBBY) {
             painter.drawPixmap(23, 18, Sprites::instance() -> getString("MESSAGE"));
             painter.drawPixmap(101, 11, Sprites::instance() -> getString("THERE"));
             painter.drawPixmap(143, 11, Sprites::instance() -> getString("IS"));

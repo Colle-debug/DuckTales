@@ -623,7 +623,7 @@ Scrooge* Loader::load(std::string levelName)
 
         new StaticObject(QPointF(7*TILE, 83.3*TILE), 2*TILE, TILE); // Final Menu
 
-        new StaticObject(QPointF(66.5*TILE, 18*TILE), TILE, TILE, StaticObject::Activator::EVY);
+        new StaticObject(QPointF(66.5*TILE, 18*TILE), TILE, TILE, StaticObject::Activator::WEBBY);
 
         return new Scrooge(QPointF(3* TILE, 67*TILE));
 

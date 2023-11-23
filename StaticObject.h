@@ -27,7 +27,7 @@ public: enum class Type {
         GIZMO,
         CAMERA,
         BEAKLEY,
-        EVY,
+        WEBBY,
         CLIMBING
     };
 

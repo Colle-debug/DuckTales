@@ -38,7 +38,7 @@ class DT::Game: public QGraphicsView {
    enum class Message {
       LAUNCHPAD,
       REMOTE,
-      EVY,
+      WEBBY,
       TREASURE,
       KEY,
       NONE
