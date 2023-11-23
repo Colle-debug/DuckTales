@@ -151,6 +151,7 @@ bool Spawnable::hit(Object * what, Direction fromDir) {
             Sounds::instance() -> play("spawnable");
         } else if (_type == Type::KEY) {
             scrooge -> setKeyStatus(true);
+            Game::instance() -> setMessage(Game::Message::KEY);
             Sounds::instance() -> play("spawnable");
         } else if (_type == Type::REMOTE) {
             Game::instance() -> setMessage(Game::Message::REMOTE);

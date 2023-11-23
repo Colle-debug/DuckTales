@@ -40,6 +40,7 @@ class DT::Game: public QGraphicsView {
       REMOTE,
       EVY,
       TREASURE,
+      KEY,
       NONE
    };
    private:

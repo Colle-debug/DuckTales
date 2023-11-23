@@ -167,6 +167,17 @@ void HUD::paintEvent(QPaintEvent * event) {
             painter.drawPixmap(163, 11, Sprites::instance() -> getString("HIDDEN"));
             painter.drawPixmap(101, 19, Sprites::instance() -> getString("TREASURE"));
             painter.drawPixmap(167, 19, Sprites::instance() -> getHUD("."));
+            }else if (Game::instance() -> messageStatus() == Game::Message::KEY) {
+            painter.drawPixmap(23, 18, Sprites::instance() -> getString("MESSAGE"));
+            painter.drawPixmap(101, 11, Sprites::instance() -> getString("IT"));
+            painter.drawPixmap(120, 11, Sprites::instance() -> getHUD("'"));
+            painter.drawPixmap(130, 11, Sprites::instance() -> getString("S"));
+            painter.drawPixmap(147, 11, Sprites::instance() -> getString("A"));
+            painter.drawPixmap(165, 11, Sprites::instance() -> getString("KEY"));
+            painter.drawPixmap(192, 11, Sprites::instance() -> getString("TO"));
+            painter.drawPixmap(130, 19, Sprites::instance() -> getString("THE"));
+            painter.drawPixmap(162, 19, Sprites::instance() -> getString("UFO"));
+            
          }
       }
    }
