@@ -4,11 +4,10 @@
 
 
 // Singleton class
-class Sprites
-{
+class Sprites {
 private:
 
-           // sprites
+    // sprites
     QPixmap hud;
     QPixmap pinkAlien;
     QPixmap octopus;
@@ -31,22 +30,19 @@ private:
     QPixmap beakley;
     QPixmap cheese;
 
-
-
-
     Sprites();
 
 public:
 
-           // singleton
-    static Sprites* instance();
+    // singleton
+    static Sprites * instance();
 
-           // extract texture from sprites using the given id
-    QPixmap* getSprite(const std::string& id);
+    // extract texture from sprites using the given id
+    QPixmap * getSprite(const std::string & id);
     void get(const std::string & id, QRect animOutput[]);
-           QPixmap getHUD(const std::string & id);
+    QPixmap getHUD(const std::string & id);
     // score composite from sprite single score pieces
-    QPixmap getScore(int );
+    QPixmap getScore(int);
 
     // number composite from sprite single characters
     QPixmap getNumber(int n, int fill = 0);

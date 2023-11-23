@@ -1,5 +1,6 @@
 #ifndef GIZMODUCK_H
-#define GIZMODUCK_H#include <QPointF>
+#define GIZMODUCK_H
+#include <QPointF>
 
 #include "Entity.h"
 

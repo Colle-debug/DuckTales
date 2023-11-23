@@ -32,4 +32,4 @@ class DT::DynamicPlatform: public Entity {
    }
 };
 
-#endifs
+#endif

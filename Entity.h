@@ -1,5 +1,6 @@
 #ifndef ENTITY_H
 #define ENTITY_H
+
 #include "Object.h"
 
 // Entity are objects that can move!

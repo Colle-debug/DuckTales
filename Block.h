@@ -1,6 +1,5 @@
 #pragma once
 
-#include "DynamicPlatform.h"
 
 #include "Spawnable.h"
 

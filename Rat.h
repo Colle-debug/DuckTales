@@ -1,18 +1,14 @@
 #ifndef RAT_H
 #define RAT_H
 
-
 #include "Enemy.h"
 
-namespace DT
-{
+namespace DT {
 class Rat;
 }
 
-class DT::Rat : public Enemy
-{
-private:
-    bool _reset;
+class DT::Rat: public Enemy {
+private: bool _reset;
     bool _jumping;
     bool _floored;
     bool _running;
@@ -29,24 +25,23 @@ public:
 
     void jump(bool on, Direction dir);
 
-
     // implemented abstract methods
-    virtual std::string name() override { return "Rat[" + std::to_string(_id) + "]"; }
+    virtual std::string name() override {
+        return "Rat[" + std::to_string(_id) + "]";
+    }
 
     // reimplemented abstract methods
-    virtual bool hit(Object* what, Direction fromDir) override;
+    virtual bool hit(Object * what, Direction fromDir) override;
     virtual void advance() override;
     virtual bool animate() override;
 
-    bool recentlyHit(){return _recentlyHit;}
+    bool recentlyHit() {
+        return _recentlyHit;
+    }
     int dir2speed(Direction dir);
     void recentlyHit(bool on);
     virtual void lifeDown();
 
-
 };
-
-
-
 
 #endif // RAT_H
