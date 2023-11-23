@@ -28,7 +28,7 @@ Rat::Rat(QPointF pos): Enemy(pos, 39, 27) {
     _recentlyHit = false;
     _y_vel_max = 3;
 
-    _hp = 1;
+    _hp = 10;
 }
 
 void Rat::jump(bool on, Direction dir) {
