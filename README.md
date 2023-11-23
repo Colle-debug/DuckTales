@@ -36,7 +36,7 @@ This project is part of the Tecniche di Programmazione course at the Università
 - **Course:** Tecniche di Programmazione [9 CFU]
 - **Professor:** Bria Alessandro
 
-### Students 👩‍🎓👨‍🎓:
+### Students 👨‍🎓:
 
 - Colle Vincenzo
 - D'Aguanno Riccardo
