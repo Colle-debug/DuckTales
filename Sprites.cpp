@@ -138,6 +138,8 @@ QPixmap * Sprites::getSprite(const std::string & id) {
         return & difficulty;
     else if (id == "titleArrow")
         return & difficultyArrow;
+    else if (id == "boxer")
+        return & beagleBoy;
     else if (id == "level")
         return & level;
     else if (id == "rat")
@@ -146,6 +148,7 @@ QPixmap * Sprites::getSprite(const std::string & id) {
         return & beakley;
     else if (id == "cheese")
         return & cheese;
+
 
     else
         return 0;
@@ -308,15 +311,15 @@ void Sprites::get(const std::string & id, QRect animOutput[]) {
     } else if (id == "cheese") {
         animOutput[0] = moveBy(_cheese, 0, 0);
     } else if (id == "boxer-stand") {
-        animOutput[0] = moveBy(_boxer_standing, 0, 0);
+        animOutput[0] = moveBy(_boxer_standing, 0, 0); // 3
     } else if (id == "boxer-jump-0") {
-        animOutput[0] = moveBy(_boxer_standing, -1, 0, 27);
+        animOutput[0] = moveBy(_boxer_standing, -1, 0, 27); // 2
     } else if (id == "boxer-jump-1") {
-        animOutput[0] = moveBy(_boxer_jumping, 0, 0);
+        animOutput[0] = moveBy(_boxer_jumping, 0, 0); // 1
     } else if (id == "boxer-punch-0") {
-        animOutput[0] = moveBy(_boxer_standing, 1, 26);
+        animOutput[0] = moveBy(_boxer_standing, 1, 0, 26); // 4
     } else if (id == "boxer-punch-1") {
-        animOutput[0] = moveBy(_boxer_punching, 0, 0);
+        animOutput[0] = moveBy(_boxer_punching, 0, 0); // 5
     } else {
         printf("warning: cannot get texture \"%s\"\n", id.c_str());
         //return QPixmap();
